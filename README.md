@@ -1,37 +1,15 @@
-<div align="center">
-  <!-- Animated Header -->
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=S.%20Srinivasan&fontSize=50&animation=twinkling&fontAlignY=32&desc=Backend%20%26amp%3B%20Agentic%20AI%20Systems%20Developer&descAlignY=60&descSize=20" width="100%"/>
+<!-- S. SRINIVASAN — profile. Visual system lives in assets/profile.svg -->
 
-  <!-- Typing Animation -->
-  <p>
-    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=25&duration=3000&pause=1000&color=00D9FF&center=true&vCenter=true&multiline=true&width=800&height=100&lines=Building+scalable+backend+systems;Crafting+intelligent+AI+agents;Spring+Boot+%7C+LangGraph+%7C+Multi-Agent+Systems" alt="Typing SVG" />
-  </p>
-
-  <!-- Animated Stats -->
-  <img src="https://github-readme-stats.vercel.app/api?username=S-Srinivasan-06&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true&icon_color=00D9FF&title_color=00D9FF&bg_color=0d1117" alt="Stats" height="180"/>
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=S-Srinivasan-06&theme=tokyonight&hide_border=true&ring=00D9FF&fire=00D9FF&currStreakLabel=00D9FF&sideLabels=FFFFFF&sideNums=FFFFFF&currStreakNum=FFFFFF" alt="Streak" height="180"/>
-
-  <br/>
-
-  <!-- Animated Tech Stack -->
-  <img src="https://skillicons.dev/icons?i=java,spring,python,langchain,postgresql,redis,docker,git,linux,react,ts,js&theme=dark&perline=12" alt="Skills" />
-</div>
+![](./assets/profile.svg)
 
 ---
 
-## About Me
+### ↗ INDEX
 
-```java
-@Developer
-public class Srinivasan {
-    private String focus = "Backend Design & Agentic AI Systems";
-    private String[] stack = {"Java", "Spring Boot", "LangGraph", "Multi-Agent Systems"};
-    
-    public String getMission() {
-        return "Building scalable backend infrastructure and intelligent AI workflows";
-    }
-    
-    public boolean isLearning() {
-        return true; // Always
-    }
-}
+**Contact** · [Email](mailto:srinivasansubr2006@gmail.com) · [LinkedIn](https://www.linkedin.com/in/s-srinivasan-a69006315/) · [GitHub](https://github.com/S-Srinivasan-06) · [Portfolio](https://profile-srinivasan.vercel.app/) · [LeetCode](https://leetcode.com/u/aKpXSchpeo/) · [Résumé](https://drive.google.com/drive/folders/1IWd5JfZFECu4wwFAG0Z6pXdJ_T-_xXtO)
+
+**Projects** · [Taskflow](https://github.com/S-Srinivasan-06/Taskflow) · [Sandman](https://github.com/S-Srinivasan-06/sandman-ai-sandbox)
+
+**Recognition** · [WorldQuant BRAIN — Gold Tier](https://drive.google.com/file/d/1zIBtgQzatXbO6SBdoIhzWHjmnBexFLPH/view) · [IQC 2026 — Top 20% Global](https://drive.google.com/file/d/1D-_3CvzR5S7TizVrOdNl_y-qULx4_AOn/view) · [AMD Slingshot '26](https://certificate.hack2skill.com/verify/2026H2SAMDKKT-P00024) · [LangChain Academy](https://academy.langchain.com/certificates/bgp8dxfxlp) · [Anthropic — MCP Advanced](https://verify.skilljar.com/c/yyaud8ryjyeq) · [Anthropic — MCP Intro](https://verify.skilljar.com/c/hme7x2v5p2so) · [AWS Academy](https://www.credly.com/go/A0lEuiOv)
+
+<p align="right"><sub>Full experience → <a href="https://profile-srinivasan.vercel.app/">profile-srinivasan.vercel.app</a></sub></p>
