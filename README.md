@@ -1,6 +1,6 @@
 <div align="center">
   <!-- Animated Header -->
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=S.%20Srinivasan&fontSize=50&animation=twinkling&fontAlignY=32&desc=Backend%20%26%20Agentic%20AI%20Systems%20Developer&descAlignY=60&descSize=20" width="100%"/>
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=S.%20Srinivasan&fontSize=50&animation=twinkling&fontAlignY=32&desc=Backend%20%26amp%3B%20Agentic%20AI%20Systems%20Developer&descAlignY=60&descSize=20" width="100%"/>
 
   <!-- Typing Animation -->
   <p>
