@@ -1,38 +1,28 @@
-<div align="center">
-  <img src="assets/profile.svg" alt="S. Srinivasan - Backend & Agentic AI Systems Developer" width="100%" />
-</div>
+# 👋 Hey, I'm Srinivasan
 
-<br/>
+### Backend & Agentic AI Systems Developer
 
 <div align="center">
-  <a href="https://github.com/S-Srinivasan-06">
-    <img src="https://img.shields.io/badge/GitHub-S--Srinivasan--06-0A0A0A?style=for-the-badge&logo=github&logoColor=F8F6F1" />
-  </a>
-  <a href="https://www.linkedin.com/in/s-srinivasan-a69006315/">
-    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
-  </a>
-  <a href="mailto:srinivasansubr2006@gmail.com">
-    <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" />
-  </a>
-  <a href="https://profile-srinivasan.vercel.app/">
-    <img src="https://img.shields.io/badge/Portfolio-5DA9E9?style=for-the-badge&logo=vercel&logoColor=white" />
-  </a>
-  <a href="https://leetcode.com/u/aKpXSchpeo/">
-    <img src="https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=black" />
-  </a>
+
+![Profile Banner](./assets/banner.svg)
+
+**Building scalable backends and autonomous AI agents with Java, Spring Boot, and LangGraph.**
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/s-srinivasan-a69006315/)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/S-Srinivasan-06)
+[![Portfolio](https://img.shields.io/badge/Portfolio-E3006D?style=flat-square&logo=vercel&logoColor=white)](https://profile-srinivasan.vercel.app/)
+[![LeetCode](https://img.shields.io/badge/LeetCode-FFA116?style=flat-square&logo=leetcode&logoColor=black)](https://leetcode.com/u/aKpXSchpeo/)
+[![Email](https://img.shields.io/badge/Email-D14836?style=flat-square&logo=gmail&logoColor=white)](mailto:srinivasansubr2006@gmail.com)
+
 </div>
 
 ---
 
-## Technical Overview
+## 💡 About Me
 
-```java
-public class Developer {
-    public String name = "S. Srinivasan";
-    public String primaryFocus = "Scalable Backends & Agentic AI Runtimes";
-    public String[] coreStack = {"Java", "Spring Boot", "Python", "Docker", "LangGraph", "MCP"};
-    
-    public String getArchitectureGoal() {
-        return "Building isolated runtime environments, low-latency API layers, and multi-agent systems.";
-    }
-}
+```diff
++ CSE undergrad at KIIT, Bhubaneswar (2024–2028)
++ Specializing in backend architecture & agentic AI systems
++ Building production-grade tools with Spring Boot, LangGraph & Docker
++ WorldQuant BRAIN Gold Tier Consultant
+- Not a fan of boilerplate
