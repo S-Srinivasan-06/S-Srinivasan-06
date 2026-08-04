@@ -1,30 +1,37 @@
-<!-- 01 // NEO-BRUTALIST HEADER AREA -->
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=rect&color=FFDF00&height=220&section=header&text=//_SYSTEM_STATUS_ONLINE_%20✨&fontSize=46&fontAlign=50&fontAlignY=45&fontColor=000000&animation=twinkling&desc=SYS_OPERATOR%20//%20YOUR_GITHUB_USERNAME&descAlignY=65&descAlign=50" width="100%" />
-</p>
+<div align="center">
+  <!-- Animated Header -->
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=S.%20Srinivasan&fontSize=50&animation=twinkling&fontAlignY=32&desc=Backend%20%26%20Agentic%20AI%20Systems%20Developer&descAlignY=60&descSize=20" width="100%"/>
 
-<!-- 02 // NEO-BRUTALIST SUBTITLE (WOBBLE ANIMATION) -->
-<p align="center">
-  <a href="https://github.com/YOUR_GITHUB_USERNAME">
-    <img src="https://readme-typing-svg.demolab.com?font=Space+Mono&weight=700&size=24&duration=2000&pause=500&color=FFFFFF&background=000000&center=true&vCenter=true&width=550&height=50&lines=CORE_EXECUTION_MODE%3A_ON;%3E%3E_BUILDING_HIGH_IMPACT_CODE;%3E%3E_REFUSING_MINIMALISM;NEO-BRUTALISM_ACTIVATED" alt="Typing SVG" />
-  </a>
-</p>
+  <!-- Typing Animation -->
+  <p>
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=25&duration=3000&pause=1000&color=00D9FF&center=true&vCenter=true&multiline=true&width=800&height=100&lines=Building+scalable+backend+systems;Crafting+intelligent+AI+agents;Spring+Boot+%7C+LangGraph+%7C+Multi-Agent+Systems" alt="Typing SVG" />
+  </p>
 
-<!-- 03 // STATS COUNTERS -->
-<p align="center">
-  <img src="https://img.shields.io/github/followers/YOUR_GITHUB_USERNAME?label=FOLLOWERS&style=for-the-badge&color=000000&labelColor=FFDF00&logo=github&logoColor=000000" />
-  <img src="https://komarev.com/ghpvc/?username=YOUR_GITHUB_USERNAME&color=000000&style=for-the-badge&label=PROFILE_VIEWS&labelColor=FFDF00" />
-</p>
+  <!-- Animated Stats -->
+  <img src="https://github-readme-stats.vercel.app/api?username=S-Srinivasan-06&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true&icon_color=00D9FF&title_color=00D9FF&bg_color=0d1117" alt="Stats" height="180"/>
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=S-Srinivasan-06&theme=tokyonight&hide_border=true&ring=00D9FF&fire=00D9FF&currStreakLabel=00D9FF&sideLabels=FFFFFF&sideNums=FFFFFF&currStreakNum=FFFFFF" alt="Streak" height="180"/>
+
+  <br/>
+
+  <!-- Animated Tech Stack -->
+  <img src="https://skillicons.dev/icons?i=java,spring,python,langchain,postgresql,redis,docker,git,linux,react,ts,js&theme=dark&perline=12" alt="Skills" />
+</div>
 
 ---
 
-### 04 // _ABOUT_SYS.LOG
+## About Me
 
-```text
-> SYSTEM ARCHITECT [YOUR NAME / TITLE]
-> STATUS: ACTIVE
-> LOG_ENTRY: High-Contrast, Zero-Compromise Development.
->
-> 🔭  CORE_PROJECT: [Current Project or Focus]
-> 🌱  MODULE_UPGRADE: [What you are learning]
-> 📫  COMMS: [Your Contact Info / Link]
+```java
+@Developer
+public class Srinivasan {
+    private String focus = "Backend Design & Agentic AI Systems";
+    private String[] stack = {"Java", "Spring Boot", "LangGraph", "Multi-Agent Systems"};
+    
+    public String getMission() {
+        return "Building scalable backend infrastructure and intelligent AI workflows";
+    }
+    
+    public boolean isLearning() {
+        return true; // Always
+    }
+}
