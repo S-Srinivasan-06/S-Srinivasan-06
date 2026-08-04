@@ -1,91 +1,106 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="100%" height="100%">
   <defs>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;700&amp;family=Inter:wght@400;700;900&amp;display=swap');
-      .bg { fill: #0A0A0A; }
-      .grid-line { fill: none; stroke-width: 14; }
-      .teal { stroke: #8FC1C1; }
-      .sage { stroke: #CDDFCD; }
-      .pink-fill { fill: #E3006D; }
-      .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 900; font-size: 68px; fill: #F8F6F1; letter-spacing: -0.04em; }
-      .subtitle { font-family: 'Fira Code', monospace; font-weight: 700; font-size: 18px; fill: #8FC1C1; letter-spacing: 0.15em; text-transform: uppercase; }
-      .tag-text { font-family: 'Fira Code', monospace; font-weight: 700; font-size: 13px; fill: #0A0A0A; }
-      .tag-bg { fill: #8FC1C1; }
-      .desc { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 400; font-size: 18px; fill: #CDDFCD; opacity: 0.85; }
-    </style>
-    <clipPath id="tl"><rect width="240" height="240" fill="none"/></clipPath>
-    <clipPath id="tr"><rect x="960" width="240" height="240" fill="none"/></clipPath>
-    <clipPath id="bl"><rect y="180" width="240" height="240" fill="none"/></clipPath>
-    <clipPath id="br"><rect x="960" y="180" width="240" height="240" fill="none"/></clipPath>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E3006D" />
+      <stop offset="50%" stop-color="#C8953A" />
+      <stop offset="100%" stop-color="#5DA9E9" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
   </defs>
 
+  <style>
+    @keyframes floatPulse {
+      0%, 100% { opacity: 0.15; transform: translateY(0px) scale(1); }
+      50% { opacity: 0.4; transform: translateY(-15px) scale(1.05); }
+    }
+    @keyframes rotateRings {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes rotateRingsReverse {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+    @keyframes textPulse {
+      0%, 100% { opacity: 0.85; }
+      50% { opacity: 1; }
+    }
+    .particle {
+      animation: floatPulse 4s ease-in-out infinite;
+      transform-origin: center;
+      transform-box: fill-box;
+    }
+    .ring-cw {
+      animation: rotateRings 25s linear infinite;
+      transform-origin: center;
+      transform-box: fill-box;
+    }
+    .ring-ccw {
+      animation: rotateRingsReverse 30s linear infinite;
+      transform-origin: center;
+      transform-box: fill-box;
+    }
+    .sub-text {
+      animation: textPulse 3s ease-in-out infinite;
+    }
+    .font-main {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+  </style>
+
   <!-- Background -->
-  <rect width="1200" height="420" class="bg" />
+  <rect width="1200" height="400" fill="url(#bgGrad)"/>
 
-  <!-- Corner Geometric Grids -->
-  <g clip-path="url(#tl)">
-    <g>
-      <rect x="-30" y="-30" width="60" height="60" class="grid-line teal" />
-      <rect x="-70" y="-70" width="140" height="140" class="grid-line sage" />
-      <rect x="-110" y="-110" width="220" height="220" class="grid-line teal" />
-      <rect x="-150" y="-150" width="300" height="300" class="grid-line sage" />
-      <rect x="-190" y="-190" width="380" height="380" class="grid-line teal" />
+  <!-- Animated Background Particles -->
+  <circle cx="150" cy="100" r="80" fill="#FFFFFF" class="particle" style="animation-delay: 0s;"/>
+  <circle cx="1050" cy="300" r="120" fill="#FFFFFF" class="particle" style="animation-delay: 1.5s;"/>
+  <circle cx="600" cy="80" r="50" fill="#FFFFFF" class="particle" style="animation-delay: 0.7s;"/>
+  <circle cx="900" cy="120" r="30" fill="#FFFFFF" class="particle" style="animation-delay: 2.2s;"/>
+
+  <!-- Left Rotating Technical Rings -->
+  <g transform="translate(200, 200)">
+    <g class="ring-cw">
+      <circle cx="0" cy="0" r="120" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="10 15" opacity="0.3"/>
+      <circle cx="0" cy="0" r="150" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="4 20" opacity="0.2"/>
     </g>
   </g>
 
-  <g clip-path="url(#tr)">
-    <g>
-      <rect x="1170" y="-30" width="60" height="60" class="grid-line teal" />
-      <rect x="1130" y="-70" width="140" height="140" class="grid-line sage" />
-      <rect x="1090" y="-110" width="220" height="220" class="grid-line teal" />
-      <rect x="1050" y="-150" width="300" height="300" class="grid-line sage" />
-      <rect x="1010" y="-190" width="380" height="380" class="grid-line teal" />
+  <!-- Right Rotating Technical Rings -->
+  <g transform="translate(1000, 200)">
+    <g class="ring-ccw">
+      <circle cx="0" cy="0" r="110" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="15 10" opacity="0.3"/>
+      <circle cx="0" cy="0" r="140" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="5 25" opacity="0.2"/>
     </g>
   </g>
 
-  <g clip-path="url(#bl)">
-    <g>
-      <rect x="-30" y="390" width="60" height="60" class="grid-line teal" />
-      <rect x="-70" y="350" width="140" height="140" class="grid-line sage" />
-      <rect x="-110" y="310" width="220" height="220" class="grid-line teal" />
-      <rect x="-150" y="270" width="300" height="300" class="grid-line sage" />
-      <rect x="-190" y="230" width="380" height="380" class="grid-line teal" />
-    </g>
+  <!-- Main Content -->
+  <g filter="url(#glow)">
+    <text x="600" y="190" class="font-main" font-size="76" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="-1">
+      S. SRINIVASAN
+    </text>
   </g>
+  
+  <text x="600" y="245" class="font-main sub-text" font-size="24" font-weight="600" fill="#FFFFFF" text-anchor="middle" letter-spacing="6">
+    BACKEND &amp; AGENTIC AI SYSTEMS DEVELOPER
+  </text>
 
-  <g clip-path="url(#br)">
-    <g>
-      <rect x="1170" y="390" width="60" height="60" class="grid-line teal" />
-      <rect x="1130" y="350" width="140" height="140" class="grid-line sage" />
-      <rect x="1090" y="310" width="220" height="220" class="grid-line teal" />
-      <rect x="1050" y="270" width="300" height="300" class="grid-line sage" />
-      <rect x="1010" y="230" width="380" height="380" class="grid-line teal" />
-    </g>
+  <!-- Decorative Tech Elements -->
+  <g opacity="0.5" font-size="40" text-anchor="middle">
+    <text x="350" y="330">⚡</text>
+    <text x="500" y="330">☕</text>
+    <text x="700" y="330">🐳</text>
+    <text x="850" y="330">🤖</text>
   </g>
-
-  <!-- Content Group -->
-  <g transform="translate(100, 110)">
-    <text x="0" y="0" class="subtitle">&gt; S_SRINIVASAN.SYS</text>
-    <text x="0" y="70" class="title">BACKEND <tspan class="pink-fill">&amp;</tspan> AGENTIC AI</text>
-    <text x="0" y="140" class="title">SYSTEMS DEVELOPER</text>
-    <text x="0" y="190" class="desc">High-performance APIs, containerized agent runtimes, and distributed workflows.</text>
-
-    <!-- Badges -->
-    <g transform="translate(0, 220)">
-      <rect x="0" y="0" width="120" height="30" rx="4" class="tag-bg" />
-      <text x="60" y="20" text-anchor="middle" class="tag-text">SPRING BOOT</text>
-
-      <rect x="130" y="0" width="105" height="30" rx="4" class="tag-bg" />
-      <text x="182" y="20" text-anchor="middle" class="tag-text">LANGGRAPH</text>
-
-      <rect x="245" y="0" width="60" height="30" rx="4" class="tag-bg" />
-      <text x="275" y="20" text-anchor="middle" class="tag-text">MCP</text>
-
-      <rect x="315" y="0" width="85" height="30" rx="4" class="tag-bg" />
-      <text x="357" y="20" text-anchor="middle" class="tag-text">DOCKER</text>
-
-      <rect x="410" y="0" width="75" height="30" rx="4" class="tag-bg" />
-      <text x="447" y="20" text-anchor="middle" class="tag-text">REDIS</text>
-    </g>
-  </g>
+  
+  <!-- Bottom Pulsing Accent Line (Using native SMIL animate to bypass CSS sanitizers) -->
+  <rect x="400" y="270" width="400" height="4" rx="2" fill="#FFFFFF" opacity="0.8">
+    <animate attributeName="width" values="400;420;400" dur="3s" repeatCount="indefinite" />
+    <animate attributeName="x" values="400;390;400" dur="3s" repeatCount="indefinite" />
+  </rect>
 </svg>
