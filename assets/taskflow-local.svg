@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="460" viewBox="0 0 1200 460" role="img" aria-labelledby="title desc">
+  <title id="title">Taskflow Local — local by design</title>
+  <desc id="desc">A desktop product illustration with a task list and the input, model, review, and save workflow. This is a conceptual illustration, not a screenshot.</desc>
+  <defs><clipPath id="frame"><rect width="1200" height="460" rx="24"/></clipPath></defs>
+  <style>
+    .sans { font-family: 'Segoe UI', Helvetica, Arial, sans-serif; }
+    .mono { font-family: Consolas, 'Courier New', monospace; }
+    .flow { animation: flow 8s linear infinite; }
+    .float { animation: float 7s ease-in-out infinite; }
+    @keyframes flow { to { stroke-dashoffset: -96; } }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+    @media (prefers-reduced-motion: reduce) { .flow, .float { animation: none; } }
+  </style>
+  <g clip-path="url(#frame)">
+    <rect width="1200" height="460" fill="#172c23"/>
+    <path d="M632 0V460M1200 386H632" stroke="#30463a"/>
+    <text x="44" y="54" class="mono" font-size="14" letter-spacing="2" fill="#b8cfbc">01 / FEATURED PROJECT</text>
+    <rect x="1035" y="31" width="120" height="30" rx="15" fill="#d5edb5"/>
+    <text x="1095" y="51" text-anchor="middle" class="mono" font-size="12" font-weight="700" fill="#172c23">WINDOWS APP</text>
+    <text x="40" y="148" class="sans" font-size="65" font-weight="650" letter-spacing="-3" fill="#f3f0e7">Taskflow</text>
+    <text x="40" y="224" class="sans" font-size="65" font-weight="650" letter-spacing="-3" fill="#d5edb5">Local.</text>
+    <text x="45" y="277" class="sans" font-size="23" fill="#e2e8de">Your tasks. Your machine.</text>
+    <text x="45" y="310" class="sans" font-size="23" fill="#e2e8de">Your control.</text>
+    <path d="M44 356H579" stroke="#3b5043"/>
+    <text x="45" y="391" class="mono" font-size="13" letter-spacing="1.1" fill="#b8cfbc">OFFLINE WORKSPACE · ON-DEVICE AI</text>
+    <text x="45" y="424" class="mono" font-size="13" letter-spacing="1.1" fill="#b8cfbc">TAURI / RUST / REACT / SQLITE</text>
+    <g class="float">
+      <rect x="677" y="90" width="460" height="248" rx="18" fill="#f3f0e7"/>
+      <path d="M677 134H1137" stroke="#d6d8cb"/>
+      <circle cx="699" cy="112" r="4" fill="#97ad90"/>
+      <circle cx="713" cy="112" r="4" fill="#c2ccb3"/>
+      <circle cx="727" cy="112" r="4" fill="#d6d8cb"/>
+      <text x="1109" y="118" text-anchor="end" class="mono" font-size="11" letter-spacing="1" fill="#536257">LOCAL WORKSPACE</text>
+      <text x="702" y="174" class="sans" font-size="23" font-weight="600" fill="#172c23">A little more focus.</text>
+      <rect x="702" y="195" width="410" height="43" rx="10" fill="#e4e8db"/>
+      <rect x="716" y="208" width="16" height="16" rx="5" fill="#476c41"/>
+      <path d="M720 216L723 219L729 212" fill="none" stroke="#f3f0e7" stroke-width="1.7" stroke-linecap="round"/>
+      <text x="747" y="222" class="sans" font-size="15" fill="#33483b">Make space for what matters</text>
+      <rect x="716" y="253" width="16" height="16" rx="5" fill="none" stroke="#8a9a83"/>
+      <text x="747" y="267" class="sans" font-size="15" fill="#33483b">Turn an idea into a next step</text>
+      <rect x="716" y="295" width="16" height="16" rx="5" fill="none" stroke="#8a9a83"/>
+      <text x="747" y="309" class="sans" font-size="15" fill="#33483b">Keep the important things close</text>
+    </g>
+    <path d="M696 421H1125" stroke="#45604b" stroke-width="2"/>
+    <path d="M696 421H1125" class="flow" stroke="#d5edb5" stroke-width="2" stroke-dasharray="10 38"/>
+    <g fill="#172c23" stroke="#a6c29d" stroke-width="1.5">
+      <circle cx="701" cy="421" r="6"/><circle cx="839" cy="421" r="6"/><circle cx="977" cy="421" r="6"/><circle cx="1116" cy="421" r="6"/>
+    </g>
+    <g class="mono" font-size="11" fill="#d5edb5" letter-spacing="1" text-anchor="middle">
+      <text x="701" y="403">INPUT</text><text x="839" y="403">MODEL</text><text x="977" y="403">REVIEW</text><text x="1116" y="403">SAVE</text>
+    </g>
+  </g>
+</svg>

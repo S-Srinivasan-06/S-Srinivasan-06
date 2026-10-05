@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="290" viewBox="0 0 1200 290" role="img" aria-labelledby="title desc">
+  <title id="title">CrowdShield — see the patterns in motion</title>
+  <desc id="desc">Computer vision artwork showing tracked points, a selected region, and a density contour.</desc>
+  <defs><clipPath id="frame"><rect width="1200" height="290" rx="22"/></clipPath></defs>
+  <style>.sans{font-family:'Segoe UI',Helvetica,Arial,sans-serif}.mono{font-family:Consolas,'Courier New',monospace}</style>
+  <g clip-path="url(#frame)">
+    <rect width="1200" height="290" fill="#e8eee8"/>
+    <text x="44" y="49" class="mono" font-size="14" letter-spacing="1.7" fill="#536257">03 / COMPUTER VISION</text>
+    <text x="40" y="133" class="sans" font-size="60" font-weight="650" letter-spacing="-2.5" fill="#172c23">CrowdShield</text>
+    <text x="44" y="180" class="sans" font-size="20" fill="#536257">See the patterns in motion.</text>
+    <text x="44" y="259" class="mono" font-size="12" letter-spacing="1.2" fill="#536257">DETECTION / TRACKING / DENSITY</text>
+    <rect x="654" y="34" width="499" height="222" rx="16" fill="#172c23"/>
+    <g stroke="#304b3b" stroke-width="1">
+      <path d="M654 78H1153M654 123H1153M654 167H1153M654 212H1153M703 34V256M753 34V256M803 34V256M853 34V256M903 34V256M953 34V256M1003 34V256M1053 34V256M1103 34V256"/>
+    </g>
+    <path d="M886 81C938 43 1022 58 1058 109C1103 173 1045 228 982 224C940 221 926 194 889 183C839 168 840 115 886 81Z" fill="#b8d999" opacity=".12"/>
+    <path d="M901 99C945 71 998 83 1024 123C1046 157 1022 192 981 195C950 197 938 171 909 166C876 160 873 119 901 99Z" fill="none" stroke="#b8d999" opacity=".4"/>
+    <path d="M927 119C951 103 984 108 999 131C1014 153 994 174 972 172C951 171 948 154 934 152C917 148 913 132 927 119Z" fill="none" stroke="#d5edb5" opacity=".65"/>
+    <rect x="849" y="61" width="224" height="169" rx="5" fill="none" stroke="#d5edb5" stroke-dasharray="6 6"/>
+    <g fill="#d5edb5">
+      <circle cx="708" cy="126" r="5"/><circle cx="748" cy="190" r="5"/><circle cx="780" cy="96" r="5"/><circle cx="805" cy="157" r="5"/><circle cx="885" cy="115" r="5"/><circle cx="924" cy="152" r="5"/><circle cx="966" cy="124" r="5"/><circle cx="993" cy="159" r="5"/><circle cx="1016" cy="104" r="5"/><circle cx="1039" cy="188" r="5"/><circle cx="1091" cy="121" r="5"/>
+    </g>
+    <g fill="none" stroke="#90b187" stroke-width="1.3">
+      <path d="M690 146L708 126M729 206L748 190M764 115L780 96M786 179L805 157M869 139L885 115M907 172L924 152M950 144L966 124M979 181L993 159M1001 121L1016 104M1024 208L1039 188M1074 142L1091 121"/>
+    </g>
+    <rect x="672" y="49" width="132" height="23" rx="6" fill="#304b3b"/>
+    <text x="738" y="65" class="mono" font-size="10" letter-spacing="1" text-anchor="middle" fill="#d5edb5">REGION OF INTEREST</text>
+  </g>
+</svg>
