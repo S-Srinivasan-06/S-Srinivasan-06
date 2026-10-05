@@ -8,7 +8,7 @@ Reviewed on 6 October 2026. Three parallel reviewers inspected repository trees,
 | 02 | [Financial Reconciliation Agent](https://github.com/S-Srinivasan-06/Razorpay-Buildathon-webui-and-cli) | Staged and resumable reconciliation, multitable matching, fee rules, exception review, journal exports, hash-chained audit records, REST/WebSockets, and unit/integration/API tests. |
 | 03 | [CrowdShield](https://github.com/S-Srinivasan-06/CrowdShield) | Head detection, custom motion tracking, cached KDE density and pressure metrics, threaded sessions, REST/SSE/MJPEG, adjustable ROI, and archived run artifacts. |
 | 04 | [Sandman](https://github.com/S-Srinivasan-06/sandman-ai-sandbox) | LangGraph execution/retry/cleanup, Docker resource controls, MCP tools, provider routing, and artifact bundles. A distinct systems project rather than another application of the same engine. |
-| 05, compact | [Taskflow](https://github.com/S-Srinivasan-06/Taskflow) | A complementary web implementation with scoped authentication, ownership checks, optimistic concurrency, timezone-aware scheduling, isolated offline cache, and integration tests. |
+| 05 | [Taskflow](https://github.com/S-Srinivasan-06/Taskflow) | A complementary web implementation with scoped authentication, ownership checks, optimistic concurrency, timezone-aware scheduling, isolated offline cache, and integration tests. |
 
 ## Other projects considered
 
@@ -26,4 +26,8 @@ Reviewed on 6 October 2026. Three parallel reviewers inspected repository trees,
 
 The profile uses local SVG illustrations and ordinary GitHub Markdown. The illustrations are conceptual graphics, not product screenshots. The Taskflow Local interface link points to the repository's real UI capture, which uses synthetic tasks and mocked native/model calls.
 
-Edit `README.md` for copy and links. Edit `assets/*.svg` for artwork. The hero's sculpture and featured card's flow animate through CSS inside the SVG; both stop under `prefers-reduced-motion: reduce`. All text remains static. No runtime scripts, external image services, scheduled workflow, or generated statistics are required.
+The visual system pairs warm ivory (`#F6F0E6`), burgundy (`#982D3C`), charcoal (`#2B2220`), and terracotta (`#D86650`). Serif display type, monospaced labels, line icons, and diagrams connect product craft with engineering.
+
+The profile emphasizes the author's stated experience with Codex and Claude Code, alongside source-supported work in custom model harnesses, local inference, MCP tools, and LangGraph orchestration. Engineering evidence links to schema validation, ownership/concurrency handling, integration tests, and audit logging. The code panel contains a reformatted excerpt of the existing task-creation schema. No proficiency percentages, invented metrics, or unsupported claims of expert status are used.
+
+Edit `README.md` for copy and links. Edit `assets/*.svg` for artwork. The hero, Taskflow Local feature, and harness diagram animate through CSS inside the SVG; every animation stops under `prefers-reduced-motion: reduce`. All text remains static. Hero, agent expertise, toolkit, harness, and code panels have separate mobile compositions selected by standard `picture` elements. No runtime scripts, external image services, scheduled workflow, or generated statistics are required.

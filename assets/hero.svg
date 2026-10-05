@@ -1,50 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440" role="img" aria-labelledby="title desc">
-  <title id="title">Srinivasan — thoughtful software</title>
-  <desc id="desc">An ivory portfolio banner with dark green typography and a slowly moving geometric sculpture.</desc>
-  <defs>
-    <clipPath id="frame"><rect width="1200" height="440" rx="24"/></clipPath>
-  </defs>
-  <style>
-    .sans { font-family: 'Segoe UI', Helvetica, Arial, sans-serif; }
-    .mono { font-family: Consolas, 'Courier New', monospace; }
-    .sculpture { transform-origin: 952px 225px; animation: turn 30s linear infinite; }
-    .signal { animation: signal 6s ease-in-out infinite; }
-    @keyframes turn { to { transform: rotate(360deg); } }
-    @keyframes signal { 0%,100% { opacity: .45; } 50% { opacity: 1; } }
-    @media (prefers-reduced-motion: reduce) { .sculpture, .signal { animation: none; } }
-  </style>
-  <g clip-path="url(#frame)">
-    <rect width="1200" height="440" fill="#f3f0e7"/>
-    <path d="M764 0V440" stroke="#deded2"/>
-    <rect x="44" y="34" width="43" height="43" rx="12" fill="#172c23"/>
-    <path d="M56 48H76M56 55H69M63 63H76" fill="none" stroke="#d5edb5" stroke-width="2.5" stroke-linecap="round"/>
-    <text x="104" y="61" class="mono" font-size="15" letter-spacing="1.5" fill="#536257">SRINIVASAN / DEVELOPER</text>
-    <text x="812" y="61" class="mono" font-size="14" letter-spacing="1" fill="#536257">SELECTED WORK — 2026</text>
-    <text x="44" y="151" class="sans" font-size="23" fill="#536257">Thoughtful software.</text>
-    <text x="39" y="252" class="sans" font-size="106" font-weight="650" letter-spacing="-6" fill="#172c23">Srinivasan.</text>
-    <text x="46" y="302" class="sans" font-size="23" fill="#33483b">Backend systems. Intelligent agents.</text>
-    <text x="46" y="336" class="sans" font-size="23" fill="#33483b">Useful products, from idea to interface.</text>
-    <path d="M44 383H719" stroke="#d6d8cb"/>
-    <circle cx="51" cy="408" r="4" fill="#476c41"/>
-    <text x="66" y="413" class="mono" font-size="13" letter-spacing="1.2" fill="#536257">BUILT WITH INTENT</text>
-    <text x="594" y="413" class="mono" font-size="13" letter-spacing="1.2" fill="#536257">INDIA / KIIT</text>
-    <circle cx="952" cy="225" r="150" fill="#e5e8d9"/>
-    <g class="sculpture" fill="none" stroke="#172c23">
-      <ellipse cx="952" cy="225" rx="131" ry="48" stroke-width="1.6"/>
-      <ellipse cx="952" cy="225" rx="131" ry="48" transform="rotate(60 952 225)" stroke-width="1.6"/>
-      <ellipse cx="952" cy="225" rx="131" ry="48" transform="rotate(120 952 225)" stroke-width="1.6"/>
-      <circle cx="952" cy="225" r="83" stroke="#829277" stroke-width="1" stroke-dasharray="2 7"/>
-      <circle cx="1083" cy="225" r="11" fill="#d5edb5" stroke-width="2"/>
-      <circle cx="886.5" cy="111.5" r="7" fill="#172c23"/>
-      <circle cx="887" cy="338" r="8" fill="#f3f0e7" stroke-width="2"/>
-    </g>
-    <rect x="921" y="194" width="62" height="62" rx="18" fill="#172c23"/>
-    <path d="M939 214L948 223L939 232M957 232H967" fill="none" stroke="#d5edb5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-    <g class="signal" fill="#476c41">
-      <circle cx="814" cy="359" r="3"/>
-      <circle cx="826" cy="359" r="3"/>
-      <circle cx="838" cy="359" r="3"/>
-    </g>
-    <text x="858" y="364" class="mono" font-size="12" letter-spacing="1.3" fill="#536257">IDEA → SYSTEM → PRODUCT</text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="540" viewBox="0 0 1200 540" role="img" aria-labelledby="title desc">
+<title id="title">Srinivasan — LLM systems and software engineering</title><desc id="desc">An ivory and burgundy editorial banner. A slowly rotating asterisk sits between code brackets. All text stays static.</desc>
+<style>.sans{font-family:'Segoe UI',Helvetica,Arial,sans-serif}.serif{font-family:Georgia,'Times New Roman',serif}.mono{font-family:Consolas,'Courier New',monospace}.spin{transform-origin:0px 0px;animation:spin 36s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce) { .spin, .flow, .float, .pulse { animation: none !important; } }</style>
+<defs><clipPath id="frame"><rect x="0" y="0" width="1200" height="540" rx="18" fill="white"/></clipPath></defs>
+<g clip-path="url(#frame)"><rect x="0" y="0" width="1200" height="540" rx="0" fill="#F6F0E6"/><text x="44" y="53" class="serif" font-size="25" fill="#982D3C" >S / S</text><text x="137" y="50" class="mono" font-size="13" fill="#78635D" letter-spacing="1.7">SOFTWARE, WITH INTENTION.</text><text x="1154" y="50" class="mono" font-size="13" fill="#78635D" text-anchor="end" letter-spacing="1">ENGINEERING PORTFOLIO / 2026</text><path d="M44 78L1156 78" stroke="#DDCDC0" stroke-width="1" /><text x="42" y="146" class="mono" font-size="15" fill="#982D3C" letter-spacing=".8">LLM SYSTEMS / HARNESS ENGINEERING / BACKEND</text><text x="38" y="265" class="serif" font-size="116" fill="#982D3C" letter-spacing="-5">Srinivasan.</text><text x="44" y="350" class="serif" font-size="47" fill="#2B2220" >Built with logic.</text><text x="44" y="408" class="serif" font-size="47" fill="#982D3C" font-style="italic">Shaped with care.</text><g transform="translate(971 281) scale(1.04)"><circle cx="0" cy="0" r="155" fill="#EEDDD1"/><path d="M-120 -150L-120 150" stroke="#D6BCAF" stroke-width="1" /><path d="M-60 -150L-60 150" stroke="#D6BCAF" stroke-width="1" /><path d="M0 -150L0 150" stroke="#D6BCAF" stroke-width="1" /><path d="M60 -150L60 150" stroke="#D6BCAF" stroke-width="1" /><path d="M120 -150L120 150" stroke="#D6BCAF" stroke-width="1" /><path d="M-155 0L155 0" stroke="#D6BCAF" stroke-width="1" /><path d="M-73 -91L-140 0L-73 91M73 -91L140 0L73 91" fill="none" stroke="#982D3C" stroke-width="13"/><g class="spin"><polygon points="0.00,-67.00 11.13,-41.53 33.50,-58.02 30.41,-30.41 58.02,-33.50 41.53,-11.13 67.00,0.00 41.53,11.13 58.02,33.50 30.41,30.41 33.50,58.02 11.13,41.53 0.00,67.00 -11.13,41.53 -33.50,58.02 -30.41,30.41 -58.02,33.50 -41.53,11.13 -67.00,0.00 -41.53,-11.13 -58.02,-33.50 -30.41,-30.41 -33.50,-58.02 -11.13,-41.53" fill="#982D3C"/><circle cx="0" cy="0" r="18" fill="#F6F0E6"/></g><circle cx="-104" cy="-136" r="7" fill="#982D3C"/><circle cx="132" cy="128" r="5" fill="#982D3C"/></g><text x="971" y="475" class="mono" font-size="12" fill="#78635D" text-anchor="middle" letter-spacing="1">MODELS × TOOLS × SYSTEMS</text><path d="M44 479L742 479" stroke="#DDCDC0" stroke-width="1" /><text x="44" y="515" class="mono" font-size="14" fill="#78635D" >CODEX · CLAUDE CODE · LOCAL LLMS · AGENTS</text></g></svg>

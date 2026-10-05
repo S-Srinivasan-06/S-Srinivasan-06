@@ -1,24 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="290" viewBox="0 0 1200 290" role="img" aria-labelledby="title desc">
   <title id="title">Sandman — agents with a workspace</title>
   <desc id="desc">A LangGraph agent workflow with execute, inspect, retry, and bundle steps inside a Docker workspace.</desc>
-  <style>.sans{font-family:'Segoe UI',Helvetica,Arial,sans-serif}.mono{font-family:Consolas,'Courier New',monospace}</style>
-  <rect width="1200" height="290" rx="22" fill="#172c23"/>
-  <text x="44" y="49" class="mono" font-size="14" letter-spacing="1.7" fill="#b8cfbc">04 / AGENTIC AI</text>
-  <text x="40" y="133" class="sans" font-size="60" font-weight="650" letter-spacing="-2.5" fill="#f3f0e7">Sandman</text>
-  <text x="44" y="180" class="sans" font-size="20" fill="#cbd9c8">Agents with a workspace.</text>
-  <text x="44" y="259" class="mono" font-size="12" letter-spacing="1.2" fill="#b8cfbc">LANGGRAPH / MCP TOOLS / DOCKER</text>
-  <rect x="605" y="42" width="548" height="207" rx="16" fill="none" stroke="#4b6550" stroke-dasharray="5 7"/>
-  <text x="631" y="68" class="mono" font-size="10" letter-spacing="1.3" fill="#b8cfbc">DOCKER WORKSPACE</text>
-  <path d="M776 126H819M963 126H1013M891 152V195H704V152" fill="none" stroke="#91af85" stroke-width="1.5"/>
-  <path d="M810 121L819 126L810 131M1004 121L1013 126L1004 131M699 161L704 152L709 161" fill="none" stroke="#91af85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <rect x="632" y="100" width="144" height="52" rx="12" fill="#f3f0e7"/>
-  <rect x="819" y="100" width="144" height="52" rx="12" fill="#d5edb5"/>
-  <rect x="1013" y="100" width="114" height="52" rx="12" fill="#304b3b" stroke="#91af85"/>
-  <text x="704" y="131" text-anchor="middle" class="mono" font-size="13" fill="#172c23">EXECUTE</text>
-  <text x="891" y="131" text-anchor="middle" class="mono" font-size="13" fill="#172c23">INSPECT</text>
-  <text x="1070" y="131" text-anchor="middle" class="mono" font-size="13" fill="#d5edb5">BUNDLE</text>
-  <rect x="764" y="183" width="66" height="24" rx="7" fill="#172c23"/>
-  <text x="797" y="200" text-anchor="middle" class="mono" font-size="11" letter-spacing="1" fill="#d5edb5">RETRY</text>
-  <circle cx="1127" cy="222" r="3" fill="#d5edb5"/>
-  <text x="1115" y="226" text-anchor="end" class="mono" font-size="10" letter-spacing="1" fill="#b8cfbc">PORTABLE OUTPUT</text>
+  <style>.display{font-family:Georgia,'Times New Roman',serif}.sans{font-family:'Segoe UI',Helvetica,Arial,sans-serif}.mono{font-family:Consolas,'Courier New',monospace}</style>
+  <rect width="1200" height="290" rx="22" fill="#982D3C"/>
+  <text x="44" y="49" class="mono" font-size="14" letter-spacing="1.7" fill="#F1D3C8">04 / AGENTIC AI</text>
+  <text x="40" y="133" class="display" font-size="60" font-weight="400" letter-spacing="-2.5" fill="#F6F0E6">Sandman</text>
+  <text x="44" y="180" class="sans" font-size="20" fill="#F3D7CD">Agents with a workspace.</text>
+  <text x="44" y="259" class="mono" font-size="12" letter-spacing="1.2" fill="#F1D3C8">LANGGRAPH / MCP TOOLS / DOCKER</text>
+  <rect x="605" y="42" width="548" height="207" rx="16" fill="none" stroke="#C77579" stroke-dasharray="5 7"/>
+  <text x="631" y="68" class="mono" font-size="10" letter-spacing="1.3" fill="#F1D3C8">DOCKER WORKSPACE</text>
+  <path d="M776 126H819M963 126H1013M891 152V195H704V152" fill="none" stroke="#E9AD9E" stroke-width="1.5"/>
+  <path d="M810 121L819 126L810 131M1004 121L1013 126L1004 131M699 161L704 152L709 161" fill="none" stroke="#E9AD9E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="632" y="100" width="144" height="52" rx="12" fill="#F6F0E6"/>
+  <rect x="819" y="100" width="144" height="52" rx="12" fill="#F5D6C6"/>
+  <rect x="1013" y="100" width="114" height="52" rx="12" fill="#AF4D57" stroke="#E9AD9E"/>
+  <text x="704" y="131" text-anchor="middle" class="mono" font-size="13" fill="#982D3C">EXECUTE</text>
+  <text x="891" y="131" text-anchor="middle" class="mono" font-size="13" fill="#982D3C">INSPECT</text>
+  <text x="1070" y="131" text-anchor="middle" class="mono" font-size="13" fill="#F5D6C6">BUNDLE</text>
+  <rect x="764" y="183" width="66" height="24" rx="7" fill="#982D3C"/>
+  <text x="797" y="200" text-anchor="middle" class="mono" font-size="11" letter-spacing="1" fill="#F5D6C6">RETRY</text>
+  <circle cx="1127" cy="222" r="3" fill="#F5D6C6"/>
+  <text x="1115" y="226" text-anchor="end" class="mono" font-size="10" letter-spacing="1" fill="#F1D3C8">PORTABLE OUTPUT</text>
 </svg>
