@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="250" viewBox="0 0 600 250" role="img" aria-labelledby="title">
+<title id="title">Email · KIIT · WorldQuant BRAIN</title><style>
+.sans{font-family:'Segoe UI',Helvetica,Arial,sans-serif}
+.display{font-family:Georgia,'Times New Roman',serif}
+.mono{font-family:Consolas,'Courier New',monospace}
+.paper{fill:#F4EDDC}.ink{fill:#221D24}.ink-line{fill:none;stroke:#221D24}
+.one{fill:#D94136;animation:palette-one 18s step-end infinite}
+.two{fill:#294DFF;animation:palette-two 18s step-end infinite}
+.one-line{fill:none;stroke:#D94136;animation:palette-one-line 18s step-end infinite}
+.two-line{fill:none;stroke:#294DFF;animation:palette-two-line 18s step-end infinite}
+.phase-b .one{fill:#5D287E;animation-delay:-9s}
+.phase-b .two{fill:#C9E54E;animation-delay:-9s}
+.phase-b .one-line{stroke:#5D287E;animation-delay:-9s}
+.phase-b .two-line{stroke:#C9E54E;animation-delay:-9s}
+@keyframes palette-one{0%,100%{fill:#D94136}50%{fill:#5D287E}}
+@keyframes palette-two{0%,100%{fill:#294DFF}50%{fill:#C9E54E}}
+@keyframes palette-one-line{0%,100%{stroke:#D94136}50%{stroke:#5D287E}}
+@keyframes palette-two-line{0%,100%{stroke:#294DFF}50%{stroke:#C9E54E}}
+.spin{animation:spin 8s linear infinite;transform-origin:0px 0px}
+.counter{animation:spin 13s linear infinite reverse;transform-origin:0px 0px}
+.bob{animation:bob 2.2s cubic-bezier(.34,1.4,.64,1) infinite}
+.bob-late{animation:bob 2.2s cubic-bezier(.34,1.4,.64,1) -.8s infinite}
+.wiggle{animation:wiggle 2.8s ease-in-out infinite;transform-origin:0px 0px}
+.hop{animation:hop 2.6s cubic-bezier(.34,1.4,.64,1) infinite;transform-origin:0px 0px}
+.blink{animation:blink 5.7s ease-in-out infinite;transform-origin:0px 0px}
+.track{animation:track 3s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+@keyframes wiggle{0%,100%{transform:rotate(-9deg)}50%{transform:rotate(9deg)}}
+@keyframes hop{0%,100%{transform:translateY(0) scale(1,1)}35%{transform:translateY(-17px) scale(.94,1.08)}65%{transform:translateY(0) scale(1.06,.94)}}
+@keyframes blink{0%,42%,48%,100%{transform:scaleY(1)}45%{transform:scaleY(.08)}}
+@keyframes track{to{stroke-dashoffset:-96}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+<defs><clipPath id="frame"><rect x="0" y="0" width="600" height="250" rx="20" class="paper"/></clipPath></defs>
+<g clip-path="url(#frame)" class="phase-b"><rect x="0" y="0" width="600" height="250" rx="0" class="paper"/><text x="30" y="62" class="ink mono" font-size="21" >KIIT / CSE / 2028</text><text x="30" y="105" class="ink mono" font-size="21" >WORLDQUANT BRAIN / GOLD</text><text x="30" y="203" class="ink mono" font-size="22" >srinivasansubr2006@gmail.com</text><g transform="translate(535 141) scale(1)"><g class="wiggle"><path d="M-19 19L19-19M-19-19H19V19" class="ink-line" stroke-width="4" /></g></g><rect x="0" y="0" width="600" height="9" rx="0" class="one"/><rect x="0" y="241" width="600" height="9" rx="0" class="two"/></g></svg>

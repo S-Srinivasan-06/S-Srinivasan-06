@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title">
+<title id="title">Taskflow Local</title><style>
+.sans{font-family:'Segoe UI',Helvetica,Arial,sans-serif}
+.display{font-family:Georgia,'Times New Roman',serif}
+.mono{font-family:Consolas,'Courier New',monospace}
+.paper{fill:#F4EDDC}.ink{fill:#221D24}.ink-line{fill:none;stroke:#221D24}
+.one{fill:#D94136;animation:palette-one 18s step-end infinite}
+.two{fill:#294DFF;animation:palette-two 18s step-end infinite}
+.one-line{fill:none;stroke:#D94136;animation:palette-one-line 18s step-end infinite}
+.two-line{fill:none;stroke:#294DFF;animation:palette-two-line 18s step-end infinite}
+.phase-b .one{fill:#5D287E;animation-delay:-9s}
+.phase-b .two{fill:#C9E54E;animation-delay:-9s}
+.phase-b .one-line{stroke:#5D287E;animation-delay:-9s}
+.phase-b .two-line{stroke:#C9E54E;animation-delay:-9s}
+@keyframes palette-one{0%,100%{fill:#D94136}50%{fill:#5D287E}}
+@keyframes palette-two{0%,100%{fill:#294DFF}50%{fill:#C9E54E}}
+@keyframes palette-one-line{0%,100%{stroke:#D94136}50%{stroke:#5D287E}}
+@keyframes palette-two-line{0%,100%{stroke:#294DFF}50%{stroke:#C9E54E}}
+.spin{animation:spin 8s linear infinite;transform-origin:0px 0px}
+.counter{animation:spin 13s linear infinite reverse;transform-origin:0px 0px}
+.bob{animation:bob 2.2s cubic-bezier(.34,1.4,.64,1) infinite}
+.bob-late{animation:bob 2.2s cubic-bezier(.34,1.4,.64,1) -.8s infinite}
+.wiggle{animation:wiggle 2.8s ease-in-out infinite;transform-origin:0px 0px}
+.hop{animation:hop 2.6s cubic-bezier(.34,1.4,.64,1) infinite;transform-origin:0px 0px}
+.blink{animation:blink 5.7s ease-in-out infinite;transform-origin:0px 0px}
+.track{animation:track 3s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+@keyframes wiggle{0%,100%{transform:rotate(-9deg)}50%{transform:rotate(9deg)}}
+@keyframes hop{0%,100%{transform:translateY(0) scale(1,1)}35%{transform:translateY(-17px) scale(.94,1.08)}65%{transform:translateY(0) scale(1.06,.94)}}
+@keyframes blink{0%,42%,48%,100%{transform:scaleY(1)}45%{transform:scaleY(.08)}}
+@keyframes track{to{stroke-dashoffset:-96}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+<defs><clipPath id="frame"><rect x="0" y="0" width="1200" height="420" rx="20" class="paper"/></clipPath></defs>
+<g clip-path="url(#frame)" class="phase-a"><rect x="0" y="0" width="1200" height="420" rx="0" class="paper"/><text x="40" y="48" class="ink mono" font-size="17" >01</text><text x="34" y="144" class="ink display" font-size="79" letter-spacing="-2">Taskflow</text><text x="34" y="234" class="ink display" font-size="79" letter-spacing="-2">Local</text><text x="40" y="381" class="ink mono" font-size="15" >TAURI / RUST / REACT / SQLITE</text><rect x="638" y="0" width="562" height="420" rx="0" class="one"/><g transform="translate(895 196) scale(1)"><g class="bob"><rect x="-188" y="-108" width="376" height="216" rx="18" class="paper"/><path d="M-188-64H188" class="ink-line" stroke-width="2" /><circle cx="-163" cy="-85" r="5" class="ink"/><circle cx="-143" cy="-85" r="5" class="one"/><circle cx="-123" cy="-85" r="5" class="two"/><rect x="-155" y="-28" width="24" height="24" rx="6" class="one"/><rect x="-155" y="17" width="24" height="24" rx="6" class="two"/><rect x="-155" y="62" width="24" height="24" rx="6" class="ink"/><path d="M-105-16H140M-105 29H95M-105 74H115" class="ink-line" stroke-width="5" /></g></g><g transform="translate(1124 75) scale(1)"><g class="spin"><polygon points="0.00,-54.00 8.02,-29.94 27.00,-46.77 21.92,-21.92 46.77,-27.00 29.94,-8.02 54.00,0.00 29.94,8.02 46.77,27.00 21.92,21.92 27.00,46.77 8.02,29.94 0.00,54.00 -8.02,29.94 -27.00,46.77 -21.92,21.92 -46.77,27.00 -29.94,8.02 -54.00,0.00 -29.94,-8.02 -46.77,-27.00 -21.92,-21.92 -27.00,-46.77 -8.02,-29.94" class="two"/><circle cx="0" cy="0" r="11" class="paper"/></g></g><g transform="translate(0 0) scale(1)"><g class="track"><path d="M685 359H1150" class="ink-line" stroke-width="2" stroke-dasharray="12 12"/></g></g><rect x="700" y="376" width="118" height="31" rx="8" class="paper"/><text x="759" y="397" class="ink mono" font-size="14" text-anchor="middle">MODEL</text><rect x="850" y="376" width="118" height="31" rx="8" class="paper"/><text x="909" y="397" class="ink mono" font-size="14" text-anchor="middle">REVIEW</text><rect x="1000" y="376" width="118" height="31" rx="8" class="paper"/><text x="1059" y="397" class="ink mono" font-size="14" text-anchor="middle">SAVE</text></g></svg>

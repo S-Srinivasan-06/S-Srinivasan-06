@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="250" viewBox="0 0 1200 250" role="img" aria-labelledby="title">
+<title id="title">Codex · Claude Code · Local LLMs · Custom harnesses · Orchestration</title><style>
+.sans{font-family:'Segoe UI',Helvetica,Arial,sans-serif}
+.display{font-family:Georgia,'Times New Roman',serif}
+.mono{font-family:Consolas,'Courier New',monospace}
+.paper{fill:#F4EDDC}.ink{fill:#221D24}.ink-line{fill:none;stroke:#221D24}
+.one{fill:#D94136;animation:palette-one 18s step-end infinite}
+.two{fill:#294DFF;animation:palette-two 18s step-end infinite}
+.one-line{fill:none;stroke:#D94136;animation:palette-one-line 18s step-end infinite}
+.two-line{fill:none;stroke:#294DFF;animation:palette-two-line 18s step-end infinite}
+.phase-b .one{fill:#5D287E;animation-delay:-9s}
+.phase-b .two{fill:#C9E54E;animation-delay:-9s}
+.phase-b .one-line{stroke:#5D287E;animation-delay:-9s}
+.phase-b .two-line{stroke:#C9E54E;animation-delay:-9s}
+@keyframes palette-one{0%,100%{fill:#D94136}50%{fill:#5D287E}}
+@keyframes palette-two{0%,100%{fill:#294DFF}50%{fill:#C9E54E}}
+@keyframes palette-one-line{0%,100%{stroke:#D94136}50%{stroke:#5D287E}}
+@keyframes palette-two-line{0%,100%{stroke:#294DFF}50%{stroke:#C9E54E}}
+.spin{animation:spin 8s linear infinite;transform-origin:0px 0px}
+.counter{animation:spin 13s linear infinite reverse;transform-origin:0px 0px}
+.bob{animation:bob 2.2s cubic-bezier(.34,1.4,.64,1) infinite}
+.bob-late{animation:bob 2.2s cubic-bezier(.34,1.4,.64,1) -.8s infinite}
+.wiggle{animation:wiggle 2.8s ease-in-out infinite;transform-origin:0px 0px}
+.hop{animation:hop 2.6s cubic-bezier(.34,1.4,.64,1) infinite;transform-origin:0px 0px}
+.blink{animation:blink 5.7s ease-in-out infinite;transform-origin:0px 0px}
+.track{animation:track 3s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+@keyframes wiggle{0%,100%{transform:rotate(-9deg)}50%{transform:rotate(9deg)}}
+@keyframes hop{0%,100%{transform:translateY(0) scale(1,1)}35%{transform:translateY(-17px) scale(.94,1.08)}65%{transform:translateY(0) scale(1.06,.94)}}
+@keyframes blink{0%,42%,48%,100%{transform:scaleY(1)}45%{transform:scaleY(.08)}}
+@keyframes track{to{stroke-dashoffset:-96}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+<defs><clipPath id="frame"><rect x="0" y="0" width="1200" height="250" rx="20" class="paper"/></clipPath></defs>
+<g clip-path="url(#frame)" class="phase-b"><rect x="0" y="0" width="1200" height="250" rx="0" class="paper"/><rect x="28" y="23" width="212" height="202" rx="16" class="two"/><rect x="37" y="135" width="194" height="74" rx="10" class="paper"/><g transform="translate(134 88) scale(0.78)"><g class="bob"><rect x="-33" y="-24" width="66" height="48" rx="8" class="paper"/><path d="M-20-7L-10 0L-20 7M2 11H22" class="ink-line" stroke-width="3" /></g></g><text x="134" y="174" class="ink sans" font-size="20" font-weight="700" text-anchor="middle">CODEX</text><rect x="264" y="23" width="212" height="202" rx="16" class="one"/><rect x="273" y="135" width="194" height="74" rx="10" class="paper"/><g transform="translate(370 88) scale(0.78)"><g class="bob-late"><path d="M-14-12L-29 0L-14 12M14-12L29 0L14 12M5-18L-5 18" class="ink-line" stroke-width="4" /></g></g><text x="370" y="174" class="ink sans" font-size="20" font-weight="700" text-anchor="middle">CLAUDE CODE</text><rect x="500" y="23" width="212" height="202" rx="16" class="two"/><rect x="509" y="135" width="194" height="74" rx="10" class="paper"/><g transform="translate(606 88) scale(0.78)"><g class="bob"><rect x="-23" y="-23" width="46" height="46" rx="5" class="paper"/><rect x="-11" y="-11" width="22" height="22" rx="2" class="ink"/><path d="M-11-34V-23M11-34V-23M-11 23V34M11 23V34M-34-11H-23M-34 11H-23M23-11H34M23 11H34" class="ink-line" stroke-width="3" /></g></g><text x="606" y="174" class="ink sans" font-size="20" font-weight="700" text-anchor="middle">LOCAL LLMS</text><rect x="736" y="23" width="212" height="202" rx="16" class="one"/><rect x="745" y="135" width="194" height="74" rx="10" class="paper"/><g transform="translate(842 88) scale(0.78)"><g class="bob-late"><rect x="-20" y="-20" width="40" height="40" rx="6" class="paper"/><path d="M-34 0H-20M20 0H34M0-34V-20M0 20V34" class="ink-line" stroke-width="3" /></g></g><text x="842" y="162" class="ink sans" font-size="18" font-weight="700" text-anchor="middle">CUSTOM</text><text x="842" y="188" class="ink sans" font-size="18" font-weight="700" text-anchor="middle">HARNESSES</text><rect x="972" y="23" width="212" height="202" rx="16" class="two"/><rect x="981" y="135" width="194" height="74" rx="10" class="paper"/><g transform="translate(1078 88) scale(0.78)"><g class="bob"><circle cx="0" cy="-20" r="7" class="paper"/><circle cx="-23" cy="22" r="7" class="paper"/><circle cx="23" cy="22" r="7" class="paper"/><path d="M0-13V4M-23 15V4H23V15" class="ink-line" stroke-width="3" /></g></g><text x="1078" y="174" class="ink sans" font-size="17" font-weight="700" text-anchor="middle">ORCHESTRATION</text></g></svg>
