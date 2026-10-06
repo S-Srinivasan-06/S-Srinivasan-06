@@ -24,7 +24,7 @@ Reviewed on 6 October 2026. Three parallel reviewers inspected repository trees,
 
 ## Design maintenance
 
-The current profile is an SVG portfolio. All visible names, project descriptions, technologies, skills, interests, and social details are rendered as SVG text. README.md only arranges picture elements and links. The main sequence is an introduction, five coloured project tabs, the five project cards, skills, tools, LLM workflow, interests, and social links. Taskflow Local is first.
+The current profile is an SVG portfolio. All visible names, project descriptions, technologies, skills, interests, and social details are rendered as SVG text. README.md only arranges picture elements and links. The main sequence is an introduction, skills, tools, LLM workflow, interests, social links, five coloured project tabs, and the five project cards. Projects appear after contacts, with Taskflow Local first among projects.
 
 Each project has its own four-colour scheme: shared ivory (#F5F0E7) and ink (#252C36), plus an accent and tint. Taskflow Local uses burgundy (#96394A / #EAD5D4); Taskflow uses blue (#315A88 / #D7E2ED); Reconciliation uses amber (#7B5725 / #EADFC6); CrowdShield uses forest (#2A6252 / #D5E4DC); Sandman uses purple (#67487F / #E0D8E9). Colour tabs link to repositories; they are navigation images, not JavaScript theme switches.
 
