@@ -1,90 +1,77 @@
-<picture>
-  <source media="(max-width: 600px)" srcset="./assets/v4-hero-mobile.svg" />
-  <img src="./assets/v4-hero.svg" width="1200" alt="Srinivasan — software and agent systems" />
-</picture>
+# Srinivasan
 
-<picture>
-  <source media="(max-width: 600px)" srcset="./assets/v4-about-mobile.svg" />
-  <img src="./assets/v4-about.svg" width="1200" alt="About me — working across the whole system" />
-</picture>
+**Backend development · Machine learning · Agentic AI & LLMs**
 
-<picture>
-  <source media="(max-width: 600px)" srcset="./assets/v4-agents-mobile.svg" />
-  <img src="./assets/v4-agents.svg" width="1200" alt="Codex, Claude Code, local LLMs, custom harnesses and agent orchestration" />
-</picture>
+Computer Science undergraduate at KIIT (2024–2028). I work primarily with **Python, Java, and Spring Boot**. These repositories cover task management, financial reconciliation, computer vision, tabular ML, and agents that execute code.
 
-<picture>
-  <source media="(max-width: 600px)" srcset="./assets/v4-process-mobile.svg" />
-  <img src="./assets/v4-process.svg" width="1200" alt="How I work — define, implement, verify" />
-</picture>
+[GitHub repositories](https://github.com/S-Srinivasan-06?tab=repositories) &nbsp; · &nbsp; [LinkedIn](https://www.linkedin.com/in/s-srinivasan-a69006315/) &nbsp; · &nbsp; [Email](mailto:srinivasansubr2006@gmail.com)
 
-<picture>
-  <source media="(max-width: 600px)" srcset="./assets/v4-range-mobile.svg" />
-  <img src="./assets/v4-range.svg" width="1200" alt="Engineering range — Java, Python, TypeScript, Rust and SQL" />
-</picture>
+## Featured project
 
-<a href="https://github.com/S-Srinivasan-06/Taskflow-Local-hacktoberfest-weekend">
-<picture>
-  <source media="(max-width: 600px)" srcset="./assets/v4-taskflow-local-mobile.svg" />
-  <img src="./assets/v4-taskflow-local.svg" width="1200" alt="01 · Taskflow Local — A local-first desktop planner with on-device inference. Schema-validated task changes stay behind a review step." />
-</picture>
+### [Taskflow Local](https://github.com/S-Srinivasan-06/Taskflow-Local-hacktoberfest-weekend)
+
+An offline Windows task manager with on-device LLM inference. Natural-language and screenshot input become task operations that are validated and presented for review before anything is saved.
+
+- Local Gemma inference through llama.cpp, with structured action schemas and retry handling.
+- SQLite persistence, desktop reminders, and a system tray.
+- A review step between model output and changes to task data.
+
+`Local LLMs` `llama.cpp` `Gemma` `React` `SQLite`
+
+[Source](https://github.com/S-Srinivasan-06/Taskflow-Local-hacktoberfest-weekend) &nbsp; · &nbsp; [Windows release](https://github.com/S-Srinivasan-06/Taskflow-Local-hacktoberfest-weekend/releases/latest) &nbsp; · &nbsp; [Inference harness](https://github.com/S-Srinivasan-06/Taskflow-Local-hacktoberfest-weekend/blob/main/src/model/modelService.ts) &nbsp; · &nbsp; [Action validation](https://github.com/S-Srinivasan-06/Taskflow-Local-hacktoberfest-weekend/blob/main/src/model/actionSchema.ts)
+
+<a href="https://github.com/S-Srinivasan-06/Taskflow-Local-hacktoberfest-weekend/blob/main/docs/screenshots/forest-2026-10-05.png">
+  <img src="https://raw.githubusercontent.com/S-Srinivasan-06/Taskflow-Local-hacktoberfest-weekend/main/docs/screenshots/forest-2026-10-05.png" width="320" alt="Taskflow Local interface preview with example tasks, a timeline, and local model controls." />
 </a>
 
-<a href="https://github.com/S-Srinivasan-06/Taskflow-Local-hacktoberfest-weekend/releases/latest"><img src="./assets/v4-download.svg" width="180" alt="Windows release" /></a>
+## Backend engineering
 
-<picture>
-  <source media="(max-width: 600px)" srcset="./assets/v4-interlude-1-mobile.svg" />
-  <img src="./assets/v4-interlude-1.svg" width="1200" alt="Visual study 1 — looping geometric interlude" />
-</picture>
+### [Taskflow](https://github.com/S-Srinivasan-06/Taskflow)
 
-<a href="https://github.com/S-Srinivasan-06/Razorpay-Buildathon-webui-and-cli">
-<picture>
-  <source media="(max-width: 600px)" srcset="./assets/v4-reconciliation-mobile.svg" />
-  <img src="./assets/v4-reconciliation.svg" width="1200" alt="02 · Reconciliation Agent — Match sales, gateway, and bank records in resumable stages. Exception review, journal exports, and hash-chained audit logs." />
-</picture>
-</a>
+A web task manager built on Spring Boot and PostgreSQL, with a React interface. The backend checks task ownership, scopes sessions to users, and uses optimistic concurrency to handle conflicting updates. Integration tests exercise authentication and isolation boundaries.
 
-<picture>
-  <source media="(max-width: 600px)" srcset="./assets/v4-interlude-2-mobile.svg" />
-  <img src="./assets/v4-interlude-2.svg" width="1200" alt="Visual study 2 — looping geometric interlude" />
-</picture>
+`Java` `Spring Boot` `PostgreSQL` `React` `Docker`
 
-<a href="https://github.com/S-Srinivasan-06/CrowdShield">
-<picture>
-  <source media="(max-width: 600px)" srcset="./assets/v4-crowdshield-mobile.svg" />
-  <img src="./assets/v4-crowdshield.svg" width="1200" alt="03 · CrowdShield — A vision pipeline for head detection, tracking, and density. Threaded sessions expose live REST, SSE, and MJPEG views." />
-</picture>
-</a>
+[Source](https://github.com/S-Srinivasan-06/Taskflow) &nbsp; · &nbsp; [Task service](https://github.com/S-Srinivasan-06/Taskflow/blob/main/src/main/java/com/taskflow/service/TaskService.java) &nbsp; · &nbsp; [Integration tests](https://github.com/S-Srinivasan-06/Taskflow/blob/main/src/test/java/com/taskflow/security/AuthOwnershipIntegrationTest.java)
 
-<picture>
-  <source media="(max-width: 600px)" srcset="./assets/v4-interlude-3-mobile.svg" />
-  <img src="./assets/v4-interlude-3.svg" width="1200" alt="Visual study 3 — looping geometric interlude" />
-</picture>
+### [Financial Reconciliation Agent](https://github.com/S-Srinivasan-06/Razorpay-Buildathon-webui-and-cli)
 
-<a href="https://github.com/S-Srinivasan-06/sandman-ai-sandbox">
-<picture>
-  <source media="(max-width: 600px)" srcset="./assets/v4-sandman-mobile.svg" />
-  <img src="./assets/v4-sandman.svg" width="1200" alt="04 · Sandman — An agent execution sandbox with MCP tools and model routing. LangGraph coordinates execution, retry, cleanup, and artifacts." />
-</picture>
-</a>
+A Python workbench for matching sales, gateway ledgers, and bank statements. The resumable pipeline handles fee rules, exception review, and double-entry journal exports. A web console and CLI expose progress, with WebSocket telemetry and a persistent SHA-256 audit chain.
 
-<picture>
-  <source media="(max-width: 600px)" srcset="./assets/v4-interlude-4-mobile.svg" />
-  <img src="./assets/v4-interlude-4.svg" width="1200" alt="Visual study 4 — looping geometric interlude" />
-</picture>
+`Python` `FastAPI` `Pandas` `Pydantic` `WebSockets`
 
-<a href="https://github.com/S-Srinivasan-06/Taskflow">
-<picture>
-  <source media="(max-width: 600px)" srcset="./assets/v4-taskflow-mobile.svg" />
-  <img src="./assets/v4-taskflow.svg" width="1200" alt="05 · Taskflow — A full-stack planner with scoped access and ownership checks. Optimistic concurrency and integration tests protect updates." />
-</picture>
-</a>
+[Source](https://github.com/S-Srinivasan-06/Razorpay-Buildathon-webui-and-cli) &nbsp; · &nbsp; [Pipeline](https://github.com/S-Srinivasan-06/Razorpay-Buildathon-webui-and-cli/blob/main/src/app/pipeline.py) &nbsp; · &nbsp; [Audit ledger](https://github.com/S-Srinivasan-06/Razorpay-Buildathon-webui-and-cli/blob/main/src/app/core/audit.py)
 
-<a href="mailto:srinivasansubr2006@gmail.com">
-<picture>
-  <source media="(max-width: 600px)" srcset="./assets/v4-contact-mobile.svg" />
-  <img src="./assets/v4-contact.svg" width="1200" alt="Contact Srinivasan — KIIT CSE 2028, WorldQuant BRAIN Gold" />
-</picture>
-</a>
+## Machine learning
 
-<a href="https://www.linkedin.com/in/s-srinivasan-a69006315/"><img src="./assets/v4-linkedin.svg" width="180" alt="LinkedIn" /></a>
+### [CrowdShield](https://github.com/S-Srinivasan-06/CrowdShield)
+
+A computer vision pipeline combining head detection, motion tracking, and crowd density analysis. The browser dashboard supports editable regions of interest and archived runs. Threaded processing connects the tracking engine to live SSE telemetry and MJPEG video streams.
+
+`Python` `OpenCV` `OpenVINO` `NumPy` `YOLOv8`
+
+[Source](https://github.com/S-Srinivasan-06/CrowdShield) &nbsp; · &nbsp; [Tracking and density engine](https://github.com/S-Srinivasan-06/CrowdShield/blob/main/src/features.py)
+
+### [Customer Churn Prediction](https://github.com/S-Srinivasan-06/Customer-Churn-Prediction-with-LightGBM)
+
+A LightGBM classification workflow for the IBM Telco churn dataset. It includes domain feature engineering, stratified cross-validation, training-fold scaling and SMOTE, and decision-threshold selection from out-of-fold predictions. A separate Optuna script explores model hyperparameters.
+
+`Python` `LightGBM` `scikit-learn` `Pandas` `SMOTE` `Optuna`
+
+[Source](https://github.com/S-Srinivasan-06/Customer-Churn-Prediction-with-LightGBM) &nbsp; · &nbsp; [Training and evaluation](https://github.com/S-Srinivasan-06/Customer-Churn-Prediction-with-LightGBM/blob/main/src/model.py) &nbsp; · &nbsp; [Hyperparameter search](https://github.com/S-Srinivasan-06/Customer-Churn-Prediction-with-LightGBM/blob/main/optuna_finetuner/finetune.py)
+
+## Agentic AI & LLMs
+
+### [Sandman](https://github.com/S-Srinivasan-06/sandman-ai-sandbox)
+
+An agent that writes, runs, tests, and packages code inside Docker workspaces. LangGraph coordinates execution, inspection, retries, and cleanup. MCP tools provide workspace operations, while model routing supports local and hosted providers.
+
+`Python` `LangGraph` `MCP` `Docker` `Ollama`
+
+[Source](https://github.com/S-Srinivasan-06/sandman-ai-sandbox) &nbsp; · &nbsp; [Agent graph](https://github.com/S-Srinivasan-06/sandman-ai-sandbox/blob/main/src/core/graph.py) &nbsp; · &nbsp; [Model routing](https://github.com/S-Srinivasan-06/sandman-ai-sandbox/blob/main/src/infrastructure/models.py)
+
+**How I work with LLMs:** I use Codex and Claude Code for repository exploration, implementation, debugging, and review. Taskflow Local and Sandman show my work with custom harnesses, local inference, structured outputs, tool execution, and agent orchestration.
+
+---
+
+[All repositories](https://github.com/S-Srinivasan-06?tab=repositories) &nbsp; · &nbsp; [LeetCode](https://leetcode.com/u/aKpXSchpeo/) &nbsp; · &nbsp; [Contact](mailto:srinivasansubr2006@gmail.com)

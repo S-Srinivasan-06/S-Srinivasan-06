@@ -4,18 +4,18 @@ Reviewed on 6 October 2026. Three parallel reviewers inspected repository trees,
 
 | Placement | Project | Why it earns the space |
 | --- | --- | --- |
-| 01, featured | [Taskflow Local](https://github.com/S-Srinivasan-06/Taskflow-Local-hacktoberfest-weekend) | Released Windows app; Tauri/Rust lifecycle and reminders; SQLite persistence; on-device model execution; schema-validated, approval-gated task changes. |
-| 02 | [Financial Reconciliation Agent](https://github.com/S-Srinivasan-06/Razorpay-Buildathon-webui-and-cli) | Staged and resumable reconciliation, multitable matching, fee rules, exception review, journal exports, hash-chained audit records, REST/WebSockets, and unit/integration/API tests. |
-| 03 | [CrowdShield](https://github.com/S-Srinivasan-06/CrowdShield) | Head detection, custom motion tracking, cached KDE density and pressure metrics, threaded sessions, REST/SSE/MJPEG, adjustable ROI, and archived run artifacts. |
-| 04 | [Sandman](https://github.com/S-Srinivasan-06/sandman-ai-sandbox) | LangGraph execution/retry/cleanup, Docker resource controls, MCP tools, provider routing, and artifact bundles. A distinct systems project rather than another application of the same engine. |
-| 05 | [Taskflow](https://github.com/S-Srinivasan-06/Taskflow) | A complementary web implementation with scoped authentication, ownership checks, optimistic concurrency, timezone-aware scheduling, isolated offline cache, and integration tests. |
+| Featured | [Taskflow Local](https://github.com/S-Srinivasan-06/Taskflow-Local-hacktoberfest-weekend) | Released Windows app; native desktop lifecycle and reminders; SQLite persistence; on-device model execution; schema-validated, approval-gated task changes. |
+| Backend | [Taskflow](https://github.com/S-Srinivasan-06/Taskflow) | Java and Spring Boot implementation with scoped authentication, ownership checks, optimistic concurrency, timezone-aware scheduling, isolated offline cache, and integration tests. |
+| Backend | [Financial Reconciliation Agent](https://github.com/S-Srinivasan-06/Razorpay-Buildathon-webui-and-cli) | Staged and resumable reconciliation, multitable matching, fee rules, exception review, journal exports, hash-chained audit records, REST/WebSockets, and unit/integration/API tests. |
+| ML | [CrowdShield](https://github.com/S-Srinivasan-06/CrowdShield) | Head detection, custom motion tracking, cached KDE density and pressure metrics, threaded sessions, REST/SSE/MJPEG, adjustable ROI, and archived run artifacts. |
+| ML | [Customer Churn Prediction](https://github.com/S-Srinivasan-06/Customer-Churn-Prediction-with-LightGBM) | Feature engineering, stratified cross-validation, training-fold scaling and SMOTE, threshold selection, and a separate Optuna search. Added to give tabular ML clear representation; no headline performance or leakage-free claims. |
+| Agentic AI | [Sandman](https://github.com/S-Srinivasan-06/sandman-ai-sandbox) | LangGraph execution/retry/cleanup, Docker resource controls, MCP tools, provider routing, and artifact bundles. |
 
 ## Other projects considered
 
 | Project | Relative depth and selection decision |
 | --- | --- |
 | Original Razorpay Buildathon | Substantial core engine, but overlaps the more complete web console and CLI repository. |
-| Customer Churn with LightGBM | Solid script-based ML workflow with feature engineering, cross-validation, SMOTE, and Optuna. Less complete as a product; evaluation and leakage caveats rule out headline performance claims. |
 | Breast Cancer Detection model | Educational browser dashboard and Python experiments. Browser inference and README evaluation use different classifiers; avoid medical or accuracy claims. |
 | Pandas CSV data pipeline | Complete learning-scale sequence of data scripts, indicators, exports, and charts; less architectural depth. |
 | EEG seizure detection reference repository | Extensive research documentation, explicitly not an implemented detector. |
@@ -24,12 +24,12 @@ Reviewed on 6 October 2026. Three parallel reviewers inspected repository trees,
 
 ## Design maintenance
 
-The profile uses linked local SVG illustrations in an image-only README. All visible prose, descriptions, headings, and labels are inside the SVGs. The illustrations are conceptual graphics, not product screenshots. Copy uses a professional, semi-formal voice and describes the author's work and approach without invented achievements.
+The current profile is a project-focused GitHub README: a short introduction, one featured project, and backend, machine-learning, and agentic-AI sections. Each project has a concise description, repository technologies, and links to representative implementation files. Taskflow Local stays first. Generic slogans, animated geometry, decorative SVG panels, colour switching, and the previous personal-content proportions are no longer part of the visible page.
 
-Two four-colour palettes alternate: ivory (`#F4EDDC`), red (`#D94136`), cobalt (`#294DFF`), and ink (`#221D24`); then the same ivory and ink with purple (`#5D287E`) and lime (`#C9E54E`). Panels start in alternating phases and switch palettes every nine seconds without intermediate colours. Serif headings, monospaced section labels, fine rules, restrained diagrams, and consistent margins form the visual system. Prose remains static and uses ink on ivory; link buttons use ivory on ink.
+The author's stated core stack is Python, Java, and Spring Boot. Repository technologies are listed under the relevant project and do not imply personal proficiency in every language in its tree. The author's correction about Rust, Go, and Ruby is respected: none appears in the profile's skill or technology labels. Codex and Claude Code experience is kept in a brief workflow note, with concrete harness and orchestration evidence in Taskflow Local and Sandman.
 
-The main desktop canvas allocates 1,800 units to the author, 900 to projects, and 300 to visual studies: 60%, 30%, and 10%. Mobile compositions allocate 2,720, 1,350, and 460 units respectively, approximately the same balance. Buttons, margins, and GitHub's surrounding interface are excluded from these layout proportions. Three of the fifteen main panels (20%) contain the principal moving-square grids; four brief geometric and optical loops separate the five projects.
+The only featured image is Taskflow Local's existing interface capture, linked to its original repository. It shows example tasks; the capture uses synthetic tasks and mocked native/model calls. It is an interface preview, not a claim that the native application was independently exercised during this profile revision.
 
-The author sections explain the stated experience with Codex and Claude Code, alongside source-supported work in custom model harnesses, local inference, MCP tools, and LangGraph orchestration. They also describe engineering range and an approach to contracts, implementation, validation, and recovery. The five project panels contain concise implementation descriptions and link directly to their repositories, with Taskflow Local first. No proficiency percentages, invented metrics, or unsupported claims of expert status are used.
+Design references inspected on 6 October 2026: [Brittany Chiang](https://brittanychiang.com/) for clear project descriptions, technology lists, and source links; [Lee Robinson](https://leerob.com/) for compact typography and a short introduction; [Arpit Bhayani](https://arpitbhayani.me/) for engineering work as the centre of a personal homepage. The README uses GitHub's native responsive typography rather than copying their layouts or prose.
 
-Edit `README.md` for links and `assets/v4-*.svg` for the current artwork and copy. CSS inside SVGs animates squares along grids, concentric square loops, slow diagram drift, and optical line studies. Every animation stops under `prefers-reduced-motion: reduce`. All fifteen main panels have separate mobile compositions selected by standard `picture` elements. No runtime scripts, external image services, scheduled workflow, or generated statistics are required.
+Edit README.md for the current content. Earlier SVG versions remain in assets as history but are not displayed. Only public repositories are featured. The LightGBM implementation and Optuna script were re-read for the new ML entry; evaluation results and medical claims are not included.
