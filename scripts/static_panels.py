@@ -61,29 +61,50 @@ INTERESTS = [
     ("Machine learning", "Computer vision, tabular models", "and evaluation", "scatter"),
     ("Agents", "Local inference, custom harnesses,", "tool use and orchestration", "orbit"),
 ]
-PROJECTS = [  # featured order; colours match the activity panels and tabs
-    {"key": "local", "file": "p5-local", "name": "Taskflow Local", "short": "TL", "accent": "#96394A", "tint": "#EAD5D4",
-     "stack": "llama.cpp, Gemma, React, SQLite",
-     "desc": "An offline task manager with a local model built in. Type a task or add an image, the model "
-             "proposes changes, and nothing is saved until it passes a schema check and you approve it. "
-             "Ships as a Windows app with reminders."},
-    {"key": "backend", "file": "p5-backend", "name": "Taskflow", "short": "TF", "accent": "#315A88", "tint": "#D7E2ED",
-     "stack": "Java, Spring Boot, PostgreSQL",
-     "desc": "A task manager on Spring Boot and PostgreSQL. Every request is checked against its owner, "
-             "versioned updates stop two edits from overwriting each other, and integration tests cover the API."},
-    {"key": "finance", "file": "p5-finance", "name": "Reconciliation Agent", "tab": "Reconciliation", "short": "RA",
-     "accent": "#7B5725", "tint": "#EADFC6", "stack": "Python, FastAPI, pandas, WebSockets",
-     "desc": "Matches sales records, payment gateway ledgers and bank statements. It runs in stages you can "
-             "resume, sends mismatches to review, exports journal entries and keeps a hash-chained audit log."},
-    {"key": "vision", "file": "p5-vision", "name": "CrowdShield", "short": "CS", "accent": "#2A6252", "tint": "#D5E4DC",
-     "stack": "Python, OpenCV, OpenVINO, NumPy",
-     "desc": "Crowd monitoring from video. It detects and tracks heads, estimates density inside regions you "
-             "can redraw, streams live video and telemetry, and archives every run."},
-    {"key": "agents", "file": "p5-agents", "name": "Sandman", "short": "SM", "accent": "#67487F", "tint": "#E0D8E9",
-     "stack": "Python, LangGraph, MCP, Docker, Ollama",
-     "desc": "A coding agent that works in isolated Docker workspaces with MCP tools. LangGraph drives "
-             "execution, retries and cleanup, and each request can go to a local or a hosted model."},
+# Each card is meant to be read in a few seconds: one line on what it is, three highlights,
+# the stack and one line of proof. Every claim was checked against the repository's code.
+PROJECTS = [
+    {"key": "backend", "file": "p5-backend", "name": "Taskflow", "accent": "#315A88", "tint": "#D7E2ED",
+     "line": "A full-stack task manager with user accounts, deployed online",
+     "points": ["Each user's tasks are isolated, with tests on every task endpoint",
+                "Stale edits are rejected with HTTP 409 (optimistic locking)",
+                "Session login, CSRF protection and login rate limiting"],
+     "stack": "Java 21, Spring Boot, PostgreSQL, React, TypeScript",
+     "proof": "Live demo, CI, tests on real PostgreSQL"},
+    {"key": "local", "file": "p5-local", "name": "Taskflow Local", "accent": "#96394A", "tint": "#EAD5D4",
+     "line": "An offline Windows task manager that runs a local AI model",
+     "points": ["Type a request or drop in a screenshot; Gemma drafts the tasks",
+                "Every AI change is schema-checked and waits for your approval",
+                "SQLite storage, a tray app and reminders"],
+     "stack": "Tauri, React, TypeScript, llama.cpp, SQLite",
+     "proof": "Windows installer, 32 unit tests"},
+    {"key": "finance", "file": "p5-finance", "name": "Payment Reconciliation", "accent": "#7B5725", "tint": "#EADFC6",
+     "line": "Matches sales, payment gateway and bank records (Razorpay buildathon)",
+     "points": ["A resumable 15-step pipeline that pauses for human review",
+                "Tamper-evident audit log chained with SHA-256",
+                "Exports double-entry journal entries as CSV"],
+     "stack": "Python, FastAPI, pandas, WebSockets, Docker",
+     "proof": "41 passing tests, CI on Python 3.10–3.12"},
+    {"key": "research", "file": "p5-research", "name": "EEG Seizure Detection", "accent": "#67487F", "tint": "#E0D8E9",
+     "line": "Reproducing a published EEG seizure-detection model (DGDCN)",
+     "points": ["Audited 8,140 EEG recordings and excluded 630, with reasons",
+                "Rebuilt the paper's 12-second setup from the authors' code",
+                "Best run: AUROC 0.880 vs 0.887 reported, within noise"],
+     "stack": "Python, PyTorch, NumPy, SciPy, scikit-learn",
+     "proof": "Every run, audit and caveat documented"},
+    {"key": "vision", "file": "p5-vision", "name": "CrowdShield", "accent": "#2A6252", "tint": "#D5E4DC",
+     "line": "A web dashboard that counts people in video and flags crowd risk",
+     "points": ["Detects and tracks heads with YOLOv8, on CPU with OpenVINO",
+                "Streams live video and 10 Hz telemetry to the browser",
+                "Draggable watch zone with a four-level risk alert"],
+     "stack": "Python, YOLOv8, OpenVINO, OpenCV, NumPy",
+     "proof": "Team project: I built the pipeline and dashboard"},
 ]
+DEMOS = {  # extra buttons under a card: (label, link)
+    "local": ("Download for Windows",
+              "https://github.com/S-Srinivasan-06/Taskflow-Local-hacktoberfest-weekend/releases/latest"),
+    "backend": ("Live demo (first load takes about a minute)", "https://taskflow-olive-psi.vercel.app/"),
+}
 
 CSS = """
 .drift{animation:drift var(--s) linear infinite}@keyframes drift{to{transform:translateX(var(--p))}}
@@ -158,12 +179,14 @@ def stripes(w, h, period, angle, seconds):
     return [r(0, 0, w, h, BLACK), stripe_layer(w, h, period, angle, seconds, IVORY)]
 
 
-def tesseract(cx, cy, radius, frames=72, seconds=11, stroke=2.4):
+def tesseract(cx, cy, radius, frames=48, seconds=11, stroke=2.4):
     """A 4D hypercube turning in two orthogonal planes (XW and YZ), projected to the page.
 
     A quarter turn in both planes maps the cube's vertices and edges onto themselves, so
     animating a quarter turn and repeating it gives an endless, seamless rotation.
-    SMIL drives the geometry; under reduced motion a still frame is shown instead.
+    SMIL drives the geometry; under reduced motion a still frame is shown instead. Each edge is
+    drawn twice, a cream halo under a dark core, so it reads on both stripe colours without a
+    blend mode (blending forces extra compositing on every frame).
     """
     verts = list(itertools.product((-1, 1), repeat=4))
     edges = [(i, j) for i, j in itertools.combinations(range(16), 2)
@@ -203,12 +226,18 @@ def tesseract(cx, cy, radius, frames=72, seconds=11, stroke=2.4):
             out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5" fill="{COBALT}" stroke="{IVORY}" stroke-width="2">{anim}</circle>')
         return "".join(out)
 
-    lines = f'fill="none" stroke="#fff" stroke-width="{stroke}" stroke-linecap="round"'
-    live = (f'<g class="tess-live"><g style="mix-blend-mode:difference"><path d="{d(shots[0])}" {lines}>'
-            f'<animate attributeName="d" dur="{seconds}s" repeatCount="indefinite" values="{";".join(d(s) for s in shots)}"/>'
-            f'</path></g>{dots(shots[0], True)}</g>')
+    def edges_path(shot, live):
+        anim = (f'<animate attributeName="d" dur="{seconds}s" repeatCount="indefinite" '
+                f'values="{";".join(d(s) for s in shots)}"/>') if live else ""
+        return (f'<path id="{"tess" if live else "tess-still"}" d="{d(shot)}" fill="none" stroke="{IVORY}" '
+                f'stroke-width="{stroke + 3:g}" stroke-linecap="round">{anim}</path>')
+
+    def core(ref):
+        return f'<use href="#{ref}" stroke="{BLACK}" stroke-width="{stroke - .6:g}"/>'
+
+    live = f'<g class="tess-live">{edges_path(shots[0], True)}{core("tess")}{dots(shots[0], True)}</g>'
     still = shots[frames // 3]
-    return live + f'<g class="tess-still"><g style="mix-blend-mode:difference"><path d="{d(still)}" {lines}/></g>{dots(still, False)}</g>'
+    return live + f'<g class="tess-still">{edges_path(still, False)}{core("tess-still")}{dots(still, False)}</g>'
 
 
 def plain_name(x, y, size, slab_x, slab_w):
@@ -389,48 +418,55 @@ def interests(mobile):
 
 # ---------------------------------------------------------------- projects
 
+def bullets(points, x, y, size, width, gap, colour):
+    """Short highlights, each behind a small square; returns the drawing and the next free y."""
+    out = []
+    for point in points:
+        lines = wrap(point, size, width)
+        out.append(r(x, y - size * .45, 8, 8, colour, 1.5))
+        out += [t(x + 20, y + i * (size + 6), line, size, IVORY) for i, line in enumerate(lines)]
+        y += len(lines) * (size + 6) + gap
+    return out, y
+
+
 def project(index, mobile):
-    """A project card: name, plain description, stack, and the project's architecture diagram."""
+    """A project card made to be skimmed: what it is in one line, three verified highlights,
+    the stack, and one line of proof. The architecture diagram sits small on the right."""
     p = PROJECTS[index]
-    desc = f"{p['desc']} Built with {p['stack']}."
+    desc = f"{p['line']} {'; '.join(p['points'])}. Built with {p['stack']}. {p.get('proof', '')}"
     diagram = DIAGRAMS[p["key"]].replace("#F5F0E7", IVORY)
     underline = f' class="wipe" style="animation-delay:{index * 300}ms"'
     if not mobile:
-        lines = wrap(p["desc"], 21, 670)
-        body = [t(38, 86, p["name"], 52, IVORY, "serif"),
-                r(42, 104, len(p["name"]) * 26, 3, p["tint"], 1.5, underline),
-                arrow(1140, 46, IVORY)]
-        body += [t(42, 146 + i * 31, line, 21, IVORY) for i, line in enumerate(lines)]
-        stack_y = 146 + len(lines) * 31 + 22
-        body += [t(42, stack_y, p["stack"], 15, p["tint"], "mono"),
-                 f'<g transform="translate(756 74) scale(.94)">{diagram}</g>']
-        return svg(1200, max(330, stack_y + 40), p["name"], desc, body, CSS, p["accent"])
-    lines = wrap(p["desc"], 20, 540)
-    body = [t(28, 74, p["name"], 46, IVORY, "serif"),
-            r(30, 92, len(p["name"]) * 23, 3, p["tint"], 1.5, underline),
-            arrow(560, 44, IVORY)]
-    body += [t(30, 134 + i * 29, line, 20, IVORY) for i, line in enumerate(lines)]
-    stack_y = 134 + len(lines) * 29 + 14
-    body += [t(30, stack_y, p["stack"], 15, p["tint"], "mono"),
-             f'<g transform="translate(40 {stack_y + 28}) scale(1.29)">{diagram}</g>']
-    return svg(600, stack_y + 28 + 302 + 30, p["name"], desc, body, CSS, p["accent"])
+        body = [t(38, 66, p["name"], 44, IVORY, "serif"),
+                r(42, 82, len(p["name"]) * 22, 3, p["tint"], 1.5, underline),
+                arrow(1150, 32, IVORY),
+                t(42, 118, p["line"], 22, IVORY, weight="600")]
+        points, y = bullets(p["points"], 44, 160, 19, 760, 9, p["tint"])
+        body += points
+        footer = [t(42, y + 22, p["stack"], 15, p["tint"], "mono")]
+        if p.get("proof"):
+            footer.append(t(1158, y + 22, p["proof"], 15, p["tint"], anchor="end", weight="600"))
+        body += footer + [f'<g transform="translate(884 64) scale(.68)">{diagram}</g>']
+        return svg(1200, y + 50, p["name"], desc, body, CSS, p["accent"])
+    lead = wrap(p["line"], 20, 560)
+    body = [t(28, 62, p["name"], 40, IVORY, "serif"),
+            r(30, 78, len(p["name"]) * 20, 3, p["tint"], 1.5, underline),
+            arrow(560, 36, IVORY)]
+    body += [t(30, 118 + i * 27, line, 20, IVORY, weight="600") for i, line in enumerate(lead)]
+    points, y = bullets(p["points"], 32, 118 + len(lead) * 27 + 22, 18, 560, 8, p["tint"])
+    body += points + [t(30, y + 18, p["stack"], 15, p["tint"], "mono")]
+    if p.get("proof"):
+        body.append(t(30, y + 46, p["proof"], 15, p["tint"], weight="600"))
+    return svg(600, y + (74 if p.get("proof") else 46), p["name"], desc, body, CSS, p["accent"])
 
 
-def tab(index, mobile):
-    p = PROJECTS[index]
-    title = f"{p['name']}: open repository"
-    if not mobile:
-        body = [r(0, 0, 236, 5, p["accent"]), t(18, 47, p.get("tab", p["name"]), 18, p["accent"], weight="600"),
-                arrow(212, 38, p["accent"], .8)]
-        return svg(236, 76, title, p["name"], body, CSS, p["tint"])
-    body = [r(0, 0, 118, 6, p["accent"]), t(59, 62, p["short"], 36, p["accent"], "serif", "middle")]
-    return svg(118, 90, title, p["name"], body, CSS, p["tint"])
-
-
-def download(mobile):
-    body = [t(22, 34, "Download for Windows", 17, IVORY, weight="600"), arrow(272, 27, IVORY, .8)]
-    return svg(300, 54, "Download Taskflow Local for Windows", "Latest Windows release of Taskflow Local",
-               body, CSS, PROJECTS[0]["accent"])
+def button(key):
+    """A small button under a project card, such as a download or a live demo."""
+    p = next(p for p in PROJECTS if p["key"] == key)
+    label = DEMOS[key][0]
+    w = len(label) * 17 * .56 + 64
+    body = [t(22, 34, label, 17, IVORY, weight="600"), arrow(w - 26, 27, IVORY, .8)]
+    return svg(round(w), 54, f"{p['name']}: {label}", f"{label} for {p['name']}", body, CSS, p["accent"])
 
 
 def panels():
@@ -440,7 +476,6 @@ def panels():
         out[f"p5-contact-{c[0]}"] = lambda mobile, i=i: contact(i, mobile)
     for i, p in enumerate(PROJECTS):
         out[p["file"]] = lambda mobile, i=i: project(i, mobile)
-        out[f"p5-tab-{i + 1}"] = lambda mobile, i=i: tab(i, mobile)
     return out
 
 
@@ -450,7 +485,7 @@ def main():
     args = parser.parse_args()
     os.makedirs(args.out, exist_ok=True)
     jobs = [(f"{name}{'-mobile' if mobile else ''}", render, mobile) for name, render in panels().items() for mobile in (False, True)]
-    jobs.append(("p5-download", download, False))
+    jobs += [(f"p5-button-{key}", lambda mobile, key=key: button(key), False) for key in DEMOS]
     for name, render, mobile in jobs:
         path = os.path.join(args.out, name + ".svg")
         with open(path, "w", encoding="utf-8", newline="\n") as fh:

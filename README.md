@@ -48,47 +48,43 @@
   <img src="./assets/p5-interests.svg" width="1200" alt="What I'm into: backend systems, machine learning and agents." />
 </picture>
 
-<p>
-<a href="https://github.com/S-Srinivasan-06/Taskflow-Local-hacktoberfest-weekend"><picture><source media="(max-width: 600px)" srcset="./assets/p5-tab-1-mobile.svg" /><img src="./assets/p5-tab-1.svg" width="18%" alt="Taskflow Local — open repository" /></picture></a>
-<a href="https://github.com/S-Srinivasan-06/Taskflow"><picture><source media="(max-width: 600px)" srcset="./assets/p5-tab-2-mobile.svg" /><img src="./assets/p5-tab-2.svg" width="18%" alt="Taskflow — open repository" /></picture></a>
-<a href="https://github.com/S-Srinivasan-06/Razorpay-Buildathon-webui-and-cli"><picture><source media="(max-width: 600px)" srcset="./assets/p5-tab-3-mobile.svg" /><img src="./assets/p5-tab-3.svg" width="18%" alt="Reconciliation Agent — open repository" /></picture></a>
-<a href="https://github.com/S-Srinivasan-06/CrowdShield"><picture><source media="(max-width: 600px)" srcset="./assets/p5-tab-4-mobile.svg" /><img src="./assets/p5-tab-4.svg" width="18%" alt="CrowdShield — open repository" /></picture></a>
-<a href="https://github.com/S-Srinivasan-06/sandman-ai-sandbox"><picture><source media="(max-width: 600px)" srcset="./assets/p5-tab-5-mobile.svg" /><img src="./assets/p5-tab-5.svg" width="18%" alt="Sandman — open repository" /></picture></a>
-</p>
-
 <a href="https://github.com/S-Srinivasan-06/Taskflow-Local-hacktoberfest-weekend">
 <picture>
   <source media="(max-width: 600px)" srcset="./assets/p5-local-mobile.svg" />
-  <img src="./assets/p5-local.svg" width="1200" alt="Taskflow Local: an offline task manager with a local model. Changes are schema-checked and approved before saving." />
+  <img src="./assets/p5-local.svg" width="1200" alt="Taskflow Local: an offline Windows task manager that runs a local AI model. Built with Tauri, React, TypeScript, llama.cpp and SQLite." />
 </picture>
 </a>
 
-<a href="https://github.com/S-Srinivasan-06/Taskflow-Local-hacktoberfest-weekend/releases/latest"><img src="./assets/p5-download.svg" width="180" alt="Download Taskflow Local for Windows" /></a>
+<a href="https://github.com/S-Srinivasan-06/Taskflow-Local-hacktoberfest-weekend/releases/latest"><img src="./assets/p5-button-local.svg" height="40" alt="Download Taskflow Local for Windows" /></a>
 
 <a href="https://github.com/S-Srinivasan-06/Taskflow">
 <picture>
   <source media="(max-width: 600px)" srcset="./assets/p5-backend-mobile.svg" />
-  <img src="./assets/p5-backend.svg" width="1200" alt="Taskflow: a task manager on Spring Boot and PostgreSQL with ownership checks, versioned updates and integration tests." />
+  <img src="./assets/p5-backend.svg" width="1200" alt="Taskflow: a full-stack task manager with user accounts, deployed online. Built with Java 21, Spring Boot, PostgreSQL, React and TypeScript." />
 </picture>
 </a>
+
+<a href="https://taskflow-olive-psi.vercel.app/"><img src="./assets/p5-button-backend.svg" height="40" alt="Open the Taskflow live demo" /></a>
 
 <a href="https://github.com/S-Srinivasan-06/Razorpay-Buildathon-webui-and-cli">
 <picture>
   <source media="(max-width: 600px)" srcset="./assets/p5-finance-mobile.svg" />
-  <img src="./assets/p5-finance.svg" width="1200" alt="Reconciliation Agent: matches sales, gateway and bank records in resumable stages with a hash-chained audit log." />
+  <img src="./assets/p5-finance.svg" width="1200" alt="Payment Reconciliation: matches sales, payment gateway and bank records, built for a Razorpay buildathon. Python, FastAPI, pandas." />
 </picture>
 </a>
 
 <a href="https://github.com/S-Srinivasan-06/CrowdShield">
 <picture>
   <source media="(max-width: 600px)" srcset="./assets/p5-vision-mobile.svg" />
-  <img src="./assets/p5-vision.svg" width="1200" alt="CrowdShield: crowd monitoring from video with head tracking, density estimation and live streams." />
+  <img src="./assets/p5-vision.svg" width="1200" alt="CrowdShield: a web dashboard that counts people in video and flags crowd risk. Team project. Python, YOLOv8, OpenVINO, OpenCV." />
 </picture>
 </a>
 
-<a href="https://github.com/S-Srinivasan-06/sandman-ai-sandbox">
+<a href="https://github.com/S-Srinivasan-06/Research-progress-documentation">
 <picture>
-  <source media="(max-width: 600px)" srcset="./assets/p5-agents-mobile.svg" />
-  <img src="./assets/p5-agents.svg" width="1200" alt="Sandman: a coding agent in isolated Docker workspaces with MCP tools and LangGraph." />
+  <source media="(max-width: 600px)" srcset="./assets/p5-research-mobile.svg" />
+  <img src="./assets/p5-research.svg" width="1200" alt="EEG Seizure Detection: reproducing a published EEG seizure-detection model (DGDCN). Audited 8,140 recordings; best run AUROC 0.880 vs 0.887 reported, within noise. Python, PyTorch." />
 </picture>
 </a>
+
+**More:** [Sandman](https://github.com/S-Srinivasan-06/sandman-ai-sandbox), an AI coding agent that runs code inside Docker · [EEG reference notes](https://github.com/S-Srinivasan-06/EEG-Seizure-Detection-Reference-Information-repsitory), the literature review behind the reproduction · [Customer churn](https://github.com/S-Srinivasan-06/Customer-Churn-Prediction-with-LightGBM), LightGBM with cross-validation and Optuna tuning

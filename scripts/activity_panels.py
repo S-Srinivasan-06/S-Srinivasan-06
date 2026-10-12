@@ -299,14 +299,11 @@ def delay(ms, cls):
     return f' class="{cls}" style="animation-delay:{ms:.0f}ms"'
 
 
-# Paper texture for cream panels: fine warm specks plus faint mottling, multiplied over the
-# whole panel so it only shows on light areas. It is static, so it costs nothing per frame.
-PAPER = """<filter id="paper" x="0" y="0" width="100%" height="100%">
-<feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="3" seed="7" result="fine"/>
-<feColorMatrix in="fine" type="matrix" values="0 0 0 0 .45 0 0 0 0 .36 0 0 0 0 .22 0 0 0 -1.6 .9" result="specks"/>
-<feTurbulence type="fractalNoise" baseFrequency=".008 .02" numOctaves="2" seed="2" result="blot"/>
-<feColorMatrix in="blot" type="matrix" values="0 0 0 0 .62 0 0 0 0 .52 0 0 0 0 .36 0 0 0 .8 -.36" result="mottle"/>
-<feMerge><feMergeNode in="mottle"/><feMergeNode in="specks"/></feMerge></filter>"""
+# Paper texture for cream panels: a pre-rendered grain tile (scripts/paper.png, made by
+# make_paper.py) laid over the panel. A live noise filter would be recomputed on every frame.
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "paper.png"), "rb") as _fh:
+    PAPER = ('<pattern id="paper" width="128" height="128" patternUnits="userSpaceOnUse"><image width="128" height="128" '
+             f'href="data:image/png;base64,{base64.b64encode(_fh.read()).decode()}"/></pattern>')
 
 
 def drift_layer(gid, w, h, tones, seconds=26, lag=0.0):
@@ -327,8 +324,7 @@ def drift_layer(gid, w, h, tones, seconds=26, lag=0.0):
 
 def svg(w, h, title, desc, body, css="", bg=IVORY, defs="", shift=0, paper=False, drift=None, lag=0.0):
     grad, band = drift_layer("drift", w, h, drift, lag=lag) if drift else ("", "")
-    texture = (f'<rect x="0" y="0" width="{w}" height="{h}" filter="url(#paper)" opacity=".3" '
-               f'style="mix-blend-mode:multiply"/>') if paper else ""
+    texture = f'<rect x="0" y="0" width="{w}" height="{h}" fill="url(#paper)"/>' if paper else ""
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img" '
             f'aria-labelledby="title desc"><title id="title">{escape(title)}</title><desc id="desc">{escape(desc)}</desc>'
             f'{STYLE}{f"<style>{css}</style>" if css else ""}<defs><clipPath id="frame"><rect x="0" y="0" width="{w}" '
