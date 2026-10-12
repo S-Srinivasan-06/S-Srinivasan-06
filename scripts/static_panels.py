@@ -15,8 +15,7 @@ import json
 import math
 import os
 
-from activity_panels import (BLACK, BLACK_TONES, COBALT, COBALT_LIGHT, COBALT_TONES, GRAPHITE, INK, IVORY, MUTED,
-                             drift_layer, hops, r, svg, t)
+from activity_panels import BLACK, BLACK_TONES, COBALT, COBALT_LIGHT, COBALT_TONES, GRAPHITE, INK, IVORY, MUTED, hops, r, svg, t
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 with open(os.path.join(HERE, "icons.json"), encoding="utf-8") as fh:
@@ -26,7 +25,7 @@ with open(os.path.join(HERE, "diagrams.json"), encoding="utf-8") as fh:
 
 PURPLE, LAVENDER = "#67487F", "#E0D8E9"
 FOREST, SAGE = "#2A6252", "#D5E4DC"
-STRIPE_TONES = [IVORY, "#F4D9C4", "#DCE2F4", "#EDE3C8"]  # cream, peach, pale blue, butter
+NAME_GRAY = "#33373D"
 COBALT_TEXT = "#E4E9FB"  # body text on cobalt
 PLATE_TEXT = "#D9D6CF"   # body text on black
 
@@ -39,12 +38,12 @@ ABOUT = "Mostly Python and Java: Spring Boot APIs, computer vision, and local mo
 SCHOOL = "Computer Science at KIIT, 2024–2028"
 CUE = "Get in touch"
 
-CONTACTS = [  # (icon, label, handle)
-    ("github", "GitHub", "S-Srinivasan-06"),
-    ("linkedin", "LinkedIn", "Connect with me"),
-    ("email", "Email", "srinivasansubr2006@gmail.com"),
-    ("leetcode", "LeetCode", "aKpXSchpeo"),
-    ("instagram", "Instagram", "@s__srinivasan"),
+CONTACTS = [  # (icon, label, handle, tile colour, text colour): each tile in its platform's colour
+    ("github", "GitHub", "S-Srinivasan-06", "#24292F", IVORY),
+    ("linkedin", "LinkedIn", "Connect with me", "#0A66C2", IVORY),
+    ("email", "Email", "srinivasansubr2006@gmail.com", "#C5221F", IVORY),
+    ("leetcode", "LeetCode", "aKpXSchpeo", "#FFA116", INK),
+    ("instagram", "Instagram", "@s__srinivasan", "#D62976", IVORY),
 ]
 SKILLS_TITLE, SKILLS = "What I write most", ["Python", "Java", "Spring Boot", "SQL"]
 TOOLS_TITLE = "Tools I reach for"
@@ -155,15 +154,8 @@ def stripe_layer(w, h, period, angle, seconds, fill):
 
 
 def stripes(w, h, period, angle, seconds):
-    """Black ground with drifting stripes that slowly cycle through cream, peach and pale blue.
-
-    The stripe shapes live in the `weave` mask, which the name reuses so its colour bands match.
-    """
-    grad, band = drift_layer("tones", w, h, STRIPE_TONES, 24)
-    return [r(0, 0, w, h, BLACK),
-            f'<mask id="weave" maskUnits="userSpaceOnUse" x="0" y="0" width="{w}" height="{h}">'
-            f'{stripe_layer(w, h, period, angle, seconds, "#fff")}</mask>',
-            f'<defs>{grad}</defs><g mask="url(#weave)">{band}</g>']
+    """Cream stripes on black."""
+    return [r(0, 0, w, h, BLACK), stripe_layer(w, h, period, angle, seconds, IVORY)]
 
 
 def tesseract(cx, cy, radius, frames=72, seconds=11, stroke=2.4):
@@ -219,16 +211,12 @@ def tesseract(cx, cy, radius, frames=72, seconds=11, stroke=2.4):
     return live + f'<g class="tess-still"><g style="mix-blend-mode:difference"><path d="{d(still)}" {lines}/></g>{dots(still, False)}</g>'
 
 
-def woven_name(x, y, size):
-    """The name woven into the stripes: cream where it crosses black, cobalt where it crosses cream.
-
-    The cobalt copy uses the stripes' own mask (see `stripes`), so the colour bands slide
-    through the letters as the stripes move.
-    """
-    attrs = f'x="{x}" y="{y}" font-size="{size}" class="heavy" letter-spacing="{-size / 34:.1f}"'
-    return (f'<text {attrs} fill="{IVORY}" stroke="{COBALT}" stroke-width="{size / 22:.1f}" stroke-linejoin="round" '
-            f'paint-order="stroke">{NAME}</text>'
-            f'<text {attrs} fill="{COBALT}" mask="url(#weave)">{NAME}</text>')
+def plain_name(x, y, size, slab_x, slab_w):
+    """The name in plain dark gray on a cream block, so it reads the same over either stripe colour."""
+    top = y - size * .86
+    return (r(slab_x, top, slab_w, size * 1.04, IVORY, 8)
+            + f'<text x="{x}" y="{y}" font-size="{size}" class="heavy" letter-spacing="{-size / 34:.1f}" '
+              f'fill="{NAME_GRAY}">{NAME}</text>')
 
 
 def status(x, y):
@@ -243,12 +231,12 @@ def contact_cue(x, y):
 
 def intro(mobile):
     title = f"{NAME}: backend, machine learning and agents"
-    desc = (f"{LEAD} {ABOUT} {SCHOOL}. The name is woven into drifting black and cream stripes, turning cobalt "
-            "where it crosses cream, with a rotating four-dimensional cube behind it.")
+    desc = (f"{LEAD} {ABOUT} {SCHOOL}. Drifting black and cream stripes, with a rotating "
+            "four-dimensional cube behind the name.")
     if not mobile:
         w, h = 1200, 486
         body = stripes(w, h, 92, -28, 9) + [tesseract(925, 250, 230)] + status(42, 34)
-        body.append(woven_name(34, 206, 140))
+        body.append(plain_name(66, 206, 132, 42, 760))
         body += [r(42, 250, 760, 136, BLACK, 8), t(66, 294, LEAD, 24, IVORY, weight="600")]
         body += [t(66, 330 + i * 30, line, 20, PLATE_TEXT) for i, line in enumerate(wrap(ABOUT, 20, 700))]
         parts, sw = chip(42, 414, SCHOOL, IVORY, INK)
@@ -259,7 +247,7 @@ def intro(mobile):
     y = 386 + plate + 22
     w, h = 600, y + 100
     body = stripes(w, h, 72, -28, 9) + [tesseract(390, 220, 165, stroke=2)] + status(30, 30)
-    body.append(woven_name(24, 350, 96))
+    body.append(plain_name(40, 350, 96, 30, 540))
     body.append(r(30, 386, 540, plate, BLACK, 8))
     body += [t(52, 428 + i * 30, line, 23, IVORY, weight="600") for i, line in enumerate(lead)]
     top = 428 + len(lead) * 30 + 10
@@ -270,29 +258,24 @@ def intro(mobile):
 
 # ---------------------------------------------------------------- contacts
 
-def tile_lag(index, width, seconds=26):
-    """Start each tile's gradient where the previous tile's leaves off, so the row reads as one band."""
-    return -((index * width * seconds / (width * 1.5)) % seconds)
-
-
 def contact(index, mobile):
     """One tile per contact, five to a row, so each shows its icon and name; the handle is in the alt text."""
-    key, label, handle = CONTACTS[index]
+    key, label, handle, fill, ink = CONTACTS[index]
     title = f"{label}: {handle}"
     lag = f"animation-delay:{index * 450}ms"
     if not mobile:
-        body = [icon(key, 40, 56, .56, IVORY, "float", lag),
-                t(76, 65, label, 24, IVORY, weight="600"),
-                arrow(216, 24, IVORY, .8),
-                r(24, 96, 192, 3, "#5F7BE6", 1.5),
-                r(24, 96, 192, 3, IVORY, 1.5, f' class="wipe" style="{lag}"')]
-        return svg(240, 116, title, title, body, CSS, COBALT, drift=COBALT_TONES, lag=tile_lag(index, 240))
-    body = [icon(key, 75, 62, .78, IVORY, "float", lag),
-            arrow(128, 22, IVORY, .9),
-            t(75, 126, label, 21, IVORY, anchor="middle", weight="600"),
-            r(28, 138, 94, 3, "#5F7BE6", 1.5),
-            r(28, 138, 94, 3, IVORY, 1.5, f' class="wipe" style="{lag}"')]
-    return svg(150, 150, title, title, body, CSS, COBALT, drift=COBALT_TONES, lag=tile_lag(index, 150))
+        body = [icon(key, 40, 56, .56, ink, "float", lag),
+                t(76, 65, label, 24, ink, weight="600"),
+                arrow(216, 24, ink, .8),
+                r(24, 96, 192, 3, ink, 1.5, ' opacity=".3"'),
+                r(24, 96, 192, 3, ink, 1.5, f' class="wipe" style="{lag}"')]
+        return svg(240, 116, title, title, body, CSS, fill)
+    body = [icon(key, 75, 62, .78, ink, "float", lag),
+            arrow(128, 22, ink, .9),
+            t(75, 126, label, 21, ink, anchor="middle", weight="600"),
+            r(28, 138, 94, 3, ink, 1.5, ' opacity=".3"'),
+            r(28, 138, 94, 3, ink, 1.5, f' class="wipe" style="{lag}"')]
+    return svg(150, 150, title, title, body, CSS, fill)
 
 
 # ---------------------------------------------------------------- skills, tools, LLM, interests
