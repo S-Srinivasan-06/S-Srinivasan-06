@@ -95,3 +95,20 @@
   <img src="./assets/p5-agents.svg" width="1200" alt="Sandman. A coding agent with Docker workspaces and MCP tools. LangGraph coordinates execution, retries, and cleanup. Routing connects local and hosted model providers. Agent orchestration · Tool execution · Model routing." />
 </picture>
 </a>
+
+<picture>
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/S-Srinivasan-06/S-Srinivasan-06/activity/p5-activity-mobile.svg" />
+  <img src="https://raw.githubusercontent.com/S-Srinivasan-06/S-Srinivasan-06/activity/p5-activity.svg" width="1200" alt="Contribution activity over the last 12 months: daily heatmap, current and longest streaks, active days and best day. Updated daily." />
+</picture>
+
+<picture>
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/S-Srinivasan-06/S-Srinivasan-06/activity/p5-commits-mobile.svg" />
+  <img src="https://raw.githubusercontent.com/S-Srinivasan-06/S-Srinivasan-06/activity/p5-commits.svg" width="1200" alt="Commits per month over the last 12 months, with total commits, repositories, busiest month and active months. Updated daily." />
+</picture>
+
+<a href="https://github.com/S-Srinivasan-06?tab=repositories">
+<picture>
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/S-Srinivasan-06/S-Srinivasan-06/activity/p5-repos-mobile.svg" />
+  <img src="https://raw.githubusercontent.com/S-Srinivasan-06/S-Srinivasan-06/activity/p5-repos.svg" width="1200" alt="Most active repositories by commits over the last 12 months, and the latest commit in each. Updated daily." />
+</picture>
+</a>
