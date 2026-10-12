@@ -179,13 +179,14 @@ def stripes(w, h, period, angle, seconds):
     return [r(0, 0, w, h, BLACK), stripe_layer(w, h, period, angle, seconds, IVORY)]
 
 
-def tesseract(cx, cy, radius, frames=48, seconds=11, stroke=2.4):
+def tesseract(cx, cy, radius, stripe, frames=48, seconds=11, stroke=2.4):
     """A 4D hypercube turning in two orthogonal planes (XW and YZ), projected to the page.
 
     A quarter turn in both planes maps the cube's vertices and edges onto themselves, so
     animating a quarter turn and repeating it gives an endless, seamless rotation.
-    SMIL drives the geometry; under reduced motion a still frame is shown instead. The white lines use
-    a difference blend, so they read ivory on black stripes and black on cream stripes.
+    SMIL drives the geometry; under reduced motion a still frame is shown instead. The lines are
+    drawn through two masks that follow the drifting stripes, ivory over black and dark over cream,
+    which gives a difference-blend look without a blend mode (those fail in some viewers).
     """
     verts = list(itertools.product((-1, 1), repeat=4))
     edges = [(i, j) for i, j in itertools.combinations(range(16), 2)
@@ -225,12 +226,23 @@ def tesseract(cx, cy, radius, frames=48, seconds=11, stroke=2.4):
             out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5" fill="{COBALT}" stroke="{IVORY}" stroke-width="2">{anim}</circle>')
         return "".join(out)
 
-    lines = f'fill="none" stroke="#fff" stroke-width="{stroke}" stroke-linecap="round"'
-    live = (f'<g class="tess-live"><g style="mix-blend-mode:difference"><path d="{d(shots[0])}" {lines}>'
-            f'<animate attributeName="d" dur="{seconds}s" repeatCount="indefinite" values="{";".join(d(s) for s in shots)}"/>'
-            f'</path></g>{dots(shots[0], True)}</g>')
     still = shots[frames // 3]
-    return live + f'<g class="tess-still"><g style="mix-blend-mode:difference"><path d="{d(still)}" {lines}/></g>{dots(still, False)}</g>'
+    anim = (f'<animate attributeName="d" dur="{seconds}s" repeatCount="indefinite" '
+            f'values="{";".join(d(s) for s in shots)}"/>')
+    sw, sh, period, angle, secs = stripe
+    masks = (f'<mask id="onCream" maskUnits="userSpaceOnUse" x="0" y="0" width="{sw}" height="{sh}">'
+             f'{r(0, 0, sw, sh, "#000")}{stripe_layer(sw, sh, period, angle, secs, "#fff")}</mask>'
+             f'<mask id="onBlack" maskUnits="userSpaceOnUse" x="0" y="0" width="{sw}" height="{sh}">'
+             f'{r(0, 0, sw, sh, "#fff")}{stripe_layer(sw, sh, period, angle, secs, "#000")}</mask>')
+
+    def drawn(pid, shot, live):
+        path = (f'<defs><path id="{pid}" d="{d(shot)}" fill="none" stroke-width="{stroke}" stroke-linecap="round">'
+                f'{anim if live else ""}</path></defs>')
+        return (path + f'<g mask="url(#onCream)"><use href="#{pid}" stroke="{BLACK}"/></g>'
+                f'<g mask="url(#onBlack)"><use href="#{pid}" stroke="#fff"/></g>')
+
+    return (masks + f'<g class="tess-live">{drawn("tess", shots[0], True)}{dots(shots[0], True)}</g>'
+            f'<g class="tess-still">{drawn("tess-still", still, False)}{dots(still, False)}</g>')
 
 
 def plain_name(x, y, size, slab_x, slab_w):
@@ -257,7 +269,7 @@ def intro(mobile):
             "four-dimensional cube behind the name.")
     if not mobile:
         w, h = 1200, 486
-        body = stripes(w, h, 92, -28, 9) + [tesseract(925, 250, 230)] + status(42, 34)
+        body = stripes(w, h, 92, -28, 9) + [tesseract(925, 250, 230, (w, h, 92, -28, 9))] + status(42, 34)
         body.append(plain_name(66, 206, 132, 42, 760))
         body += [r(42, 250, 760, 136, BLACK, 8), t(66, 294, LEAD, 24, IVORY, weight="600")]
         body += [t(66, 330 + i * 30, line, 20, PLATE_TEXT) for i, line in enumerate(wrap(ABOUT, 20, 700))]
@@ -268,7 +280,7 @@ def intro(mobile):
     plate = 40 + len(lead) * 30 + len(about) * 26 + 18
     y = 386 + plate + 22
     w, h = 600, y + 100
-    body = stripes(w, h, 72, -28, 9) + [tesseract(390, 220, 165, stroke=2)] + status(30, 30)
+    body = stripes(w, h, 72, -28, 9) + [tesseract(390, 220, 165, (w, h, 72, -28, 9), stroke=2)] + status(30, 30)
     body.append(plain_name(40, 350, 96, 30, 540))
     body.append(r(30, 386, 540, plate, BLACK, 8))
     body += [t(52, 428 + i * 30, line, 23, IVORY, weight="600") for i, line in enumerate(lead)]
