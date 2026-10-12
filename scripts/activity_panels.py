@@ -13,11 +13,13 @@ Standard library only. Usage:
   GITHUB_TOKEN=... python scripts/activity_panels.py --login S-Srinivasan-06 --out out
   python scripts/activity_panels.py --fixture data.json --out out   # offline preview
 
-Like the other p5 panels, the SVGs use no JavaScript, external fonts or images,
-and every animation stops under prefers-reduced-motion.
+Like the other p5 panels, the SVGs use no JavaScript or external files, and
+every animation stops under prefers-reduced-motion. Labels and figures use
+Profile Mono, a small Cascadia Code subset embedded in each SVG (see fonts/OFL.txt).
 """
 
 import argparse
+import base64
 import json
 import os
 import urllib.request
@@ -43,12 +45,32 @@ FEATURED = {
 MONTHS = "JAN FEB MAR APR MAY JUN JUL AUG SEP OCT NOV DEC".split()
 WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
-STYLE = """<style>
-.sans{font-family:'Segoe UI',Helvetica,Arial,sans-serif}.serif{font-family:Georgia,'Times New Roman',serif}.mono{font-family:Consolas,'Courier New',monospace}
-.sweep{animation:sweep 14s ease-in-out infinite}.pulse{animation:pulse 3s ease-in-out infinite}.rise{transform-box:fill-box;transform-origin:50% 100%;animation:rise 1.1s cubic-bezier(.2,.8,.2,1) both}.grow{transform-box:fill-box;transform-origin:0 50%;animation:grow 1.1s cubic-bezier(.2,.8,.2,1) both}
-@keyframes sweep{0%,100%{transform:translateX(0);opacity:0}8%,92%{opacity:.5}50%{transform:translateX(var(--d))}}@keyframes pulse{0%,100%{opacity:.25}50%{opacity:1}}@keyframes rise{from{transform:scaleY(0)}}@keyframes grow{from{transform:scaleX(0)}}
+FONT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts")
+
+
+def font_face(weight):
+    with open(os.path.join(FONT_DIR, f"profile-mono-{weight}.woff2"), "rb") as fh:
+        data = base64.b64encode(fh.read()).decode()
+    return f"@font-face{{font-family:'Profile Mono';font-weight:{weight};src:url(data:font/woff2;base64,{data}) format('woff2')}}"
+
+
+# Every element that moves is either visible at rest (so reduced motion shows the
+# finished chart) or decorative and transparent at rest (rings, drops, shine).
+SPRING = "cubic-bezier(.34,1.56,.64,1)"
+STYLE = ("<style>" + font_face(400) + font_face(600) + """
+.sans{font-family:'Segoe UI',Helvetica,Arial,sans-serif}.serif{font-family:Georgia,'Times New Roman',serif}.mono,.num{font-family:'Profile Mono','Cascadia Code',Consolas,monospace}.num{font-weight:600}
+.box{transform-box:fill-box;transform-origin:50% 50%}.pulse{animation:pulse 2.4s ease-in-out infinite}.blink{animation:blink 1.1s steps(1) infinite}
+.popin{animation:popin .5s """ + SPRING + """ both}.rise{transform-box:fill-box;transform-origin:50% 100%;animation:rise 1.2s """ + SPRING + """ both}.grow{transform-box:fill-box;transform-origin:0 50%;animation:grow 1.3s """ + SPRING + """ both}
+.fade{animation:fade .6s ease-out both}.slide{animation:slide .7s cubic-bezier(.2,.8,.2,1) both}.ring{opacity:0;animation:ring var(--t) linear infinite}
+.drop{opacity:0;animation:drop 4.2s cubic-bezier(.55,0,.75,.4) infinite}.shine{animation:shine 5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.2}50%{opacity:1}}@keyframes blink{0%{opacity:1}50%{opacity:0}}
+@keyframes popin{from{opacity:0;transform:scale(.2)}}@keyframes rise{from{transform:scaleY(0)}}@keyframes grow{from{transform:scaleX(0)}}
+@keyframes fade{from{opacity:0}}@keyframes slide{from{opacity:0;transform:translateX(-14px)}}
+@keyframes ring{0%{opacity:.9;transform:scale(1)}7%{opacity:0;transform:scale(2.4)}100%{opacity:0;transform:scale(2.4)}}
+@keyframes drop{0%{opacity:0;transform:translateY(0)}12%{opacity:1}62%{opacity:1;transform:translateY(var(--fall))}70%,100%{opacity:0;transform:translateY(var(--fall)) scaleY(.4)}}
+@keyframes shine{0%,55%{transform:translateX(0)}100%{transform:translateX(var(--d))}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
-</style>"""
+</style>""")
 
 
 # ---------------------------------------------------------------- data
@@ -228,7 +250,12 @@ def levels(days):
 
 # ---------------------------------------------------------------- drawing
 
-WIDTH = {"sans": .54, "mono": .55, "serif": .5}
+MONO_ADVANCE = .586  # Cascadia's advance width per em, plus letter-spacing added in mono_width
+WIDTH = {"sans": .54, "mono": .6, "num": .6, "serif": .5}
+
+
+def mono_width(text, size, spacing=.4):
+    return len(text) * (size * MONO_ADVANCE + spacing)
 
 
 def fit(text, size, kind, max_width):
@@ -252,18 +279,47 @@ def r(x, y, w, h, fill, rx=0, extra=""):
     return f'<rect x="{x:g}" y="{y:g}" width="{w:g}" height="{h:g}" rx="{rx:g}" fill="{fill}"{extra}/>'
 
 
-def svg(w, h, title, desc, body):
+def delay(ms, cls):
+    return f' class="{cls}" style="animation-delay:{ms:.0f}ms"'
+
+
+def svg(w, h, title, desc, body, css=""):
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img" '
             f'aria-labelledby="title desc"><title id="title">{escape(title)}</title><desc id="desc">{escape(desc)}</desc>'
-            f'{STYLE}<defs><clipPath id="frame"><rect x="0" y="0" width="{w}" height="{h}" rx="14" fill="{IVORY}"/>'
-            f'</clipPath></defs><g clip-path="url(#frame)">{r(0, 0, w, h, IVORY)}{"".join(body)}</g></svg>\n')
+            f'{STYLE}{f"<style>{css}</style>" if css else ""}<defs><clipPath id="frame"><rect x="0" y="0" width="{w}" '
+            f'height="{h}" rx="14" fill="{IVORY}"/></clipPath><linearGradient id="gloss"><stop offset="0" stop-color="#fff" '
+            f'stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" '
+            f'stop-opacity="0"/></linearGradient></defs><g clip-path="url(#frame)">{r(0, 0, w, h, IVORY)}{"".join(body)}</g></svg>\n')
 
 
-def tile(x, y, w, h, label, value, sub, accent, tint, value_size=38, pad=24):
-    return [r(x, y, w, h, tint, 10),
-            t(x + pad, y + 32, label, 13, accent, "mono"),
-            t(x + pad - 2, y + 32 + value_size + 4, value, value_size, INK, "serif"),
-            t(x + pad, y + h - 20, fit(sub, 15, "sans", w - 2 * pad), 15, MUTED)]
+def hops(name, points, seconds):
+    """CSS that hops an element through points at even intervals, then fades and restarts.
+
+    Returns the CSS and the arrival time of each point, so other elements can react on arrival.
+    """
+    n, span = len(points), 92.0
+    frames, times = [], []
+    for i, (x, y) in enumerate(points):
+        p = span * i / max(1, n - 1)
+        times.append(seconds * p / 100)
+        frames.append(f"{p:.3f}%{{transform:translate({x:g}px,{y:g}px);opacity:1;"
+                      f"animation-timing-function:cubic-bezier(.6,0,.25,1)}}")
+    last, start = points[-1], points[0]
+    frames.append(f"96%{{transform:translate({last[0]:g}px,{last[1]:g}px);opacity:0}}")
+    frames.append(f"96.1%,100%{{transform:translate({start[0]:g}px,{start[1]:g}px);opacity:0}}")
+    css = f".{name}{{animation:{name} {seconds:.1f}s linear infinite}}@keyframes {name}{{{''.join(frames)}}}"
+    return css, times
+
+
+def tile(x, y, w, h, label, value, sub, accent, tint, value_size=38, pad=24, cursor=False):
+    out = [r(x, y, w, h, tint, 10),
+           t(x + pad, y + 32, label, 13, accent, "mono"),
+           t(x + pad - 1, y + 32 + value_size + 2, value, value_size, INK, "num", spacing="-.5"),
+           t(x + pad, y + h - 20, fit(sub, 15, "sans", w - 2 * pad), 15, MUTED)]
+    if cursor:
+        cx = x + pad - 1 + len(value) * (value_size * MONO_ADVANCE - .5) + 6
+        out.append(r(cx, y + 34 + value_size * .3, value_size * .42, value_size * .72, accent, 1, ' class="blink"'))
+    return out
 
 
 def plural(n, word, many=None):
@@ -271,12 +327,13 @@ def plural(n, word, many=None):
 
 
 def heatmap(days, today, x0, y0, weeks, pitch, cell, label_x):
+    """Draw the grid; a small square hops through the active days in date order, rippling each one."""
     level = levels(days)
     counts = {parse(x["date"]): x["count"] for x in days}
     first = today - timedelta(days=(today.weekday() + 1) % 7 + 7 * (weeks - 1))
     out = [t(label_x, y0 + pitch * row + cell - 3, name, 12, MUTED, "mono")
            for row, name in ((1, "MON"), (3, "WED"), (5, "FRI"))]
-    last_label = -9
+    active, last_label = [], -9
     for col in range(weeks):
         sunday = first + timedelta(days=7 * col)
         starts_month = sunday.day <= 7 if col == 0 else sunday.month != (sunday - timedelta(days=7)).month
@@ -287,14 +344,24 @@ def heatmap(days, today, x0, y0, weeks, pitch, cell, label_x):
             d = sunday + timedelta(days=row)
             if d > today:
                 break
-            out.append(r(x0 + col * pitch, y0 + row * pitch, cell, cell, HEAT[level(counts.get(d, 0))], 3))
+            n, x, y = counts.get(d, 0), x0 + col * pitch, y0 + row * pitch
+            out.append(r(x, y, cell, cell, HEAT[level(n)], 3, delay((col + row) * 14, "box popin")))
+            if n:
+                active.append((x + cell / 2, y + cell / 2))
     col, row = weeks - 1, (today.weekday() + 1) % 7
     out.append(f'<rect class="pulse" x="{x0 + col * pitch - 2.5:g}" y="{y0 + row * pitch - 2.5:g}" width="{cell + 5}" '
                f'height="{cell + 5}" rx="4" fill="none" stroke="{INK}" stroke-width="1.5"/>')
-    travel = (weeks - 1) * pitch
-    out.append(f'<rect class="sweep" style="--d:{travel}px" x="{x0 + cell / 2 - 1:g}" y="{y0 - 4}" width="2" '
-               f'height="{7 * pitch:g}" fill="{BURGUNDY}" opacity="0"/>')
-    return out
+    if len(active) < 2:
+        return out, ""
+    seconds = min(45, max(12, .5 * len(active)))
+    css, times = hops("bot", active, seconds)
+    for (x, y), at in zip(active, times):
+        out.append(f'<rect class="box ring" style="--t:{seconds:.1f}s;animation-delay:{at:.2f}s" x="{x - cell / 2:g}" '
+                   f'y="{y - cell / 2:g}" width="{cell}" height="{cell}" rx="3" fill="none" stroke="{BURGUNDY}" stroke-width="2"/>')
+    x, y = active[-1]
+    out.append(f'<rect class="bot" transform="translate({x:g} {y:g})" x="-4.5" y="-4.5" width="9" height="9" rx="2" '
+               f'fill="{INK}" stroke="{IVORY}" stroke-width="1.5"/>')
+    return out, css
 
 
 def legend(x_end, y):
@@ -331,28 +398,32 @@ def activity_panel(data, mobile):
     stamp = f"UPDATED {f['today'].day} {MONTHS[f['today'].month - 1]} {f['today'].year}"
     desc = (f"{plural(f['total'], 'contribution')} in the last year, {f['active_days']} active days. "
             f"Current streak {plural(f['current'], 'day')}, longest {plural(f['longest'][0], 'day')}. "
-            f"Heatmap of daily contributions; a slow sweep crosses the grid and today's square pulses.")
+            f"Heatmap of daily contributions; a small square hops from one active day to the next and today's square pulses.")
     if not mobile:
         body = [t(42, 49, "CONTRIBUTIONS / LAST 12 MONTHS", 15, BURGUNDY, "mono"),
                 t(1158, 49, stamp, 13, MUTED, "mono", "end"),
                 t(38, 111, f"{plural(f['total'], 'contribution')} in the last year.", 44, INK, "serif")]
-        body += heatmap(data["days"], f["today"], 88, 172, 53, 20, 16, 42)
+        grid, css = heatmap(data["days"], f["today"], 88, 172, 53, 20, 16, 42)
+        body += grid
         body += [t(88, 342, f"{f['all_time']:,} ALL TIME", 12, MUTED, "mono")] if f["all_time"] != f["total"] else []
         body += legend(1144, 342)
         for i, (label, value, sub) in enumerate(activity_tiles(f)):
-            body += tile(42 + i * 287, 370, 255, 118, label, value, sub, BURGUNDY, BLUSH)
-        return svg(1200, 520, "Contribution activity", desc, body)
+            body += tile(42 + i * 287, 370, 255, 118, label, value, sub, BURGUNDY, BLUSH, cursor=i == 0)
+        return svg(1200, 520, "Contribution activity", desc, body, css)
     body = [t(30, 43, "CONTRIBUTIONS / 26 WEEKS", 15, BURGUNDY, "mono"),
             t(28, 104, plural(f["total"], "contribution"), 41, INK, "serif"),
             t(28, 152, "in the last year.", 41, INK, "serif")]
-    body += heatmap(data["days"], f["today"], 72, 214, 26, 19, 15, 30)
+    grid, css = heatmap(data["days"], f["today"], 72, 214, 26, 19, 15, 30)
+    body += grid
     body += [t(30, 374, stamp, 12, MUTED, "mono")] + legend(568, 374)
     for i, (label, value, sub) in enumerate(activity_tiles(f)):
-        body += tile(30 + (i % 2) * 277, 400 + (i // 2) * 130, 263, 112, label, value, sub, BURGUNDY, BLUSH, 34, 22)
-    return svg(600, 672, "Contribution activity", desc, body)
+        body += tile(30 + (i % 2) * 277, 400 + (i // 2) * 130, 263, 112, label, value, sub, BURGUNDY, BLUSH, 34, 22,
+                     cursor=i == 0)
+    return svg(600, 672, "Contribution activity", desc, body, css)
 
 
-def bars(monthly, x0, x1, base, height, bar):
+def bars(monthly, x0, x1, base, height, bar, sky):
+    """Monthly bars that spring up, with small commit squares falling into each one."""
     pitch = (x1 - x0) / len(monthly)
     top = max(1, max(m["count"] for m in monthly))
     out = [r(x0, base, x1 - x0, 1.5, "#C9CED6")]
@@ -360,8 +431,13 @@ def bars(monthly, x0, x1, base, height, bar):
         cx = x0 + pitch * i + pitch / 2
         h = max(2, height * m["count"] / top) if m["count"] else 0
         if h:
-            out.append(r(cx - bar / 2, base - h, bar, h, BLUE, 4, f' class="rise" style="animation-delay:{i * 70}ms"'))
-        out.append(t(cx, base - h - 10, m["count"], 14, INK if m["count"] else MUTED, "mono", "middle"))
+            out.append(r(cx - bar / 2, base - h, bar, h, BLUE, 4, delay(i * 70, "rise")))
+            for j in range(min(3, 1 + m["count"] // 20)):
+                start = 1300 + ((i * 530 + j * 1400) % 4200)
+                out.append(r(cx - 3.5, sky, 7, 7, BLUE, 1.5,
+                             f' class="drop" style="--fall:{base - h - sky - 8:g}px;animation-delay:{start}ms"'))
+        out.append(f'<g{delay(600 + i * 70, "fade")}>'
+                   + t(cx, base - h - 10, m["count"], 14, INK if m["count"] else MUTED, "num", "middle") + "</g>")
         year, month = map(int, m["month"].split("-"))
         out.append(t(cx, base + 24, MONTHS[month - 1], 12, MUTED, "mono", "middle"))
         if month == 1 or i == 0:
@@ -401,7 +477,7 @@ def commits_panel(data, mobile):
         body = [t(42, 49, "COMMITS / BY MONTH", 15, BLUE, "mono"),
                 t(1158, 49, f"SINCE {MONTHS[m - 1]} {y}", 13, MUTED, "mono", "end"),
                 t(38, 111, headline, 44, INK, "serif")]
-        body += bars(data["monthly_commits"], 42, 752, 362, 170, 30)
+        body += bars(data["monthly_commits"], 42, 752, 362, 170, 30, 138)
         for i, (label, value, sub) in enumerate(commit_tiles(data, f)):
             body += tile(800 + (i % 2) * 187, 156 + (i // 2) * 128, 171, 112, label, value, sub, BLUE, MIST, 34, 20)
         body.append(t(1158, 440, extra, 13, BLUE, "mono", "end"))
@@ -409,7 +485,7 @@ def commits_panel(data, mobile):
     body = [t(30, 43, "COMMITS / BY MONTH", 15, BLUE, "mono"),
             t(28, 104, plural(tot["commits"], "commit"), 41, INK, "serif"),
             t(28, 152, f"across {repos}.", 41, INK, "serif")]
-    body += bars(data["monthly_commits"], 30, 570, 398, 170, 24)
+    body += bars(data["monthly_commits"], 30, 570, 398, 170, 24, 176)
     for i, (label, value, sub) in enumerate(commit_tiles(data, f)):
         body += tile(30 + (i % 2) * 277, 468 + (i // 2) * 130, 263, 112, label, value, sub, BLUE, MIST, 34, 22)
     body.append(t(30, 760, fit(extra, 13, "mono", 540), 13, BLUE, "mono"))
@@ -417,32 +493,58 @@ def commits_panel(data, mobile):
 
 
 def repo_rows(repos, login, x0, x1, y0, pitch, count):
+    """Bars grow in, then a gloss sweeps across each one in turn."""
     rows = [x for x in repos if x["name"] != login][:count]
     top = max([x["commits"] for x in rows] or [1])
     out = []
     for i, repo in enumerate(rows):
         name, colour = FEATURED.get(repo["name"], (repo["name"], INK))
         y = y0 + i * pitch
+        w = max(8, (x1 - x0) * repo["commits"] / top)
         out.append(t(x0, y, fit(name, 19, "sans", x1 - x0 - 110), 19, INK, "sans", weight="600"))
         out.append(t(x1, y, plural(repo["commits"], "commit"), 14, MUTED, "mono", "end"))
         out.append(r(x0, y + 12, x1 - x0, 8, "#E6DED0", 4))
-        out.append(r(x0, y + 12, max(8, (x1 - x0) * repo["commits"] / top), 8, colour, 4,
-                     f' class="grow" style="animation-delay:{i * 90}ms"'))
+        out.append(r(x0, y + 12, w, 8, colour, 4, delay(i * 90, "grow")))
+        out.append(f'<clipPath id="bar{i}">{r(x0, y + 12, w, 8, "#000", 4)}</clipPath><g clip-path="url(#bar{i})">'
+                   + r(x0 - 70, y + 12, 70, 8, "url(#gloss)", 0,
+                       f' class="shine" style="--d:{w + 70:g}px;animation-delay:{1500 + i * 420}ms"') + "</g>")
     return out
 
 
 def commit_rows(recent, x0, x1, y0, pitch, count, size):
-    out = []
-    for i, c in enumerate(recent[:count]):
+    """A git-log style list: a rail of commit dots, HEAD on top, and a dot that runs down the rail."""
+    rows = recent[:count]
+    if not rows:
+        return [], ""
+    rail, tx = x0 + 6, x0 + 28
+    out = [f'<path d="M{rail} {y0 - 4}V{y0 - 4 + (len(rows) - 1) * pitch}" stroke="#D9CBB0" stroke-width="2"/>']
+    points = []
+    for i, c in enumerate(rows):
         y = y0 + i * pitch
+        points.append((rail, y - 4))
         name = FEATURED.get(c["repo"], (c["repo"],))[0]
-        meta = f"{short_date(parse(c['date'])).upper()}  ·  {name.upper()}"
         diff = f"+{c['additions']:,} −{c['deletions']:,}" if "additions" in c else ""
-        out.append(t(x0, y, fit(meta, 12, "mono", x1 - x0 - 110), 12, AMBER, "mono"))
+        meta = fit(f"{short_date(parse(c['date'])).upper()}  ·  {name.upper()}", 12, "mono",
+                   x1 - tx - (mono_width(diff, 12) + 16 if diff else 0) - (58 if i == 0 else 0))
+        row = [f'<circle cx="{rail}" cy="{y - 4}" r="5.5" fill="{AMBER if i == 0 else IVORY}" stroke="{AMBER}" stroke-width="2"/>',
+               t(tx, y, meta, 12, AMBER, "mono")]
+        if i == 0:
+            px = tx + mono_width(meta, 12) + 10
+            row += [f'<g class="glow">{r(px, y - 13, 46, 17, AMBER, 8.5)}'
+                    f'{t(px + 23, y - 0.5, "HEAD", 11, IVORY, "num", "middle", spacing=".6")}</g>']
         if diff:
-            out.append(t(x1, y, diff, 12, MUTED, "mono", "end"))
-        out.append(t(x0, y + 25, fit(c["message"], size, "sans", x1 - x0), size, INK))
-    return out
+            row.append(t(x1, y, diff, 12, MUTED, "mono", "end"))
+        row.append(t(tx, y + 25, fit(c["message"], size, "sans", x1 - tx), size, INK))
+        out.append(f'<g{delay(300 + i * 110, "slide")}>{"".join(row)}</g>')
+    if len(points) < 2:
+        return out, ""
+    seconds = 1.1 * len(points) + 2
+    css, times = hops("head", points, seconds)
+    for (x, y), at in zip(points, times):
+        out.append(f'<circle class="box ring" style="--t:{seconds:.1f}s;animation-delay:{at:.2f}s" cx="{x}" cy="{y:g}" '
+                   f'r="6" fill="none" stroke="{AMBER}" stroke-width="2"/>')
+    out.append(f'<circle class="head" transform="translate({points[0][0]} {points[0][1]:g})" r="3" fill="{INK}"/>')
+    return out, css + ".glow{animation:glow 2.4s ease-in-out infinite}@keyframes glow{50%{opacity:.55}}"
 
 
 def latest_per_repo(recent):
@@ -474,16 +576,16 @@ def repos_panel(data, mobile):
                 t(640, 182, "LATEST COMMIT PER REPOSITORY", 13, AMBER, "mono"),
                 r(608, 160, 1.5, 356, "#DCD3C3")]
         body += repo_rows(data["repos"], login, 42, 568, 228, 56, 6)
-        body += commit_rows(latest, 640, 1158, 220, 56, 6, 18)
-        return svg(1200, 560, "Repository activity", desc, body)
+        log, css = commit_rows(latest, 640, 1158, 224, 56, 6, 18)
+        return svg(1200, 560, "Repository activity", desc, body + log, css)
     body = [t(30, 43, "REPOSITORIES", 15, AMBER, "mono"),
             t(28, 104, "Most active", 41, INK, "serif"),
             t(28, 152, "repositories.", 41, INK, "serif"),
             t(30, 202, "LAST 12 MONTHS", 13, AMBER, "mono")]
     body += repo_rows(data["repos"], login, 30, 570, 246, 56, 5)
     body += [r(30, 516, 540, 1.5, "#DCD3C3"), t(30, 556, "LATEST COMMIT PER REPOSITORY", 13, AMBER, "mono")]
-    body += commit_rows(latest, 30, 570, 596, 62, 5, 19)
-    return svg(600, 900, "Repository activity", desc, body)
+    log, css = commit_rows(latest, 30, 570, 600, 62, 5, 19)
+    return svg(600, 900, "Repository activity", desc, body + log, css)
 
 
 PANELS = {"p5-activity": activity_panel, "p5-commits": commits_panel, "p5-repos": repos_panel}
