@@ -83,7 +83,7 @@
 <a href="https://github.com/S-Srinivasan-06/Research-progress-documentation">
 <picture>
   <source media="(max-width: 600px)" srcset="./assets/p5-research-mobile.svg" />
-  <img src="./assets/p5-research.svg" width="1200" alt="EEG Seizure Detection: reproducing a published EEG seizure-detection model (DGDCN). Audited 8,140 recordings; best run AUROC 0.880 vs 0.887 reported, within noise. Python, PyTorch." />
+  <img src="./assets/p5-research.svg" width="1200" alt="EEG Seizure Detection: an attempt to reproduce a published EEG seizure-detection model (DGDCN). Audited 8,140 recordings; best checkpoint AUROC 0.880 vs 0.887 reported. Python, PyTorch." />
 </picture>
 </a>
 
