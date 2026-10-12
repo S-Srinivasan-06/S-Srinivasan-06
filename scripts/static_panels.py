@@ -15,7 +15,8 @@ import json
 import math
 import os
 
-from activity_panels import BLACK, COBALT, COBALT_LIGHT, GRAPHITE, INK, IVORY, MUTED, hops, r, svg, t
+from activity_panels import (BLACK, BLACK_TONES, COBALT, COBALT_LIGHT, COBALT_TONES, GRAPHITE, INK, IVORY, MUTED,
+                             drift_layer, hops, r, svg, t)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 with open(os.path.join(HERE, "icons.json"), encoding="utf-8") as fh:
@@ -25,6 +26,7 @@ with open(os.path.join(HERE, "diagrams.json"), encoding="utf-8") as fh:
 
 PURPLE, LAVENDER = "#67487F", "#E0D8E9"
 FOREST, SAGE = "#2A6252", "#D5E4DC"
+STRIPE_TONES = [IVORY, "#F4D9C4", "#DCE2F4", "#EDE3C8"]  # cream, peach, pale blue, butter
 COBALT_TEXT = "#E4E9FB"  # body text on cobalt
 PLATE_TEXT = "#D9D6CF"   # body text on black
 
@@ -153,8 +155,15 @@ def stripe_layer(w, h, period, angle, seconds, fill):
 
 
 def stripes(w, h, period, angle, seconds):
-    """Cream stripes on black."""
-    return [r(0, 0, w, h, BLACK), stripe_layer(w, h, period, angle, seconds, IVORY)]
+    """Black ground with drifting stripes that slowly cycle through cream, peach and pale blue.
+
+    The stripe shapes live in the `weave` mask, which the name reuses so its colour bands match.
+    """
+    grad, band = drift_layer("tones", w, h, STRIPE_TONES, 24)
+    return [r(0, 0, w, h, BLACK),
+            f'<mask id="weave" maskUnits="userSpaceOnUse" x="0" y="0" width="{w}" height="{h}">'
+            f'{stripe_layer(w, h, period, angle, seconds, "#fff")}</mask>',
+            f'<defs>{grad}</defs><g mask="url(#weave)">{band}</g>']
 
 
 def tesseract(cx, cy, radius, frames=72, seconds=11, stroke=2.4):
@@ -210,16 +219,14 @@ def tesseract(cx, cy, radius, frames=72, seconds=11, stroke=2.4):
     return live + f'<g class="tess-still"><g style="mix-blend-mode:difference"><path d="{d(still)}" {lines}/></g>{dots(still, False)}</g>'
 
 
-def woven_name(x, y, size, w, h, period, angle, seconds):
+def woven_name(x, y, size):
     """The name woven into the stripes: cream where it crosses black, cobalt where it crosses cream.
 
-    The cobalt copy is masked by the same drifting stripes as the background, so the colour bands
-    slide through the letters as the stripes move.
+    The cobalt copy uses the stripes' own mask (see `stripes`), so the colour bands slide
+    through the letters as the stripes move.
     """
     attrs = f'x="{x}" y="{y}" font-size="{size}" class="heavy" letter-spacing="{-size / 34:.1f}"'
-    return (f'<mask id="weave" maskUnits="userSpaceOnUse" x="0" y="0" width="{w}" height="{h}">'
-            f'{stripe_layer(w, h, period, angle, seconds, "#fff")}</mask>'
-            f'<text {attrs} fill="{IVORY}" stroke="{COBALT}" stroke-width="{size / 22:.1f}" stroke-linejoin="round" '
+    return (f'<text {attrs} fill="{IVORY}" stroke="{COBALT}" stroke-width="{size / 22:.1f}" stroke-linejoin="round" '
             f'paint-order="stroke">{NAME}</text>'
             f'<text {attrs} fill="{COBALT}" mask="url(#weave)">{NAME}</text>')
 
@@ -241,7 +248,7 @@ def intro(mobile):
     if not mobile:
         w, h = 1200, 486
         body = stripes(w, h, 92, -28, 9) + [tesseract(925, 250, 230)] + status(42, 34)
-        body.append(woven_name(34, 206, 140, w, h, 92, -28, 9))
+        body.append(woven_name(34, 206, 140))
         body += [r(42, 250, 760, 136, BLACK, 8), t(66, 294, LEAD, 24, IVORY, weight="600")]
         body += [t(66, 330 + i * 30, line, 20, PLATE_TEXT) for i, line in enumerate(wrap(ABOUT, 20, 700))]
         parts, sw = chip(42, 414, SCHOOL, IVORY, INK)
@@ -252,7 +259,7 @@ def intro(mobile):
     y = 386 + plate + 22
     w, h = 600, y + 100
     body = stripes(w, h, 72, -28, 9) + [tesseract(390, 220, 165, stroke=2)] + status(30, 30)
-    body.append(woven_name(24, 350, 96, w, h, 72, -28, 9))
+    body.append(woven_name(24, 350, 96))
     body.append(r(30, 386, 540, plate, BLACK, 8))
     body += [t(52, 428 + i * 30, line, 23, IVORY, weight="600") for i, line in enumerate(lead)]
     top = 428 + len(lead) * 30 + 10
@@ -262,6 +269,11 @@ def intro(mobile):
 
 
 # ---------------------------------------------------------------- contacts
+
+def tile_lag(index, width, seconds=26):
+    """Start each tile's gradient where the previous tile's leaves off, so the row reads as one band."""
+    return -((index * width * seconds / (width * 1.5)) % seconds)
+
 
 def contact(index, mobile):
     """One tile per contact, five to a row, so each shows its icon and name; the handle is in the alt text."""
@@ -274,13 +286,13 @@ def contact(index, mobile):
                 arrow(216, 24, IVORY, .8),
                 r(24, 96, 192, 3, "#5F7BE6", 1.5),
                 r(24, 96, 192, 3, IVORY, 1.5, f' class="wipe" style="{lag}"')]
-        return svg(240, 116, title, title, body, CSS, COBALT)
+        return svg(240, 116, title, title, body, CSS, COBALT, drift=COBALT_TONES, lag=tile_lag(index, 240))
     body = [icon(key, 75, 62, .78, IVORY, "float", lag),
             arrow(128, 22, IVORY, .9),
             t(75, 126, label, 21, IVORY, anchor="middle", weight="600"),
             r(28, 138, 94, 3, "#5F7BE6", 1.5),
             r(28, 138, 94, 3, IVORY, 1.5, f' class="wipe" style="{lag}"')]
-    return svg(150, 150, title, title, body, CSS, COBALT)
+    return svg(150, 150, title, title, body, CSS, COBALT, drift=COBALT_TONES, lag=tile_lag(index, 150))
 
 
 # ---------------------------------------------------------------- skills, tools, LLM, interests
@@ -300,7 +312,7 @@ def skills(mobile):
                  f'height="{th - 2}" rx="9" fill="none" stroke="{COBALT}" stroke-width="2"/>',
                  icon(name, x + 40, y + th / 2, .5, COBALT_LIGHT, "float", f"animation-delay:{i * 400}ms"),
                  t(x + 78, y + th / 2 + 8, name, 21, IVORY, weight="600")]
-    return svg(1200 if not mobile else 600, h - 34, SKILLS_TITLE, desc, body, lit_css(18), BLACK, shift=34)
+    return svg(1200 if not mobile else 600, h - 34, SKILLS_TITLE, desc, body, lit_css(18), BLACK, shift=34, drift=BLACK_TONES)
 
 
 def tools(mobile):
@@ -347,7 +359,7 @@ def llm(mobile):
         body += [t(42, 142 + i * 30, line, 19, COBALT_TEXT) for i, line in enumerate(LLM_LINES)]
         w = (1116 - 4 * 40) / 5
         parts, css = pipeline([[(name, 42 + i * (w + 40), 236, w, 46) for i, name in enumerate(PIPELINE)]])
-        return svg(1200, 276, LLM_TITLE, desc, body + parts, lit_css(14) + css, COBALT, shift=34)
+        return svg(1200, 276, LLM_TITLE, desc, body + parts, lit_css(14) + css, COBALT, shift=34, drift=COBALT_TONES)
     body = [t(28, 94, LLM_TITLE, 38, IVORY, "serif")]
     lines = [line for text in LLM_LINES for line in wrap(text, 18, 540)]
     body += [t(30, 140 + i * 26, line, 18, COBALT_TEXT) for i, line in enumerate(lines)]
@@ -355,7 +367,7 @@ def llm(mobile):
     w = (540 - 2 * 24) / 3
     parts, css = pipeline([[(name, 30 + i * (w + 24), top, w, 44) for i, name in enumerate(PIPELINE[:3])],
                            [(name, 30 + i * (w + 24), top + 62, w, 44) for i, name in enumerate(PIPELINE[3:])]])
-    return svg(600, top + 102, LLM_TITLE, desc, body + parts, lit_css(14) + css, COBALT, shift=34)
+    return svg(600, top + 102, LLM_TITLE, desc, body + parts, lit_css(14) + css, COBALT, shift=34, drift=COBALT_TONES)
 
 
 def glyph(kind, x, y):

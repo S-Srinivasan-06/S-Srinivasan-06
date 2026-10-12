@@ -35,6 +35,10 @@ AMBER, SAND = "#7B5725", "#EADFC6"
 BLACK, GRAPHITE, SMOKE = "#0E0F12", "#1B1E25", "#A9ADB5"
 COBALT, COBALT_DEEP, COBALT_LIGHT = "#2347D9", "#1A38BC", "#8FA6FF"
 
+# Slow background gradients: each list is one cycle of tones the panel drifts through.
+COBALT_TONES = [COBALT, "#3A5BF0", "#3B2FC2", "#1B36B5"]
+BLACK_TONES = [BLACK, "#121A33", BLACK, "#1A1430"]
+
 THEMES = {
     "dark": {"bg": BLACK, "ink": IVORY, "muted": SMOKE, "accent": COBALT_LIGHT, "tile": GRAPHITE, "rule": "#2A2E37",
              "track": "#262A33", "mark": IVORY, "heat": ["#1F232B", "#1B3A9A", COBALT, "#5B7CFF", "#C9D4FF"]},
@@ -73,7 +77,8 @@ STYLE = ("<style>" + font_face(400) + font_face(600) + """
 .box{transform-box:fill-box;transform-origin:50% 50%}.pulse{animation:pulse 2.4s ease-in-out infinite}.blink{animation:blink 1.1s steps(1) infinite}
 .popin{animation:popin .5s """ + SPRING + """ both}.rise{transform-box:fill-box;transform-origin:50% 100%;animation:rise 1.2s """ + SPRING + """ both}.grow{transform-box:fill-box;transform-origin:0 50%;animation:grow 1.3s """ + SPRING + """ both}
 .fade{animation:fade .6s ease-out both}.slide{animation:slide .7s cubic-bezier(.2,.8,.2,1) both}.ring{opacity:0;animation:ring var(--t) linear infinite}
-.drop{opacity:0;animation:drop 4.2s cubic-bezier(.55,0,.75,.4) infinite}.shine{animation:shine 5s ease-in-out infinite}
+.drop{opacity:0;animation:drop 4.2s cubic-bezier(.55,0,.75,.4) infinite}.bgdrift{animation:bgdrift var(--s) linear infinite}
+@keyframes bgdrift{to{transform:translateX(var(--p))}}.shine{animation:shine 5s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:.2}50%{opacity:1}}@keyframes blink{0%{opacity:1}50%{opacity:0}}
 @keyframes popin{from{opacity:0;transform:scale(.2)}}@keyframes rise{from{transform:scaleY(0)}}@keyframes grow{from{transform:scaleX(0)}}
 @keyframes fade{from{opacity:0}}@keyframes slide{from{opacity:0;transform:translateX(-14px)}}
@@ -304,7 +309,24 @@ PAPER = """<filter id="paper" x="0" y="0" width="100%" height="100%">
 <feMerge><feMergeNode in="mottle"/><feMergeNode in="specks"/></feMerge></filter>"""
 
 
-def svg(w, h, title, desc, body, css="", bg=IVORY, defs="", shift=0, paper=False):
+def drift_layer(gid, w, h, tones, seconds=26, lag=0.0):
+    """A gradient band twice as wide as one cycle, slid left by exactly one cycle per loop.
+
+    The tones repeat once inside the band, so the end of the loop matches its start.
+    Returns the gradient definition and the moving rectangle that uses it.
+    """
+    period = w * 1.5
+    stops = tones + tones + tones[:1]
+    n = len(stops) - 1
+    grad = (f'<linearGradient id="{gid}" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="{2 * period:g}" y2="0">'
+            + "".join(f'<stop offset="{i / n:.4f}" stop-color="{c}"/>' for i, c in enumerate(stops)) + "</linearGradient>")
+    band = (f'<rect class="bgdrift" style="--p:{-period:g}px;--s:{seconds}s;animation-delay:{lag:.2f}s" '
+            f'x="0" y="0" width="{2 * period:g}" height="{h}" fill="url(#{gid})"/>')
+    return grad, band
+
+
+def svg(w, h, title, desc, body, css="", bg=IVORY, defs="", shift=0, paper=False, drift=None, lag=0.0):
+    grad, band = drift_layer("drift", w, h, drift, lag=lag) if drift else ("", "")
     texture = (f'<rect x="0" y="0" width="{w}" height="{h}" filter="url(#paper)" opacity=".3" '
                f'style="mix-blend-mode:multiply"/>') if paper else ""
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img" '
@@ -312,7 +334,7 @@ def svg(w, h, title, desc, body, css="", bg=IVORY, defs="", shift=0, paper=False
             f'{STYLE}{f"<style>{css}</style>" if css else ""}<defs><clipPath id="frame"><rect x="0" y="0" width="{w}" '
             f'height="{h}" rx="14" fill="{bg}"/></clipPath><linearGradient id="gloss"><stop offset="0" stop-color="#fff" '
             f'stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" '
-            f'stop-opacity="0"/></linearGradient>{PAPER if paper else ""}{defs}</defs><g clip-path="url(#frame)">{r(0, 0, w, h, bg)}'
+            f'stop-opacity="0"/></linearGradient>{PAPER if paper else ""}{grad}{defs}</defs><g clip-path="url(#frame)">{r(0, 0, w, h, bg)}{band}'
             f'<g transform="translate(0 {-shift})">{"".join(body)}</g>{texture}</g></svg>\n')
 
 
@@ -434,7 +456,7 @@ def activity_panel(data, mobile):
         body += legend(th, 1144, 328)
         for i, (label, value, sub) in enumerate(activity_tiles(f)):
             body += tile(th, 42 + i * 287, 350, 255, 112, label, value, sub, cursor=i == 0)
-        return svg(1200, 460, "Contribution activity", desc, body, css, th["bg"], shift=30)
+        return svg(1200, 460, "Contribution activity", desc, body, css, th["bg"], shift=30, drift=BLACK_TONES)
     body = [t(28, 100, plural(f["total"], "contribution"), 40, th["ink"], "serif"),
             t(28, 146, "in the last year", 40, th["ink"], "serif")]
     grid, css = heatmap(th, data["days"], f["today"], 72, 204, 26, 19, 15, 30)
@@ -442,7 +464,7 @@ def activity_panel(data, mobile):
     body += [t(30, 364, stamp, 12, th["muted"], "mono")] + legend(th, 568, 364)
     for i, (label, value, sub) in enumerate(activity_tiles(f)):
         body += tile(th, 30 + (i % 2) * 277, 388 + (i // 2) * 124, 263, 108, label, value, sub, 34, 22, cursor=i == 0)
-    return svg(600, 620, "Contribution activity", desc, body, css, th["bg"], shift=30)
+    return svg(600, 620, "Contribution activity", desc, body, css, th["bg"], shift=30, drift=BLACK_TONES)
 
 
 def bars(th, monthly, x0, x1, base, height, bar, sky):
@@ -505,14 +527,14 @@ def commits_panel(data, mobile):
         for i, (label, value, sub) in enumerate(commit_tiles(data, f)):
             body += tile(th, 800 + (i % 2) * 187, 140 + (i // 2) * 122, 171, 108, label, value, sub, 34, 20)
         body.append(t(1158, 408, extra, 14, th["muted"], anchor="end"))
-        return svg(1200, 402, "Commits by month", desc, body, bg=th["bg"], shift=30)
+        return svg(1200, 402, "Commits by month", desc, body, bg=th["bg"], shift=30, drift=COBALT_TONES)
     body = [t(28, 100, plural(tot["commits"], "commit"), 40, th["ink"], "serif"),
             t(28, 146, f"across {repos}", 40, th["ink"], "serif")]
     body += bars(th, data["monthly_commits"], 30, 570, 380, 160, 24, 168)
     for i, (label, value, sub) in enumerate(commit_tiles(data, f)):
         body += tile(th, 30 + (i % 2) * 277, 446 + (i // 2) * 124, 263, 108, label, value, sub, 34, 22)
     body.append(t(30, 726, fit(extra, 15, "sans", 540), 15, th["muted"]))
-    return svg(600, 722, "Commits by month", desc, body, bg=th["bg"], shift=30)
+    return svg(600, 722, "Commits by month", desc, body, bg=th["bg"], shift=30, drift=COBALT_TONES)
 
 
 def repo_rows(th, repos, login, x0, x1, y0, pitch, count):
