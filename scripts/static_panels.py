@@ -184,9 +184,8 @@ def tesseract(cx, cy, radius, frames=48, seconds=11, stroke=2.4):
 
     A quarter turn in both planes maps the cube's vertices and edges onto themselves, so
     animating a quarter turn and repeating it gives an endless, seamless rotation.
-    SMIL drives the geometry; under reduced motion a still frame is shown instead. Each edge is
-    drawn twice, a cream halo under a dark core, so it reads on both stripe colours without a
-    blend mode (blending forces extra compositing on every frame).
+    SMIL drives the geometry; under reduced motion a still frame is shown instead. The white lines use
+    a difference blend, so they read ivory on black stripes and black on cream stripes.
     """
     verts = list(itertools.product((-1, 1), repeat=4))
     edges = [(i, j) for i, j in itertools.combinations(range(16), 2)
@@ -226,18 +225,12 @@ def tesseract(cx, cy, radius, frames=48, seconds=11, stroke=2.4):
             out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5" fill="{COBALT}" stroke="{IVORY}" stroke-width="2">{anim}</circle>')
         return "".join(out)
 
-    def edges_path(shot, live):
-        anim = (f'<animate attributeName="d" dur="{seconds}s" repeatCount="indefinite" '
-                f'values="{";".join(d(s) for s in shots)}"/>') if live else ""
-        return (f'<path id="{"tess" if live else "tess-still"}" d="{d(shot)}" fill="none" stroke="{IVORY}" '
-                f'stroke-width="{stroke + 3:g}" stroke-linecap="round">{anim}</path>')
-
-    def core(ref):
-        return f'<use href="#{ref}" stroke="{BLACK}" stroke-width="{stroke - .6:g}"/>'
-
-    live = f'<g class="tess-live">{edges_path(shots[0], True)}{core("tess")}{dots(shots[0], True)}</g>'
+    lines = f'fill="none" stroke="#fff" stroke-width="{stroke}" stroke-linecap="round"'
+    live = (f'<g class="tess-live"><g style="mix-blend-mode:difference"><path d="{d(shots[0])}" {lines}>'
+            f'<animate attributeName="d" dur="{seconds}s" repeatCount="indefinite" values="{";".join(d(s) for s in shots)}"/>'
+            f'</path></g>{dots(shots[0], True)}</g>')
     still = shots[frames // 3]
-    return live + f'<g class="tess-still">{edges_path(still, False)}{core("tess-still")}{dots(still, False)}</g>'
+    return live + f'<g class="tess-still"><g style="mix-blend-mode:difference"><path d="{d(still)}" {lines}/></g>{dots(still, False)}</g>'
 
 
 def plain_name(x, y, size, slab_x, slab_w):
