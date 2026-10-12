@@ -1,7 +1,31 @@
+<p>
 <picture>
   <source media="(max-width: 600px)" srcset="./assets/p5-intro-mobile.svg" />
-  <img src="./assets/p5-intro.svg" width="1200" alt="Srinivasan — Python, Java, Spring Boot. Backend engineering, machine learning, and agentic AI. KIIT Computer Science, 2024–2028." />
+  <img src="./assets/p5-intro.svg" width="1200" alt="Srinivasan — backend engineering, machine learning and agentic AI. Python and Java development: Spring Boot services, ML pipelines, local models and agent workflows. KIIT Computer Science, 2024–2028." />
 </picture>
+<br />
+<a href="https://github.com/S-Srinivasan-06"><picture><source media="(max-width: 600px)" srcset="./assets/p5-contact-github-mobile.svg" /><img src="./assets/p5-contact-github.svg" width="23.5%" alt="GitHub: S-Srinivasan-06" /></picture></a>
+<a href="https://www.linkedin.com/in/s-srinivasan-a69006315/"><picture><source media="(max-width: 600px)" srcset="./assets/p5-contact-linkedin-mobile.svg" /><img src="./assets/p5-contact-linkedin.svg" width="23.5%" alt="LinkedIn: connect with me" /></picture></a>
+<a href="mailto:srinivasansubr2006@gmail.com"><picture><source media="(max-width: 600px)" srcset="./assets/p5-contact-email-mobile.svg" /><img src="./assets/p5-contact-email.svg" width="23.5%" alt="Email: srinivasansubr2006@gmail.com" /></picture></a>
+<a href="https://leetcode.com/u/aKpXSchpeo/"><picture><source media="(max-width: 600px)" srcset="./assets/p5-contact-leetcode-mobile.svg" /><img src="./assets/p5-contact-leetcode.svg" width="23.5%" alt="LeetCode: aKpXSchpeo" /></picture></a>
+</p>
+
+<picture>
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/S-Srinivasan-06/S-Srinivasan-06/activity/p5-activity-mobile.svg" />
+  <img src="https://raw.githubusercontent.com/S-Srinivasan-06/S-Srinivasan-06/activity/p5-activity.svg" width="1200" alt="Contribution activity over the last 12 months: daily heatmap, current and longest streaks, active days and best day. Updated daily." />
+</picture>
+
+<picture>
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/S-Srinivasan-06/S-Srinivasan-06/activity/p5-commits-mobile.svg" />
+  <img src="https://raw.githubusercontent.com/S-Srinivasan-06/S-Srinivasan-06/activity/p5-commits.svg" width="1200" alt="Commits per month over the last 12 months, with total commits, repositories, busiest month and active months. Updated daily." />
+</picture>
+
+<a href="https://github.com/S-Srinivasan-06?tab=repositories">
+<picture>
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/S-Srinivasan-06/S-Srinivasan-06/activity/p5-repos-mobile.svg" />
+  <img src="https://raw.githubusercontent.com/S-Srinivasan-06/S-Srinivasan-06/activity/p5-repos.svg" width="1200" alt="Most active repositories by commits over the last 12 months, and the latest commit in each. Updated daily." />
+</picture>
+</a>
 
 <picture>
   <source media="(max-width: 600px)" srcset="./assets/p5-skills-mobile.svg" />
@@ -22,34 +46,6 @@
   <source media="(max-width: 600px)" srcset="./assets/p5-interests-mobile.svg" />
   <img src="./assets/p5-interests.svg" width="1200" alt="Interests: backend systems, machine learning, and agent infrastructure." />
 </picture>
-
-<a href="https://github.com/S-Srinivasan-06">
-<picture>
-  <source media="(max-width: 600px)" srcset="./assets/p5-social-github-mobile.svg" />
-  <img src="./assets/p5-social-github.svg" width="1200" alt="GITHUB: S-Srinivasan-06" />
-</picture>
-</a>
-
-<a href="https://www.linkedin.com/in/s-srinivasan-a69006315/">
-<picture>
-  <source media="(max-width: 600px)" srcset="./assets/p5-social-linkedin-mobile.svg" />
-  <img src="./assets/p5-social-linkedin.svg" width="1200" alt="LINKEDIN: Connect with me" />
-</picture>
-</a>
-
-<a href="mailto:srinivasansubr2006@gmail.com">
-<picture>
-  <source media="(max-width: 600px)" srcset="./assets/p5-social-email-mobile.svg" />
-  <img src="./assets/p5-social-email.svg" width="1200" alt="EMAIL: srinivasansubr2006@gmail.com" />
-</picture>
-</a>
-
-<a href="https://leetcode.com/u/aKpXSchpeo/">
-<picture>
-  <source media="(max-width: 600px)" srcset="./assets/p5-social-leetcode-mobile.svg" />
-  <img src="./assets/p5-social-leetcode.svg" width="1200" alt="LEETCODE: aKpXSchpeo" />
-</picture>
-</a>
 
 <p>
 <a href="https://github.com/S-Srinivasan-06/Taskflow-Local-hacktoberfest-weekend"><picture><source media="(max-width: 600px)" srcset="./assets/p5-tab-1-mobile.svg" /><img src="./assets/p5-tab-1.svg" width="18%" alt="Taskflow Local — open repository" /></picture></a>
@@ -93,22 +89,5 @@
 <picture>
   <source media="(max-width: 600px)" srcset="./assets/p5-agents-mobile.svg" />
   <img src="./assets/p5-agents.svg" width="1200" alt="Sandman. A coding agent with Docker workspaces and MCP tools. LangGraph coordinates execution, retries, and cleanup. Routing connects local and hosted model providers. Agent orchestration · Tool execution · Model routing." />
-</picture>
-</a>
-
-<picture>
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/S-Srinivasan-06/S-Srinivasan-06/activity/p5-activity-mobile.svg" />
-  <img src="https://raw.githubusercontent.com/S-Srinivasan-06/S-Srinivasan-06/activity/p5-activity.svg" width="1200" alt="Contribution activity over the last 12 months: daily heatmap, current and longest streaks, active days and best day. Updated daily." />
-</picture>
-
-<picture>
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/S-Srinivasan-06/S-Srinivasan-06/activity/p5-commits-mobile.svg" />
-  <img src="https://raw.githubusercontent.com/S-Srinivasan-06/S-Srinivasan-06/activity/p5-commits.svg" width="1200" alt="Commits per month over the last 12 months, with total commits, repositories, busiest month and active months. Updated daily." />
-</picture>
-
-<a href="https://github.com/S-Srinivasan-06?tab=repositories">
-<picture>
-  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/S-Srinivasan-06/S-Srinivasan-06/activity/p5-repos-mobile.svg" />
-  <img src="https://raw.githubusercontent.com/S-Srinivasan-06/S-Srinivasan-06/activity/p5-repos.svg" width="1200" alt="Most active repositories by commits over the last 12 months, and the latest commit in each. Updated daily." />
 </picture>
 </a>
