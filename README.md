@@ -1,7 +1,7 @@
 <p>
 <picture>
   <source media="(max-width: 600px)" srcset="./assets/p5-intro-mobile.svg" />
-  <img src="./assets/p5-intro.svg" width="1200" alt="Srinivasan — backend engineering, machine learning and agentic AI. Python and Java development: Spring Boot services, ML pipelines, local models and agent workflows. KIIT Computer Science, 2024–2028." />
+  <img src="./assets/p5-intro.svg" width="1200" alt="Srinivasan. I build backend services, ML pipelines and AI agents, mostly in Python and Java. Computer Science at KIIT, 2024–2028." />
 </picture>
 <br />
 <a href="https://github.com/S-Srinivasan-06"><picture><source media="(max-width: 600px)" srcset="./assets/p5-contact-github-mobile.svg" /><img src="./assets/p5-contact-github.svg" width="23.5%" alt="GitHub: S-Srinivasan-06" /></picture></a>
@@ -29,22 +29,22 @@
 
 <picture>
   <source media="(max-width: 600px)" srcset="./assets/p5-skills-mobile.svg" />
-  <img src="./assets/p5-skills.svg" width="1200" alt="Skills: Python, Java, Spring Boot and SQL." />
+  <img src="./assets/p5-skills.svg" width="1200" alt="What I write most: Python, Java, Spring Boot and SQL." />
 </picture>
 
 <picture>
   <source media="(max-width: 600px)" srcset="./assets/p5-tools-mobile.svg" />
-  <img src="./assets/p5-tools.svg" width="1200" alt="Tools: FastAPI, Docker, PostgreSQL, React, OpenCV, LangGraph, MCP, Ollama, Codex and Claude Code." />
+  <img src="./assets/p5-tools.svg" width="1200" alt="Tools I reach for: FastAPI, Docker, PostgreSQL, React, OpenCV, LangGraph, MCP, Ollama, Codex and Claude Code." />
 </picture>
 
 <picture>
   <source media="(max-width: 600px)" srcset="./assets/p5-llm-mobile.svg" />
-  <img src="./assets/p5-llm.svg" width="1200" alt="LLM development: Codex and Claude Code, custom harnesses, local models, structured outputs, validation and agent orchestration." />
+  <img src="./assets/p5-llm.svg" width="1200" alt="How I use LLMs: Codex and Claude Code day to day, schema-checked model output in Taskflow Local, and coding agents in Docker workspaces in Sandman." />
 </picture>
 
 <picture>
   <source media="(max-width: 600px)" srcset="./assets/p5-interests-mobile.svg" />
-  <img src="./assets/p5-interests.svg" width="1200" alt="Interests: backend systems, machine learning, and agent infrastructure." />
+  <img src="./assets/p5-interests.svg" width="1200" alt="What I'm into: backend systems, machine learning and agents." />
 </picture>
 
 <p>
@@ -58,36 +58,36 @@
 <a href="https://github.com/S-Srinivasan-06/Taskflow-Local-hacktoberfest-weekend">
 <picture>
   <source media="(max-width: 600px)" srcset="./assets/p5-local-mobile.svg" />
-  <img src="./assets/p5-local.svg" width="1200" alt="Taskflow Local. An offline task manager with on-device inference. Language and image input become task operations that are validated and reviewed before saving. Structured outputs · Review gates · Reminders." />
+  <img src="./assets/p5-local.svg" width="1200" alt="Taskflow Local: an offline task manager with a local model. Changes are schema-checked and approved before saving." />
 </picture>
 </a>
 
-<a href="https://github.com/S-Srinivasan-06/Taskflow-Local-hacktoberfest-weekend/releases/latest"><img src="./assets/p5-download.svg" width="180" alt="Taskflow Local Windows release" /></a>
+<a href="https://github.com/S-Srinivasan-06/Taskflow-Local-hacktoberfest-weekend/releases/latest"><img src="./assets/p5-download.svg" width="180" alt="Download Taskflow Local for Windows" /></a>
 
 <a href="https://github.com/S-Srinivasan-06/Taskflow">
 <picture>
   <source media="(max-width: 600px)" srcset="./assets/p5-backend-mobile.svg" />
-  <img src="./assets/p5-backend.svg" width="1200" alt="Taskflow. A Spring Boot and PostgreSQL task manager. Scoped sessions, ownership checks, and versioned updates handle access and concurrent changes. Ownership checks · Concurrency · Integration tests." />
+  <img src="./assets/p5-backend.svg" width="1200" alt="Taskflow: a task manager on Spring Boot and PostgreSQL with ownership checks, versioned updates and integration tests." />
 </picture>
 </a>
 
 <a href="https://github.com/S-Srinivasan-06/Razorpay-Buildathon-webui-and-cli">
 <picture>
   <source media="(max-width: 600px)" srcset="./assets/p5-finance-mobile.svg" />
-  <img src="./assets/p5-finance.svg" width="1200" alt="Reconciliation Agent. Match sales, gateway ledgers, and bank records. Resumable stages support exception review, journal exports, and a persistent SHA-256 audit chain. Resumable state · Journal exports · Audit records." />
+  <img src="./assets/p5-finance.svg" width="1200" alt="Reconciliation Agent: matches sales, gateway and bank records in resumable stages with a hash-chained audit log." />
 </picture>
 </a>
 
 <a href="https://github.com/S-Srinivasan-06/CrowdShield">
 <picture>
   <source media="(max-width: 600px)" srcset="./assets/p5-vision-mobile.svg" />
-  <img src="./assets/p5-vision.svg" width="1200" alt="CrowdShield. A vision pipeline for detection, tracking, and density. Editable regions and archived runs sit alongside threaded processing, telemetry, and video streams. Motion tracking · Density estimation · Live streams." />
+  <img src="./assets/p5-vision.svg" width="1200" alt="CrowdShield: crowd monitoring from video with head tracking, density estimation and live streams." />
 </picture>
 </a>
 
 <a href="https://github.com/S-Srinivasan-06/sandman-ai-sandbox">
 <picture>
   <source media="(max-width: 600px)" srcset="./assets/p5-agents-mobile.svg" />
-  <img src="./assets/p5-agents.svg" width="1200" alt="Sandman. A coding agent with Docker workspaces and MCP tools. LangGraph coordinates execution, retries, and cleanup. Routing connects local and hosted model providers. Agent orchestration · Tool execution · Model routing." />
+  <img src="./assets/p5-agents.svg" width="1200" alt="Sandman: a coding agent in isolated Docker workspaces with MCP tools and LangGraph." />
 </picture>
 </a>

@@ -1,4 +1,4 @@
-"""Render the hand-written panels: intro, contact tiles, skills, tools, LLM workflow and interests.
+"""Render the hand-written panels: intro, contacts, skills, tools, LLM workflow, interests and projects.
 
 These hold no live data, so they are generated once and committed:
 
@@ -15,42 +15,72 @@ import json
 import math
 import os
 
-from activity_panels import BLACK, COBALT, COBALT_DEEP, COBALT_LIGHT, GRAPHITE, INK, IVORY, MUTED, hops, mono_width, r, svg, t
+from activity_panels import BLACK, COBALT, COBALT_DEEP, COBALT_LIGHT, GRAPHITE, INK, IVORY, MUTED, hops, r, svg, t
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 with open(os.path.join(HERE, "icons.json"), encoding="utf-8") as fh:
     ICONS = json.load(fh)
+with open(os.path.join(HERE, "diagrams.json"), encoding="utf-8") as fh:
+    DIAGRAMS = json.load(fh)
 
 PURPLE, LAVENDER = "#67487F", "#E0D8E9"
 FOREST, SAGE = "#2A6252", "#D5E4DC"
 COBALT_TEXT = "#E4E9FB"  # body text on cobalt
+PLATE_TEXT = "#D9D6CF"   # body text on black
 
-NAME = "Srinivasan."
-TAGLINE = "Backend engineering · Machine learning · Agentic AI"
-STACK = "PYTHON · JAVA · SPRING BOOT · LOCAL LLMS"
-SCHOOL = "KIIT · COMPUTER SCIENCE · 2024–2028"
+# ---------------------------------------------------------------- copy
+
+NAME = "Srinivasan"
+STATUS = "Open to collaborate"
+LEAD = "I build backend services, ML pipelines and AI agents."
+ABOUT = "Mostly Python and Java: Spring Boot APIs, computer vision, and local models wired into agent loops."
+SCHOOL = "Computer Science at KIIT, 2024–2028"
+CUE = "Get in touch"
 
 CONTACTS = [  # (icon, label, handle)
-    ("github", "GITHUB", "S-Srinivasan-06"),
-    ("linkedin", "LINKEDIN", "Connect with me"),
-    ("email", "EMAIL", "srinivasansubr2006@gmail.com"),
-    ("leetcode", "LEETCODE", "aKpXSchpeo"),
+    ("github", "GitHub", "S-Srinivasan-06"),
+    ("linkedin", "LinkedIn", "Connect with me"),
+    ("email", "Email", "srinivasansubr2006@gmail.com"),
+    ("leetcode", "LeetCode", "aKpXSchpeo"),
 ]
-SKILLS = ["Python", "Java", "Spring Boot", "SQL"]
+SKILLS_TITLE, SKILLS = "What I write most", ["Python", "Java", "Spring Boot", "SQL"]
+TOOLS_TITLE = "Tools I reach for"
 TOOLS = ["FastAPI", "Docker", "PostgreSQL", "React", "OpenCV", "LangGraph", "MCP", "Ollama", "Codex", "Claude Code"]
-LLM_TEXT = ("I use Codex and Claude Code for repository exploration, implementation, debugging, and review. "
-            "Taskflow Local and Sandman connect models to structured outputs, validation, and tool access. "
-            "Their execution loops cover local inference, agent orchestration, retries, and cleanup.")
-LLM_LINES = [  # desktop line breaks, one sentence each
-    "I use Codex and Claude Code for repository exploration, implementation, debugging, and review.",
-    "Taskflow Local and Sandman connect models to structured outputs, validation, and tool access.",
-    "Their execution loops cover local inference, agent orchestration, retries, and cleanup.",
+LLM_TITLE = "How I use LLMs"
+LLM_LINES = [
+    "I use Codex and Claude Code every day to read code, write it, debug it and review it.",
+    "In Taskflow Local, model output is schema-checked and reviewed before anything is saved.",
+    "Sandman runs coding agents in Docker workspaces with MCP tools; LangGraph handles retries and cleanup.",
 ]
-PIPELINE = ["CONTEXT", "MODEL", "TOOLS", "VALIDATION", "REVIEW"]
+PIPELINE = ["context", "model", "tools", "validation", "review"]
+INTERESTS_TITLE = "What I'm into"
 INTERESTS = [
-    ("Backend systems", "API contracts, relational data,", "ownership, and concurrency.", "server"),
-    ("Machine learning", "Computer vision, tabular ML,", "and model evaluation.", "scatter"),
-    ("Agentic AI", "Local inference, custom harnesses,", "tool use, and orchestration.", "orbit"),
+    ("Backend systems", "API design, relational data,", "ownership and concurrency", "server"),
+    ("Machine learning", "Computer vision, tabular models", "and evaluation", "scatter"),
+    ("Agents", "Local inference, custom harnesses,", "tool use and orchestration", "orbit"),
+]
+PROJECTS = [  # featured order; colours match the activity panels and tabs
+    {"key": "local", "file": "p5-local", "name": "Taskflow Local", "short": "TL", "accent": "#96394A", "tint": "#EAD5D4",
+     "stack": "llama.cpp, Gemma, React, SQLite",
+     "desc": "An offline task manager with a local model built in. Type a task or add an image, the model "
+             "proposes changes, and nothing is saved until it passes a schema check and you approve it. "
+             "Ships as a Windows app with reminders."},
+    {"key": "backend", "file": "p5-backend", "name": "Taskflow", "short": "TF", "accent": "#315A88", "tint": "#D7E2ED",
+     "stack": "Java, Spring Boot, PostgreSQL",
+     "desc": "A task manager on Spring Boot and PostgreSQL. Every request is checked against its owner, "
+             "versioned updates stop two edits from overwriting each other, and integration tests cover the API."},
+    {"key": "finance", "file": "p5-finance", "name": "Reconciliation Agent", "tab": "Reconciliation", "short": "RA",
+     "accent": "#7B5725", "tint": "#EADFC6", "stack": "Python, FastAPI, pandas, WebSockets",
+     "desc": "Matches sales records, payment gateway ledgers and bank statements. It runs in stages you can "
+             "resume, sends mismatches to review, exports journal entries and keeps a hash-chained audit log."},
+    {"key": "vision", "file": "p5-vision", "name": "CrowdShield", "short": "CS", "accent": "#2A6252", "tint": "#D5E4DC",
+     "stack": "Python, OpenCV, OpenVINO, NumPy",
+     "desc": "Crowd monitoring from video. It detects and tracks heads, estimates density inside regions you "
+             "can redraw, streams live video and telemetry, and archives every run."},
+    {"key": "agents", "file": "p5-agents", "name": "Sandman", "short": "SM", "accent": "#67487F", "tint": "#E0D8E9",
+     "stack": "Python, LangGraph, MCP, Docker, Ollama",
+     "desc": "A coding agent that works in isolated Docker workspaces with MCP tools. LangGraph drives "
+             "execution, retries and cleanup, and each request can go to a local or a hosted model."},
 ]
 
 CSS = """
@@ -65,9 +95,13 @@ CSS = """
 .pop{transform-box:fill-box;transform-origin:50% 50%;animation:pop 6s ease-in-out infinite}
 @keyframes pop{0%,10%,100%{transform:scale(1) rotate(0)}4%{transform:scale(1.28) rotate(-10deg)}7%{transform:scale(.94) rotate(4deg)}}
 .spin{transform-box:fill-box;transform-origin:50% 50%;animation:spin 9s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-.flow{animation:flow 1.2s linear infinite}@keyframes flow{to{stroke-dashoffset:-20}}
+.flow{animation:flow 7s linear infinite}@keyframes flow{to{stroke-dashoffset:-140}}
 .led{animation:led 1.8s steps(1) infinite}@keyframes led{0%{opacity:1}50%{opacity:.25}}
 .jit{animation:jit 2.6s ease-in-out infinite}@keyframes jit{50%{transform:translate(var(--jx),var(--jy))}}
+.packet{animation:packet 8s ease-in-out infinite}@keyframes packet{0%,100%{transform:translateX(0)}50%{transform:translateX(120px)}}
+.scan{animation:scan 9s ease-in-out infinite}@keyframes scan{0%,100%{transform:translateX(0)}50%{transform:translateX(144px)}}
+.grid-step{animation:grid-step 12s ease-in-out infinite}
+@keyframes grid-step{0%,100%{transform:translate(0,0)}25%{transform:translate(48px,0)}50%{transform:translate(48px,48px)}75%{transform:translate(0,48px)}}
 .tess-still{display:none}
 @media(prefers-reduced-motion:reduce){.tess-live{display:none}.tess-still{display:inline}}
 """
@@ -83,12 +117,10 @@ def icon(name, x, y, scale, colour, cls="", style=""):
     return f'<g transform="translate({x:g} {y:g}) scale({scale:g})" style="color:{colour}">{inner}</g>'
 
 
-def tag(x, y, text, fill, ink, size=14, h=30, pad=12, anchor="start", lead=0, tail=0):
-    """A label on a solid chip; lead and tail reserve room for a mark before or after the text."""
-    w = mono_width(text, size) + 2 * pad + lead + tail
-    if anchor == "end":
-        x -= w
-    return [r(x, y, w, h, fill, 4), t(x + pad + lead, y + h / 2 + size * .36, text, size, ink, "mono")], w
+def chip(x, y, text, fill, ink, size=15, h=32, pad=13, lead=0, tail=0):
+    """A short label on a solid chip; lead and tail reserve room for a mark before or after the text."""
+    w = len(text) * size * .55 + 2 * pad + lead + tail
+    return [r(x, y, w, h, fill, 5), t(x + pad + lead, y + h / 2 + size * .36, text, size, ink, weight="600")], w
 
 
 def wrap(text, size, width, kind="sans"):
@@ -100,6 +132,11 @@ def wrap(text, size, width, kind="sans"):
         else:
             line = f"{line} {word}".strip()
     return lines + [line]
+
+
+def arrow(x, y, colour, size=1):
+    return (f'<g transform="translate({x:g} {y:g}) scale({size:g})"><g class="nudge"><path d="M-7 7L7-7M-4-7H7V4" '
+            f'stroke="{colour}" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g></g>')
 
 
 # ---------------------------------------------------------------- intro
@@ -191,172 +228,139 @@ def textured_name(x, y, size, width):
             f'width="180" height="{size * 1.3:.0f}" fill="url(#gloss)" opacity=".55" transform="skewX(-18)"/></g>')
 
 
-def status(x, y, anchor="start"):
-    parts, w = tag(x, y, "OPEN TO COLLABORATE", BLACK, IVORY, 13, 28, 10, anchor, lead=16)
-    left = x - w if anchor == "end" else x
-    return parts + [f'<circle class="pulse" cx="{left + 19}" cy="{y + 14}" r="5" fill="{COBALT_LIGHT}"/>']
+def status(x, y):
+    parts, _ = chip(x, y, STATUS, BLACK, IVORY, 14, 30, 11, lead=16)
+    return parts + [f'<circle class="pulse" cx="{x + 18}" cy="{y + 15}" r="5" fill="{COBALT_LIGHT}"/>']
 
 
 def contact_cue(x, y):
-    parts, w = tag(x, y, "CONTACT", COBALT, IVORY, 14, 32, 12, tail=22)
+    parts, w = chip(x, y, CUE, COBALT, IVORY, 15, 32, 13, tail=20)
     return parts + [f'<text x="{x + w - 26:g}" y="{y + 22:g}" font-size="16" fill="{IVORY}" class="num bob">↓</text>']
 
 
 def intro(mobile):
-    title = "Srinivasan — backend, ML and agentic AI"
-    desc = (f"{TAGLINE}. Python and Java development: Spring Boot services, ML pipelines, local models, and agent "
-            f"workflows. {SCHOOL}. The name is set in textured cobalt over drifting black and ivory stripes, "
+    title = f"{NAME}: backend, machine learning and agents"
+    desc = (f"{LEAD} {ABOUT} {SCHOOL}. The name is set in textured cobalt over drifting black and ivory stripes, "
             "with a rotating four-dimensional cube behind it.")
     if not mobile:
-        w, h = 1200, 540
-        body = stripes(w, h, 92, -28, 9) + [tesseract(925, 285, 245)]
-        body += tag(42, 34, "SRINIVASAN / DEVELOPMENT PORTFOLIO", COBALT, IVORY)[0]
-        body += status(1158, 35, "end")
-        body.append(textured_name(36, 222, 164, 760))
-        body += [r(42, 258, 760, 176, BLACK, 8),
-                 t(66, 302, TAGLINE, 24, IVORY, weight="600"),
-                 t(66, 342, "Python and Java development: Spring Boot services,", 20, "#D9D6CF"),
-                 t(66, 372, "ML pipelines, local models, and agent workflows.", 20, "#D9D6CF"),
-                 t(66, 410, STACK, 13, COBALT_LIGHT, "mono")]
-        parts, sw = tag(42, 466, SCHOOL, IVORY, INK, 14, 32)
-        body += parts + contact_cue(42 + sw + 12, 466)
+        w, h = 1200, 486
+        body = stripes(w, h, 92, -28, 9) + [tesseract(925, 250, 230)] + status(42, 34)
+        body.append(textured_name(36, 212, 164, 720))
+        body += [r(42, 250, 760, 136, BLACK, 8), t(66, 294, LEAD, 24, IVORY, weight="600")]
+        body += [t(66, 330 + i * 30, line, 20, PLATE_TEXT) for i, line in enumerate(wrap(ABOUT, 20, 700))]
+        parts, sw = chip(42, 414, SCHOOL, IVORY, INK)
+        body += parts + contact_cue(42 + sw + 12, 414)
         return svg(w, h, title, desc, body, CSS, BLACK, NAME_DEFS)
-    w, h = 600, 780
-    body = stripes(w, h, 72, -28, 9) + [tesseract(390, 250, 170, stroke=2)]
-    body += tag(30, 28, "SRINIVASAN / PORTFOLIO", COBALT, IVORY, 14, 30)[0]
-    body += status(30, 70)
-    body.append(textured_name(24, 382, 112, 520))
-    body += [r(30, 414, 540, 242, BLACK, 8),
-             t(52, 456, "Backend engineering ·", 23, IVORY, weight="600"),
-             t(52, 486, "Machine learning · Agentic AI", 23, IVORY, weight="600"),
-             t(52, 526, "Python and Java development: Spring Boot", 18, "#D9D6CF"),
-             t(52, 552, "services, ML pipelines, local models,", 18, "#D9D6CF"),
-             t(52, 578, "and agent workflows.", 18, "#D9D6CF"),
-             t(52, 624, STACK, 12, COBALT_LIGHT, "mono")]
-    body += tag(30, 676, SCHOOL, IVORY, INK, 13, 30)[0]
-    body += contact_cue(30, 720)
+    lead, about = wrap(LEAD, 23, 500), wrap(ABOUT, 18, 500)
+    plate = 40 + len(lead) * 30 + len(about) * 26 + 18
+    y = 386 + plate + 22
+    w, h = 600, y + 100
+    body = stripes(w, h, 72, -28, 9) + [tesseract(390, 220, 165, stroke=2)] + status(30, 30)
+    body.append(textured_name(24, 356, 116, 500))
+    body.append(r(30, 386, 540, plate, BLACK, 8))
+    body += [t(52, 428 + i * 30, line, 23, IVORY, weight="600") for i, line in enumerate(lead)]
+    top = 428 + len(lead) * 30 + 10
+    body += [t(52, top + i * 26, line, 18, PLATE_TEXT) for i, line in enumerate(about)]
+    body += chip(30, y, SCHOOL, IVORY, INK)[0] + contact_cue(30, y + 44)
     return svg(w, h, title, desc, body, CSS, BLACK, NAME_DEFS)
 
 
 # ---------------------------------------------------------------- contacts
 
-def arrow(x, y, colour, size=1):
-    return (f'<g transform="translate({x:g} {y:g}) scale({size:g})"><g class="nudge"><path d="M-7 7L7-7M-4-7H7V4" '
-            f'stroke="{colour}" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g></g>')
-
-
 def contact(index, mobile):
     key, label, handle = CONTACTS[index]
-    title = f"{label.title()}: {handle}"
+    title = f"{label}: {handle}"
     lag = f"animation-delay:{index * 450}ms"
     if not mobile:
         size = 17 if len(handle) * .56 * 17 < 252 else 15
         body = [icon(key, 40, 40, .44, IVORY, "float", lag),
-                t(70, 46, label, 13, "#CDD6F7", "mono"),
+                t(70, 46, label, 15, "#CDD6F7", weight="600"),
                 arrow(272, 38, IVORY),
                 t(24, 84, handle, size, IVORY, weight="600"),
                 r(24, 100, 252, 3, "#5F7BE6", 1.5),
                 r(24, 100, 252, 3, IVORY, 1.5, f' class="wipe" style="{lag}"')]
-        return svg(300, 116, title, f"{label.title()} — {handle}. Opens in a new page.", body, CSS, COBALT)
+        return svg(300, 116, title, title, body, CSS, COBALT)
     body = [icon(key, 75, 62, .78, IVORY, "float", lag),
             arrow(128, 22, IVORY, .9),
-            t(75, 126, label, 19, IVORY, "mono", "middle"),
+            t(75, 126, label, 21, IVORY, anchor="middle", weight="600"),
             r(28, 138, 94, 3, "#5F7BE6", 1.5),
             r(28, 138, 94, 3, IVORY, 1.5, f' class="wipe" style="{lag}"')]
-    return svg(150, 150, title, f"{label.title()} — {handle}.", body, CSS, COBALT)
+    return svg(150, 150, title, title, body, CSS, COBALT)
 
 
 # ---------------------------------------------------------------- skills, tools, LLM, interests
+# These panels have no label row, so the drawing is laid out as if it had one and `shift` moves it up.
 
 def skills(mobile):
-    title, desc = "Languages and backend skills", "My main development stack is Python, Java and Spring Boot, with SQL for relational data."
+    desc = "Python, Java, Spring Boot and SQL."
     if not mobile:
-        body = [t(42, 46, "LANGUAGES & BACKEND", 15, COBALT_LIGHT, "mono"),
-                t(38, 98, "Python. Java. Spring Boot.", 38, IVORY, "serif")]
-        spots = [(42 + i * 287, 126, 255) for i in range(4)]
-        h, th = 222, 70
+        body = [t(38, 98, SKILLS_TITLE, 38, IVORY, "serif")]
+        spots, h, th = [(42 + i * 287, 126, 255) for i in range(4)], 222, 70
     else:
-        body = [t(30, 43, "LANGUAGES & BACKEND", 15, COBALT_LIGHT, "mono"),
-                t(28, 94, "Python. Java.", 38, IVORY, "serif"),
-                t(28, 138, "Spring Boot.", 38, IVORY, "serif")]
-        spots = [(30 + (i % 2) * 277, 164 + (i // 2) * 78, 263) for i in range(4)]
-        h, th = 330, 64
+        body = [t(28, 94, SKILLS_TITLE, 38, IVORY, "serif")]
+        spots, h, th = [(30 + (i % 2) * 277, 120 + (i // 2) * 78, 263) for i in range(4)], 286, 64
     for i, (name, (x, y, w)) in enumerate(zip(SKILLS, spots)):
-        lag = f"animation-delay:{i * 400}ms"
         body += [r(x, y, w, th, GRAPHITE, 10),
                  f'<rect class="lit" style="--s:3.2s;animation-delay:{i * .8:.1f}s" x="{x + 1}" y="{y + 1}" width="{w - 2}" '
                  f'height="{th - 2}" rx="9" fill="none" stroke="{COBALT}" stroke-width="2"/>',
-                 icon(name, x + 40, y + th / 2, .5, COBALT_LIGHT, "float", lag),
+                 icon(name, x + 40, y + th / 2, .5, COBALT_LIGHT, "float", f"animation-delay:{i * 400}ms"),
                  t(x + 78, y + th / 2 + 8, name, 21, IVORY, weight="600")]
-    return svg(1200 if not mobile else 600, h, title, desc, body, lit_css(18), BLACK)
+    return svg(1200 if not mobile else 600, h - 34, SKILLS_TITLE, desc, body, lit_css(18), BLACK, shift=34)
 
 
 def tools(mobile):
-    title = "Tools I work with"
-    desc = "Tools: " + ", ".join(TOOLS) + ". Each icon takes a turn to bounce; the React atom spins."
+    desc = ", ".join(TOOLS) + ". Each icon takes a turn to bounce; the React atom spins."
     if not mobile:
-        body = [t(42, 46, "TOOLS I WORK WITH", 15, PURPLE, "mono"),
-                t(38, 98, "Services, models, and development tools.", 38, INK, "serif")]
-        spots = [(42 + (i % 5) * 227.25, 126 + (i // 5) * 88, 207) for i in range(10)]
-        h, th = 312, 72
+        body = [t(38, 98, TOOLS_TITLE, 38, INK, "serif")]
+        spots, h, th = [(42 + (i % 5) * 227.25, 126 + (i // 5) * 88, 207) for i in range(10)], 312, 72
     else:
-        body = [t(30, 43, "TOOLS I WORK WITH", 15, PURPLE, "mono"),
-                t(28, 94, "Services, models,", 38, INK, "serif"),
-                t(28, 138, "and development tools.", 38, INK, "serif")]
-        spots = [(30 + (i % 2) * 277, 164 + (i // 2) * 72, 263) for i in range(10)]
-        h, th = 538, 60
+        body = [t(28, 94, TOOLS_TITLE, 38, INK, "serif")]
+        spots, h, th = [(30 + (i % 2) * 277, 120 + (i // 2) * 72, 263) for i in range(10)], 494, 60
     for i, (name, (x, y, w)) in enumerate(zip(TOOLS, spots)):
-        cls = "spin" if name == "React" else "pop"
         body += [r(x, y, w, th, LAVENDER, 10),
-                 icon(name, x + 38, y + th / 2, .45, PURPLE, cls, f"animation-delay:{i * 300}ms"),
+                 icon(name, x + 38, y + th / 2, .45, PURPLE, "spin" if name == "React" else "pop", f"animation-delay:{i * 300}ms"),
                  t(x + 70, y + th / 2 + 7, name, 18, INK, weight="600")]
-    return svg(1200 if not mobile else 600, h, title, desc, body, CSS, IVORY)
+    return svg(1200 if not mobile else 600, h - 34, TOOLS_TITLE, desc, body, CSS, IVORY, shift=34)
 
 
-def pipeline(stages, rows, seconds=6.0):
-    """Stage pills joined by flowing dashes; a packet hops along and lights each stage as it passes."""
-    out, centers = [], []
+def pipeline(rows, seconds=6.0):
+    """Stage pills joined by flowing dashes; a marker hops along and lights each stage as it passes."""
+    out, stops = [], []
     for row in rows:
         for i, (name, x, y, w, h) in enumerate(row):
             if i:
                 px = row[i - 1][1] + row[i - 1][3]
                 out.append(f'<path class="flow" d="M{px + 4:g} {y + h / 2:g}H{x - 4:g}" stroke="{IVORY}" stroke-opacity=".6" '
                            f'stroke-width="2" stroke-dasharray="4 6"/>')
-            centers.append((x + 17, y + h / 2))  # inside the pill's left end, clear of the centred label
-    css, times = hops("packet", centers, seconds)
-    flat = [s for row in rows for s in row]
-    for (name, x, y, w, h), at in zip(flat, times):
+            stops.append((x + 17, y + h / 2))  # inside the pill's left end, clear of the centred label
+    css, times = hops("runner", stops, seconds)
+    for (name, x, y, w, h), at in zip([s for row in rows for s in row], times):
         out += [r(x, y, w, h, "none", h / 2, f' stroke="{IVORY}" stroke-width="1.6"'),
-                t(x + w / 2, y + h / 2 + 5, name, 14, IVORY, "mono", "middle"),
+                t(x + w / 2, y + h / 2 + 5, name, 15, IVORY, "mono", "middle"),
                 f'<g class="lit" style="--s:{seconds}s;animation-delay:{at:.2f}s">{r(x, y, w, h, IVORY, h / 2)}'
-                f'{t(x + w / 2, y + h / 2 + 5, name, 14, COBALT, "num", "middle")}</g>']
-    x, y = centers[0]
-    out.append(f'<rect class="packet" transform="translate({x:g} {y:g})" x="-5" y="-5" width="10" height="10" rx="2" '
+                f'{t(x + w / 2, y + h / 2 + 5, name, 15, COBALT, "num", "middle")}</g>']
+    x, y = stops[0]
+    out.append(f'<rect class="runner" transform="translate({x:g} {y:g})" x="-5" y="-5" width="10" height="10" rx="2" '
                f'fill="{BLACK}" stroke="{IVORY}" stroke-width="1.5"/>')
     return out, css
 
 
 def llm(mobile):
-    title = "LLM development"
-    desc = "Coding agents, custom harnesses, and local models. " + LLM_TEXT + " Pipeline: " + " → ".join(PIPELINE).lower() + "."
+    desc = " ".join(LLM_LINES) + " Steps: " + ", ".join(PIPELINE) + "."
     if not mobile:
-        body = [t(42, 46, "LLM DEVELOPMENT", 15, "#CDD6F7", "mono"),
-                t(38, 98, "Coding agents, custom harnesses, and local models.", 38, IVORY, "serif")]
-        body += [t(42, 142 + i * 30, line, 20, COBALT_TEXT) for i, line in enumerate(LLM_LINES)]
+        body = [t(38, 98, LLM_TITLE, 38, IVORY, "serif")]
+        body += [t(42, 142 + i * 30, line, 19, COBALT_TEXT) for i, line in enumerate(LLM_LINES)]
         w = (1116 - 4 * 40) / 5
-        rows = [[(name, 42 + i * (w + 40), 236, w, 46) for i, name in enumerate(PIPELINE)]]
-        parts, css = pipeline(PIPELINE, rows)
-        return svg(1200, 310, title, desc, body + parts, lit_css(14) + css, COBALT)
-    body = [t(30, 43, "LLM DEVELOPMENT", 15, "#CDD6F7", "mono")]
-    body += [t(28, 92 + i * 42, line, 36, IVORY, "serif") for i, line in enumerate(["Coding agents,", "custom harnesses,", "and local models."])]
-    lines = wrap(LLM_TEXT, 18, 540)
-    body += [t(30, 222 + i * 26, line, 18, COBALT_TEXT) for i, line in enumerate(lines)]
-    top = 222 + len(lines) * 26 + 10
+        parts, css = pipeline([[(name, 42 + i * (w + 40), 236, w, 46) for i, name in enumerate(PIPELINE)]])
+        return svg(1200, 276, LLM_TITLE, desc, body + parts, lit_css(14) + css, COBALT, shift=34)
+    body = [t(28, 94, LLM_TITLE, 38, IVORY, "serif")]
+    lines = [line for text in LLM_LINES for line in wrap(text, 18, 540)]
+    body += [t(30, 140 + i * 26, line, 18, COBALT_TEXT) for i, line in enumerate(lines)]
+    top = 140 + len(lines) * 26 + 6
     w = (540 - 2 * 24) / 3
-    rows = [[(name, 30 + i * (w + 24), top, w, 44) for i, name in enumerate(PIPELINE[:3])],
-            [(name, 30 + i * (w + 24), top + 62, w, 44) for i, name in enumerate(PIPELINE[3:])]]
-    parts, css = pipeline(PIPELINE, rows)
-    return svg(600, top + 136, title, desc, body + parts, lit_css(14) + css, COBALT)
+    parts, css = pipeline([[(name, 30 + i * (w + 24), top, w, 44) for i, name in enumerate(PIPELINE[:3])],
+                           [(name, 30 + i * (w + 24), top + 62, w, 44) for i, name in enumerate(PIPELINE[3:])]])
+    return svg(600, top + 102, LLM_TITLE, desc, body + parts, lit_css(14) + css, COBALT, shift=34)
 
 
 def glyph(kind, x, y):
@@ -379,25 +383,75 @@ def glyph(kind, x, y):
 
 
 def interests(mobile):
-    title, desc = "Interests", "Interests: " + "; ".join(f"{a}: {b} {c}" for a, b, c, _ in INTERESTS)
+    desc = "; ".join(f"{a}: {b} {c}" for a, b, c, _ in INTERESTS) + "."
     if not mobile:
-        body = [t(42, 46, "WHAT I AM INTERESTED IN", 15, FOREST, "mono"),
-                t(38, 98, "Backend systems, ML, and agent infrastructure.", 38, INK, "serif")]
+        body = [t(38, 98, INTERESTS_TITLE, 38, INK, "serif")]
         spots, h, ch = [(42 + i * 383, 124, 350) for i in range(3)], 262, 114
     else:
-        body = [t(30, 43, "WHAT I AM INTERESTED IN", 15, FOREST, "mono"),
-                t(28, 94, "Backend systems, ML,", 36, INK, "serif"),
-                t(28, 136, "and agent infrastructure.", 36, INK, "serif")]
-        spots, h, ch = [(30, 164 + i * 114, 540) for i in range(3)], 526, 100
+        body = [t(28, 94, INTERESTS_TITLE, 38, INK, "serif")]
+        spots, h, ch = [(30, 120 + i * 114, 540) for i in range(3)], 482, 100
     for (head, a, b, kind), (x, y, w) in zip(INTERESTS, spots):
         body += [r(x, y, w, ch, SAGE, 10), glyph(kind, x + w - 40, y + 36),
                  t(x + 24, y + 40, head, 24, INK, "serif"),
                  t(x + 24, y + ch - 44, a, 18, MUTED), t(x + 24, y + ch - 20, b, 18, MUTED)]
-    return svg(1200 if not mobile else 600, h, title, desc, body, CSS, IVORY)
+    return svg(1200 if not mobile else 600, h - 34, INTERESTS_TITLE, desc, body, CSS, IVORY, shift=34)
 
 
-PANELS = {"p5-intro": intro, "p5-skills": skills, "p5-tools": tools, "p5-llm": llm, "p5-interests": interests}
-PANELS.update({f"p5-contact-{c[0]}": (lambda i: lambda mobile: contact(i, mobile))(i) for i, c in enumerate(CONTACTS)})
+# ---------------------------------------------------------------- projects
+
+def project(index, mobile):
+    """A project card: name, plain description, stack, and the project's architecture diagram."""
+    p = PROJECTS[index]
+    desc = f"{p['desc']} Built with {p['stack']}."
+    diagram = DIAGRAMS[p["key"]]
+    underline = f' class="wipe" style="animation-delay:{index * 300}ms"'
+    if not mobile:
+        lines = wrap(p["desc"], 21, 670)
+        body = [t(38, 86, p["name"], 52, IVORY, "serif"),
+                r(42, 104, len(p["name"]) * 26, 3, p["tint"], 1.5, underline),
+                arrow(1140, 46, IVORY)]
+        body += [t(42, 146 + i * 31, line, 21, IVORY) for i, line in enumerate(lines)]
+        stack_y = 146 + len(lines) * 31 + 22
+        body += [t(42, stack_y, p["stack"], 15, p["tint"], "mono"),
+                 f'<g transform="translate(756 74) scale(.94)">{diagram}</g>']
+        return svg(1200, max(330, stack_y + 40), p["name"], desc, body, CSS, p["accent"])
+    lines = wrap(p["desc"], 20, 540)
+    body = [t(28, 74, p["name"], 46, IVORY, "serif"),
+            r(30, 92, len(p["name"]) * 23, 3, p["tint"], 1.5, underline),
+            arrow(560, 44, IVORY)]
+    body += [t(30, 134 + i * 29, line, 20, IVORY) for i, line in enumerate(lines)]
+    stack_y = 134 + len(lines) * 29 + 14
+    body += [t(30, stack_y, p["stack"], 15, p["tint"], "mono"),
+             f'<g transform="translate(40 {stack_y + 28}) scale(1.29)">{diagram}</g>']
+    return svg(600, stack_y + 28 + 302 + 30, p["name"], desc, body, CSS, p["accent"])
+
+
+def tab(index, mobile):
+    p = PROJECTS[index]
+    title = f"{p['name']}: open repository"
+    if not mobile:
+        body = [r(0, 0, 236, 5, p["accent"]), t(18, 47, p.get("tab", p["name"]), 18, p["accent"], weight="600"),
+                arrow(212, 38, p["accent"], .8)]
+        return svg(236, 76, title, p["name"], body, CSS, p["tint"])
+    body = [r(0, 0, 118, 6, p["accent"]), t(59, 62, p["short"], 36, p["accent"], "serif", "middle")]
+    return svg(118, 90, title, p["name"], body, CSS, p["tint"])
+
+
+def download(mobile):
+    body = [t(22, 34, "Download for Windows", 17, IVORY, weight="600"), arrow(272, 27, IVORY, .8)]
+    return svg(300, 54, "Download Taskflow Local for Windows", "Latest Windows release of Taskflow Local",
+               body, CSS, PROJECTS[0]["accent"])
+
+
+def panels():
+    """Every output file name with its renderer; each renderer takes `mobile`."""
+    out = {"p5-intro": intro, "p5-skills": skills, "p5-tools": tools, "p5-llm": llm, "p5-interests": interests}
+    for i, c in enumerate(CONTACTS):
+        out[f"p5-contact-{c[0]}"] = lambda mobile, i=i: contact(i, mobile)
+    for i, p in enumerate(PROJECTS):
+        out[p["file"]] = lambda mobile, i=i: project(i, mobile)
+        out[f"p5-tab-{i + 1}"] = lambda mobile, i=i: tab(i, mobile)
+    return out
 
 
 def main():
@@ -405,12 +459,13 @@ def main():
     parser.add_argument("--out", default="assets")
     args = parser.parse_args()
     os.makedirs(args.out, exist_ok=True)
-    for name, render in PANELS.items():
-        for mobile in (False, True):
-            path = os.path.join(args.out, f"{name}{'-mobile' if mobile else ''}.svg")
-            with open(path, "w", encoding="utf-8", newline="\n") as fh:
-                fh.write(render(mobile))
-            print("wrote", path)
+    jobs = [(f"{name}{'-mobile' if mobile else ''}", render, mobile) for name, render in panels().items() for mobile in (False, True)]
+    jobs.append(("p5-download", download, False))
+    for name, render, mobile in jobs:
+        path = os.path.join(args.out, name + ".svg")
+        with open(path, "w", encoding="utf-8", newline="\n") as fh:
+            fh.write(render(mobile))
+        print("wrote", path)
 
 
 if __name__ == "__main__":
