@@ -15,7 +15,7 @@ import json
 import math
 import os
 
-from activity_panels import BLACK, COBALT, COBALT_DEEP, COBALT_LIGHT, GRAPHITE, INK, IVORY, MUTED, hops, r, svg, t
+from activity_panels import BLACK, COBALT, COBALT_LIGHT, GRAPHITE, INK, IVORY, MUTED, hops, r, svg, t
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 with open(os.path.join(HERE, "icons.json"), encoding="utf-8") as fh:
@@ -42,6 +42,7 @@ CONTACTS = [  # (icon, label, handle)
     ("linkedin", "LinkedIn", "Connect with me"),
     ("email", "Email", "srinivasansubr2006@gmail.com"),
     ("leetcode", "LeetCode", "aKpXSchpeo"),
+    ("instagram", "Instagram", "@s__srinivasan"),
 ]
 SKILLS_TITLE, SKILLS = "What I write most", ["Python", "Java", "Spring Boot", "SQL"]
 TOOLS_TITLE = "Tools I reach for"
@@ -85,7 +86,6 @@ PROJECTS = [  # featured order; colours match the activity panels and tabs
 
 CSS = """
 .drift{animation:drift var(--s) linear infinite}@keyframes drift{to{transform:translateX(var(--p))}}
-.sheen{animation:sheen 7s ease-in-out infinite}@keyframes sheen{0%,45%{transform:translateX(0)}100%{transform:translateX(var(--d))}}
 .bob{animation:bob 1.6s ease-in-out infinite}@keyframes bob{50%{transform:translateY(5px)}}
 .float{animation:float 3.2s ease-in-out infinite}@keyframes float{50%{transform:translateY(-5px)}}
 .nudge{animation:nudge 2.2s ease-in-out infinite}@keyframes nudge{0%,60%,100%{transform:translate(0,0)}30%{transform:translate(4px,-4px)}}
@@ -102,6 +102,7 @@ CSS = """
 .scan{animation:scan 9s ease-in-out infinite}@keyframes scan{0%,100%{transform:translateX(0)}50%{transform:translateX(144px)}}
 .grid-step{animation:grid-step 12s ease-in-out infinite}
 @keyframes grid-step{0%,100%{transform:translate(0,0)}25%{transform:translate(48px,0)}50%{transform:translate(48px,48px)}75%{transform:translate(0,48px)}}
+.heavy{font-family:'Arial Black','Segoe UI Black','Helvetica Neue',Arial,sans-serif;font-weight:900}
 .tess-still{display:none}
 @media(prefers-reduced-motion:reduce){.tess-live{display:none}.tess-still{display:inline}}
 """
@@ -141,15 +142,19 @@ def arrow(x, y, colour, size=1):
 
 # ---------------------------------------------------------------- intro
 
-def stripes(w, h, period, angle, seconds):
-    """Ivory stripes on black that drift sideways by one period per cycle, so the loop is seamless."""
+def stripe_layer(w, h, period, angle, seconds, fill):
+    """Stripes of `fill` that drift sideways by one period per cycle, so the loop is seamless."""
     span = math.hypot(w, h) + 4 * period
     count = int(span / period) + 2
     start = -span / 2 - period
     path = "".join(f"M{start + i * period:g} {-span / 2:g}h{period / 2:g}v{span:g}h{-period / 2:g}Z" for i in range(count))
-    return [r(0, 0, w, h, BLACK),
-            f'<g transform="translate({w / 2:g} {h / 2:g}) rotate({angle})"><g class="drift" style="--p:{period}px;--s:{seconds}s">'
-            f'<path d="{path}" fill="{IVORY}"/></g></g>']
+    return (f'<g transform="translate({w / 2:g} {h / 2:g}) rotate({angle})"><g class="drift" style="--p:{period}px;--s:{seconds}s">'
+            f'<path d="{path}" fill="{fill}"/></g></g>')
+
+
+def stripes(w, h, period, angle, seconds):
+    """Cream stripes on black."""
+    return [r(0, 0, w, h, BLACK), stripe_layer(w, h, period, angle, seconds, IVORY)]
 
 
 def tesseract(cx, cy, radius, frames=72, seconds=11, stroke=2.4):
@@ -205,27 +210,18 @@ def tesseract(cx, cy, radius, frames=72, seconds=11, stroke=2.4):
     return live + f'<g class="tess-still"><g style="mix-blend-mode:difference"><path d="{d(still)}" {lines}/></g>{dots(still, False)}</g>'
 
 
-NAME_DEFS = f"""<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(38)">
-<rect width="7" height="7" fill="{COBALT}"/><rect width="2.4" height="7" fill="{COBALT_DEEP}"/></pattern>
-<filter id="grain" x="-3%" y="-15%" width="106%" height="130%">
-<feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="11" result="n"/>
-<feColorMatrix in="n" type="matrix" values="0 0 0 0 .96 0 0 0 0 .94 0 0 0 0 .9 0 0 0 -3 1.22" result="light"/>
-<feComposite in="light" in2="SourceAlpha" operator="in" result="lightIn"/>
-<feColorMatrix in="n" type="matrix" values="0 0 0 0 .04 0 0 0 0 .1 0 0 0 0 .42 0 0 0 3 -1.5" result="dark"/>
-<feComposite in="dark" in2="SourceAlpha" operator="in" result="darkIn"/>
-<feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="darkIn"/><feMergeNode in="lightIn"/></feMerge></filter>"""
+def woven_name(x, y, size, w, h, period, angle, seconds):
+    """The name woven into the stripes: cream where it crosses black, cobalt where it crosses cream.
 
-
-def textured_name(x, y, size, width):
-    """The name in hatched, grainy cobalt with an ivory halo and a hard black shadow; a sheen crosses it."""
-    attrs = f'x="{x}" y="{y}" font-size="{size}" class="serif" letter-spacing="{-size / 32:.1f}"'
-    halo = f'stroke-width="{size / 12:.0f}" stroke-linejoin="round"'
-    return (f'<text {attrs} transform="translate({size / 20:.0f} {size / 20:.0f})" fill="{BLACK}" stroke="{BLACK}" {halo}>{NAME}</text>'
-            f'<text {attrs} fill="{IVORY}" stroke="{IVORY}" {halo}>{NAME}</text>'
-            f'<text {attrs} fill="url(#hatch)" filter="url(#grain)">{NAME}</text>'
-            f'<clipPath id="namecut"><text {attrs}>{NAME}</text></clipPath>'
-            f'<g clip-path="url(#namecut)"><rect class="sheen" style="--d:{width + 260}px" x="{x - 200}" y="{y - size}" '
-            f'width="180" height="{size * 1.3:.0f}" fill="url(#gloss)" opacity=".55" transform="skewX(-18)"/></g>')
+    The cobalt copy is masked by the same drifting stripes as the background, so the colour bands
+    slide through the letters as the stripes move.
+    """
+    attrs = f'x="{x}" y="{y}" font-size="{size}" class="heavy" letter-spacing="{-size / 34:.1f}"'
+    return (f'<mask id="weave" maskUnits="userSpaceOnUse" x="0" y="0" width="{w}" height="{h}">'
+            f'{stripe_layer(w, h, period, angle, seconds, "#fff")}</mask>'
+            f'<text {attrs} fill="{IVORY}" stroke="{COBALT}" stroke-width="{size / 22:.1f}" stroke-linejoin="round" '
+            f'paint-order="stroke">{NAME}</text>'
+            f'<text {attrs} fill="{COBALT}" mask="url(#weave)">{NAME}</text>')
 
 
 def status(x, y):
@@ -240,46 +236,45 @@ def contact_cue(x, y):
 
 def intro(mobile):
     title = f"{NAME}: backend, machine learning and agents"
-    desc = (f"{LEAD} {ABOUT} {SCHOOL}. The name is set in textured cobalt over drifting black and ivory stripes, "
-            "with a rotating four-dimensional cube behind it.")
+    desc = (f"{LEAD} {ABOUT} {SCHOOL}. The name is woven into drifting black and cream stripes, turning cobalt "
+            "where it crosses cream, with a rotating four-dimensional cube behind it.")
     if not mobile:
         w, h = 1200, 486
         body = stripes(w, h, 92, -28, 9) + [tesseract(925, 250, 230)] + status(42, 34)
-        body.append(textured_name(36, 212, 164, 720))
+        body.append(woven_name(34, 206, 140, w, h, 92, -28, 9))
         body += [r(42, 250, 760, 136, BLACK, 8), t(66, 294, LEAD, 24, IVORY, weight="600")]
         body += [t(66, 330 + i * 30, line, 20, PLATE_TEXT) for i, line in enumerate(wrap(ABOUT, 20, 700))]
         parts, sw = chip(42, 414, SCHOOL, IVORY, INK)
         body += parts + contact_cue(42 + sw + 12, 414)
-        return svg(w, h, title, desc, body, CSS, BLACK, NAME_DEFS)
+        return svg(w, h, title, desc, body, CSS, BLACK, paper=True)
     lead, about = wrap(LEAD, 23, 500), wrap(ABOUT, 18, 500)
     plate = 40 + len(lead) * 30 + len(about) * 26 + 18
     y = 386 + plate + 22
     w, h = 600, y + 100
     body = stripes(w, h, 72, -28, 9) + [tesseract(390, 220, 165, stroke=2)] + status(30, 30)
-    body.append(textured_name(24, 356, 116, 500))
+    body.append(woven_name(24, 350, 96, w, h, 72, -28, 9))
     body.append(r(30, 386, 540, plate, BLACK, 8))
     body += [t(52, 428 + i * 30, line, 23, IVORY, weight="600") for i, line in enumerate(lead)]
     top = 428 + len(lead) * 30 + 10
     body += [t(52, top + i * 26, line, 18, PLATE_TEXT) for i, line in enumerate(about)]
     body += chip(30, y, SCHOOL, IVORY, INK)[0] + contact_cue(30, y + 44)
-    return svg(w, h, title, desc, body, CSS, BLACK, NAME_DEFS)
+    return svg(w, h, title, desc, body, CSS, BLACK, paper=True)
 
 
 # ---------------------------------------------------------------- contacts
 
 def contact(index, mobile):
+    """One tile per contact, five to a row, so each shows its icon and name; the handle is in the alt text."""
     key, label, handle = CONTACTS[index]
     title = f"{label}: {handle}"
     lag = f"animation-delay:{index * 450}ms"
     if not mobile:
-        size = 17 if len(handle) * .56 * 17 < 252 else 15
-        body = [icon(key, 40, 40, .44, IVORY, "float", lag),
-                t(70, 46, label, 15, "#CDD6F7", weight="600"),
-                arrow(272, 38, IVORY),
-                t(24, 84, handle, size, IVORY, weight="600"),
-                r(24, 100, 252, 3, "#5F7BE6", 1.5),
-                r(24, 100, 252, 3, IVORY, 1.5, f' class="wipe" style="{lag}"')]
-        return svg(300, 116, title, title, body, CSS, COBALT)
+        body = [icon(key, 40, 56, .56, IVORY, "float", lag),
+                t(76, 65, label, 24, IVORY, weight="600"),
+                arrow(216, 24, IVORY, .8),
+                r(24, 96, 192, 3, "#5F7BE6", 1.5),
+                r(24, 96, 192, 3, IVORY, 1.5, f' class="wipe" style="{lag}"')]
+        return svg(240, 116, title, title, body, CSS, COBALT)
     body = [icon(key, 75, 62, .78, IVORY, "float", lag),
             arrow(128, 22, IVORY, .9),
             t(75, 126, label, 21, IVORY, anchor="middle", weight="600"),
@@ -320,7 +315,7 @@ def tools(mobile):
         body += [r(x, y, w, th, LAVENDER, 10),
                  icon(name, x + 38, y + th / 2, .45, PURPLE, "spin" if name == "React" else "pop", f"animation-delay:{i * 300}ms"),
                  t(x + 70, y + th / 2 + 7, name, 18, INK, weight="600")]
-    return svg(1200 if not mobile else 600, h - 34, TOOLS_TITLE, desc, body, CSS, IVORY, shift=34)
+    return svg(1200 if not mobile else 600, h - 34, TOOLS_TITLE, desc, body, CSS, IVORY, shift=34, paper=True)
 
 
 def pipeline(rows, seconds=6.0):
@@ -394,7 +389,7 @@ def interests(mobile):
         body += [r(x, y, w, ch, SAGE, 10), glyph(kind, x + w - 40, y + 36),
                  t(x + 24, y + 40, head, 24, INK, "serif"),
                  t(x + 24, y + ch - 44, a, 18, MUTED), t(x + 24, y + ch - 20, b, 18, MUTED)]
-    return svg(1200 if not mobile else 600, h - 34, INTERESTS_TITLE, desc, body, CSS, IVORY, shift=34)
+    return svg(1200 if not mobile else 600, h - 34, INTERESTS_TITLE, desc, body, CSS, IVORY, shift=34, paper=True)
 
 
 # ---------------------------------------------------------------- projects
@@ -403,7 +398,7 @@ def project(index, mobile):
     """A project card: name, plain description, stack, and the project's architecture diagram."""
     p = PROJECTS[index]
     desc = f"{p['desc']} Built with {p['stack']}."
-    diagram = DIAGRAMS[p["key"]]
+    diagram = DIAGRAMS[p["key"]].replace("#F5F0E7", IVORY)
     underline = f' class="wipe" style="animation-delay:{index * 300}ms"'
     if not mobile:
         lines = wrap(p["desc"], 21, 670)

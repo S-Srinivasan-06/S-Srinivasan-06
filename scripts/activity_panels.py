@@ -26,7 +26,7 @@ import urllib.request
 from datetime import date, datetime, timedelta, timezone
 from xml.sax.saxutils import escape
 
-IVORY, INK = "#F5F0E7", "#252C36"
+IVORY, INK = "#F1E7D2", "#252C36"  # IVORY is a light cream; cream panels also get a paper texture
 MUTED = "#5E636B"
 BURGUNDY, BLUSH = "#96394A", "#EAD5D4"
 BLUE, MIST = "#315A88", "#D7E2ED"
@@ -294,14 +294,26 @@ def delay(ms, cls):
     return f' class="{cls}" style="animation-delay:{ms:.0f}ms"'
 
 
-def svg(w, h, title, desc, body, css="", bg=IVORY, defs="", shift=0):
+# Paper texture for cream panels: fine warm specks plus faint mottling, multiplied over the
+# whole panel so it only shows on light areas. It is static, so it costs nothing per frame.
+PAPER = """<filter id="paper" x="0" y="0" width="100%" height="100%">
+<feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="3" seed="7" result="fine"/>
+<feColorMatrix in="fine" type="matrix" values="0 0 0 0 .45 0 0 0 0 .36 0 0 0 0 .22 0 0 0 -1.6 .9" result="specks"/>
+<feTurbulence type="fractalNoise" baseFrequency=".008 .02" numOctaves="2" seed="2" result="blot"/>
+<feColorMatrix in="blot" type="matrix" values="0 0 0 0 .62 0 0 0 0 .52 0 0 0 0 .36 0 0 0 .8 -.36" result="mottle"/>
+<feMerge><feMergeNode in="mottle"/><feMergeNode in="specks"/></feMerge></filter>"""
+
+
+def svg(w, h, title, desc, body, css="", bg=IVORY, defs="", shift=0, paper=False):
+    texture = (f'<rect x="0" y="0" width="{w}" height="{h}" filter="url(#paper)" opacity=".3" '
+               f'style="mix-blend-mode:multiply"/>') if paper else ""
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img" '
             f'aria-labelledby="title desc"><title id="title">{escape(title)}</title><desc id="desc">{escape(desc)}</desc>'
             f'{STYLE}{f"<style>{css}</style>" if css else ""}<defs><clipPath id="frame"><rect x="0" y="0" width="{w}" '
             f'height="{h}" rx="14" fill="{bg}"/></clipPath><linearGradient id="gloss"><stop offset="0" stop-color="#fff" '
             f'stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" '
-            f'stop-opacity="0"/></linearGradient>{defs}</defs><g clip-path="url(#frame)">{r(0, 0, w, h, bg)}'
-            f'<g transform="translate(0 {-shift})">{"".join(body)}</g></g></svg>\n')
+            f'stop-opacity="0"/></linearGradient>{PAPER if paper else ""}{defs}</defs><g clip-path="url(#frame)">{r(0, 0, w, h, bg)}'
+            f'<g transform="translate(0 {-shift})">{"".join(body)}</g>{texture}</g></svg>\n')
 
 
 def hops(name, points, seconds):
@@ -589,14 +601,14 @@ def repos_panel(data, mobile):
                 r(608, 150, 1.5, 336, th["rule"])]
         body += repo_rows(th, data["repos"], login, 42, 568, 214, 52, 6)
         log, css = commit_rows(th, latest, 640, 1158, 210, 52, 6, 18)
-        return svg(1200, 490, "Repository activity", desc, body + log, css, th["bg"], shift=30)
+        return svg(1200, 490, "Repository activity", desc, body + log, css, th["bg"], shift=30, paper=True)
     body = [t(28, 100, "Where my", 40, th["ink"], "serif"),
             t(28, 146, "commits went", 40, th["ink"], "serif"),
             t(30, 194, "Last 12 months", 15, th["accent"], weight="600")]
     body += repo_rows(th, data["repos"], login, 30, 570, 236, 54, 5)
     body += [r(30, 498, 540, 1.5, th["rule"]), t(30, 536, "Latest commit in each repo", 15, th["accent"], weight="600")]
     log, css = commit_rows(th, latest, 30, 570, 578, 60, 5, 19)
-    return svg(600, 836, "Repository activity", desc, body + log, css, th["bg"], shift=30)
+    return svg(600, 836, "Repository activity", desc, body + log, css, th["bg"], shift=30, paper=True)
 
 
 PANELS = {"p5-activity": activity_panel, "p5-commits": commits_panel, "p5-repos": repos_panel}

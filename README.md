@@ -4,10 +4,11 @@
   <img src="./assets/p5-intro.svg" width="1200" alt="Srinivasan. I build backend services, ML pipelines and AI agents, mostly in Python and Java. Computer Science at KIIT, 2024–2028." />
 </picture>
 <br />
-<a href="https://github.com/S-Srinivasan-06"><picture><source media="(max-width: 600px)" srcset="./assets/p5-contact-github-mobile.svg" /><img src="./assets/p5-contact-github.svg" width="23.5%" alt="GitHub: S-Srinivasan-06" /></picture></a>
-<a href="https://www.linkedin.com/in/s-srinivasan-a69006315/"><picture><source media="(max-width: 600px)" srcset="./assets/p5-contact-linkedin-mobile.svg" /><img src="./assets/p5-contact-linkedin.svg" width="23.5%" alt="LinkedIn: connect with me" /></picture></a>
-<a href="mailto:srinivasansubr2006@gmail.com"><picture><source media="(max-width: 600px)" srcset="./assets/p5-contact-email-mobile.svg" /><img src="./assets/p5-contact-email.svg" width="23.5%" alt="Email: srinivasansubr2006@gmail.com" /></picture></a>
-<a href="https://leetcode.com/u/aKpXSchpeo/"><picture><source media="(max-width: 600px)" srcset="./assets/p5-contact-leetcode-mobile.svg" /><img src="./assets/p5-contact-leetcode.svg" width="23.5%" alt="LeetCode: aKpXSchpeo" /></picture></a>
+<a href="https://github.com/S-Srinivasan-06"><picture><source media="(max-width: 600px)" srcset="./assets/p5-contact-github-mobile.svg" /><img src="./assets/p5-contact-github.svg" width="18.8%" alt="GitHub: S-Srinivasan-06" /></picture></a>
+<a href="https://www.linkedin.com/in/s-srinivasan-a69006315/"><picture><source media="(max-width: 600px)" srcset="./assets/p5-contact-linkedin-mobile.svg" /><img src="./assets/p5-contact-linkedin.svg" width="18.8%" alt="LinkedIn: connect with me" /></picture></a>
+<a href="mailto:srinivasansubr2006@gmail.com"><picture><source media="(max-width: 600px)" srcset="./assets/p5-contact-email-mobile.svg" /><img src="./assets/p5-contact-email.svg" width="18.8%" alt="Email: srinivasansubr2006@gmail.com" /></picture></a>
+<a href="https://leetcode.com/u/aKpXSchpeo/"><picture><source media="(max-width: 600px)" srcset="./assets/p5-contact-leetcode-mobile.svg" /><img src="./assets/p5-contact-leetcode.svg" width="18.8%" alt="LeetCode: aKpXSchpeo" /></picture></a>
+<a href="https://www.instagram.com/s__srinivasan"><picture><source media="(max-width: 600px)" srcset="./assets/p5-contact-instagram-mobile.svg" /><img src="./assets/p5-contact-instagram.svg" width="18.8%" alt="Instagram: @s__srinivasan" /></picture></a>
 </p>
 
 <picture>
